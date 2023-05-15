@@ -15,6 +15,8 @@ import java.util.List;
 public class Formulaire implements Serializable {
     @Id @GeneratedValue
     private Long id;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "formulaire")
     private List<Champ> champs;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Creance creance;
 }

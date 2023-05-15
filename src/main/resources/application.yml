@@ -2,7 +2,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto:
-        update
+        create-drop
   datasource:
     url:
       jdbc:mysql://localhost:3306/jl_db
@@ -15,4 +15,4 @@ spring:
 
 server:
   port: 8090
-#spring.jpa.show-sql: true
+spring.jpa.show-sql: true

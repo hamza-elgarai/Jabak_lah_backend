@@ -1,5 +1,7 @@
 package com.example.jl_entities.entity;
 
+import com.example.jl_entities.serializer.HibernateProxySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,6 +23,9 @@ public class Impaye implements Serializable {
     private String type;
     private Boolean isPaid;
     private Date date;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonSerialize(using = HibernateProxySerializer.class)
     private Creance creance;
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "impaye")
+    List<ImpayeCredential> credentials;
 }

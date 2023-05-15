@@ -1,5 +1,7 @@
 package com.example.jl_entities.entity;
 
+import com.example.jl_entities.serializer.HibernateProxySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +20,8 @@ public class Creance implements Serializable {
     private String code;
     private String name;
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonSerialize(using = HibernateProxySerializer.class)
     private Creancier creancier;
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Formulaire formulaire;
 }

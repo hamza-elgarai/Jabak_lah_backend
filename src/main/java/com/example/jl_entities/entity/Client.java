@@ -26,8 +26,7 @@ public class Client implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER,targetEntity = AccountType.class)
     private AccountType type;
-
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "client")
     List<Paiement> paiements;
 
     private Double solde;
