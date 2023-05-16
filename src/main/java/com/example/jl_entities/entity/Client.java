@@ -22,13 +22,14 @@ public class Client implements Serializable {
     private String email;
     private String tel;
     private String password;
-    private String numeroCompte;
 
     @ManyToOne(fetch = FetchType.EAGER,targetEntity = AccountType.class)
     private AccountType type;
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "client")
     List<Paiement> paiements;
 
-    private Double solde;
+    @OneToOne
+    private CompteBancaire compteBancaire;
+
     private String verificationStatus;
 }

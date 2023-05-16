@@ -23,7 +23,7 @@ public class ImpayeRepositoryImpl{
     private ChampRepository champRepository;
 
 
-    public List findAllByCredentials(CredentialsRequest request){
+    public List<Impaye> findAllByCredentials(CredentialsRequest request){
         Creance c = creanceRepository.findById(request.getCreanceId()).orElseThrow();
         Formulaire form = c.getFormulaire();
         List<Champ> champs = form.getChamps();

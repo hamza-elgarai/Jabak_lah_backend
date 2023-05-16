@@ -1,8 +1,11 @@
 package com.example.jl_entities.service;
 
 import com.example.jl_entities.CredentialsRequest;
+import com.example.jl_entities.auth.AuthService;
+import com.example.jl_entities.auth.RegisterRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.repository.*;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -13,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@AllArgsConstructor
 public class FakeDataLoadService {
     private AccountTypeRepository accountTypeRepository;
     private AgentRepository agentRepository;
@@ -26,25 +30,17 @@ public class FakeDataLoadService {
     private PaiementRepository paiementRepository;
     private ImpayeCredentialRepository impayeCredentialRepository;
     private ImpayeRepositoryImpl impayeRepositoryImpl;
+    private CompteBancaireRepository compteBancaireRepository;
+    private AuthService authService;
 
-    public FakeDataLoadService(AccountTypeRepository accountTypeRepository, AgentRepository agentRepository, AgencyRepository agencyRepository, ChampRepository champRepository, ClientRepository clientRepository, CreanceRepository creanceRepository, CreancierRepository creancierRepository, FormulaireRepository formulaireRepository, ImpayeRepository impayeRepository, PaiementRepository paiementRepository,ImpayeCredentialRepository impayeCredentialRepository,ImpayeRepositoryImpl impayeRepositoryImpl) {
-        this.accountTypeRepository = accountTypeRepository;
-        this.agentRepository = agentRepository;
-        this.agencyRepository = agencyRepository;
-        this.champRepository = champRepository;
-        this.clientRepository = clientRepository;
-        this.creanceRepository = creanceRepository;
-        this.creancierRepository = creancierRepository;
-        this.formulaireRepository = formulaireRepository;
-        this.impayeRepository = impayeRepository;
-        this.paiementRepository = paiementRepository;
-        this.impayeCredentialRepository = impayeCredentialRepository;
-        this.impayeRepositoryImpl = impayeRepositoryImpl;
-    }
+
     public List<Impaye> loadImpaye(CredentialsRequest request){
         return impayeRepositoryImpl.findAllByCredentials(request);
     }
     public void loadData(){
+
+        authService.register(new RegisterRequest("Hamza","ELGARAI","hamza@gmail.com","hamza123",null));
+        authService.register(new RegisterRequest("John","Doe","johndoe@gmail.com","john123","admin"));
 
         // 1 - Account types
         AccountType ac1 = new AccountType(null,1,200.0);
@@ -55,11 +51,19 @@ public class FakeDataLoadService {
         accountTypeRepository.save(ac3);
         accountTypeRepository.flush();
 
+        CompteBancaire compteBancaire1 = new CompteBancaire(null,"1234 5678 9101 1123",500.0);
+        CompteBancaire compteBancaire2 = new CompteBancaire(null,"0003 1234 2434 3863",5800.0);
+        CompteBancaire compteBancaire3 = new CompteBancaire(null,"5603 8976 5722 3540",1800.0);
+
+        compteBancaireRepository.saveAllAndFlush(List.of(
+                compteBancaire1,compteBancaire2,compteBancaire3
+        ));
+
 
         // 2 - Clients
-        Client c1 = new Client(null,"Hamza","ELGARAI","hamzaelgarai10@gmail.com","0634348550","hamza1234","1234 5678 9101 1123",ac1,new ArrayList<>(),500.0,"verified");
-        Client c2 = new Client(null,"Mohamed","HAMDANI","hamdanimee@gmail.com","0632751035","medqs546","0003 1234 2434 3863",ac3,new ArrayList<>(),5800.0,"verified");
-        Client c3 = new Client(null,"Mohamed","BENAARROUCH","medbenarr20@gmail.com","06359820348","medben3544","5603 8976 5722 3540",ac2,new ArrayList<>(),1800.0,"pending");
+        Client c1 = new Client(null,"Hamza","ELGARAI","hamzaelgarai10@gmail.com","0634348550","hamza1234",ac1,new ArrayList<>(),compteBancaire1,"verified");
+        Client c2 = new Client(null,"Mohamed","HAMDANI","hamdanimee@gmail.com","0632751035","medqs546",ac3,new ArrayList<>(),compteBancaire2,"verified");
+        Client c3 = new Client(null,"Mohamed","BENAARROUCH","medbenarr20@gmail.com","06359820348","medben3544",ac2,new ArrayList<>(),compteBancaire3,"pending");
         clientRepository.save(c1);
         clientRepository.save(c2);
         clientRepository.save(c3);

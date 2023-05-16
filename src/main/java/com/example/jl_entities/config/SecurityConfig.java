@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**")
                 .permitAll()
+                .requestMatchers("/load-data").permitAll()
                 .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
