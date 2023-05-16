@@ -1,4 +1,4 @@
-package controller;
+package com.example.jl_entities.controller;
 
 import com.example.jl_entities.CredentialsRequest;
 import com.example.jl_entities.entity.Creance;
