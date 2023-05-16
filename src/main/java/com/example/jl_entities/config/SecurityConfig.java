@@ -34,6 +34,8 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**")
                 .permitAll()
                 .requestMatchers("/load-data").permitAll()
+                .requestMatchers("/impaye").permitAll()
+                .requestMatchers("/getClient").permitAll()
                 .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
