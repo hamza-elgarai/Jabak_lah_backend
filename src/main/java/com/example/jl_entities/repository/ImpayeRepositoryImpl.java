@@ -28,20 +28,6 @@ public class ImpayeRepositoryImpl{
         Formulaire form = c.getFormulaire();
         List<Champ> champs = form.getChamps();
         List<String> champsNames = champs.stream().map(Champ::getName).toList();
-//        SELECT impaye.*
-//        FROM impaye
-//        JOIN (
-//            SELECT impaye_id
-//            FROM impaye_credential
-//            WHERE (cred_name = 'invoice-number' AND cred_value = '192168')
-//        ) AS subquery1 ON impaye.id = subquery1.impaye_id
-//        JOIN (
-//            SELECT impaye_id
-//            FROM impaye_credential
-//            WHERE (cred_name = 'email' AND cred_value = 'hamza@gmail.com')
-//        ) AS subquery2 ON impaye.id = subquery2.impaye_id
-//        WHERE creance_id = 1;
-
         String query = "SELECT * FROM impaye \n" +
                 "WHERE (creance_id="+request.getCreanceId()+") \n AND \n id IN ( " ;
         List<String> intersections  = new ArrayList<>();
