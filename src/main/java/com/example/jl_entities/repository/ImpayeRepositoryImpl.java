@@ -23,8 +23,8 @@ public class ImpayeRepositoryImpl{
     private ChampRepository champRepository;
 
 
-    public List<Impaye> findAllByCredentials(CredentialsRequest request){
-        Creance c = creanceRepository.findById(request.getCreanceId()).orElseThrow();
+    public List<Impaye> findAllByCredentials2(CredentialsRequest request){
+        Creance c = creanceRepository.findById(request.getCreanceId()).orElse(null);
         Formulaire form = c.getFormulaire();
         List<Champ> champs = form.getChamps();
         List<String> champsNames = champs.stream().map(Champ::getName).toList();
@@ -40,6 +40,29 @@ public class ImpayeRepositoryImpl{
         }
         String subQuery = String.join(" INTERSECT ",intersections);
         query += subQuery+" \n );";
+        System.out.println(query);
+        return em.createNativeQuery(query,Impaye.class).getResultList();
+    }
+    public List<Impaye> findAllByCredentials(CredentialsRequest request){
+        Creance c = creanceRepository.findById(request.getCreanceId()).orElse(null);
+        Formulaire form = c.getFormulaire();
+        List<Champ> champs = form.getChamps();
+        List<String> champsNames = champs.stream().map(Champ::getName).toList();
+        List<String> intersections  = new ArrayList<>();
+        int i =1;
+        String query = "SELECT * FROM impaye \n " ;
+        for(String s : champsNames){
+
+            String selectCredential = "JOIN (\n" +
+                    "    SELECT impaye_id\n" +
+                    "    FROM impaye_credential\n" +
+                    "    WHERE (cred_name = '"+s+"' AND cred_value = '"+request.getCredentials().get(s)+"')\n" +
+                    ") AS subquery"+i+" ON impaye.id = subquery"+i+".impaye_id";
+            intersections.add(selectCredential);
+            i++;
+        }
+        String subQuery = String.join("\n",intersections);
+        query += subQuery+"\n WHERE creance_id = "+request.getCreanceId()+";";
         System.out.println(query);
         return em.createNativeQuery(query,Impaye.class).getResultList();
     }
