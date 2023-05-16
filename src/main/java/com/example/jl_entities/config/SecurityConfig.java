@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .requestMatchers("/impaye").permitAll()
                 .requestMatchers("/getClient").permitAll()
                 .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
+                .requestMatchers("/impaye").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
