@@ -11,6 +11,7 @@ import com.example.jl_entities.repository.AgentRepository;
 import com.example.jl_entities.userservice.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class AgentAuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     @Autowired
-    private final AgentAuthenticationProvider authenticationManager;
+    private final AuthenticationProvider agentAuthProvider;
     @Autowired
     private AgencyRepository agencyRepository;
 
@@ -66,7 +67,7 @@ public class AgentAuthService {
 
     public AuthenticationResponse authenticate(AgentAuthenticationRequest request) {
         System.out.println("authenticate!!!");
-        authenticationManager.authenticate(
+        agentAuthProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()

@@ -7,6 +7,7 @@ import com.example.jl_entities.userservice.User;
 import com.example.jl_entities.userservice.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class AuthService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
+    private final AuthenticationProvider authenticationProvider;
 
     public AuthenticationResponse register(RegisterRequest request) {
         Role role = Role.USER ;
@@ -41,7 +42,7 @@ public class AuthService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         System.out.println("authenticate!!!");
-        authenticationManager.authenticate(
+        authenticationProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()

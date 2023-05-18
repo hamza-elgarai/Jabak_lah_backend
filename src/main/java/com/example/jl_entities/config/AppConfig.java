@@ -6,12 +6,8 @@ import com.example.jl_entities.userservice.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,10 +23,10 @@ public class AppConfig {
 
     @Bean
     public UserDetailsService userDetailsService(){
+        System.out.println("userDetailsService");
         return username ->{
-            UserDetails user = userRepository.findByEmail(username).orElse(null);
-            if(user == null) throw new UsernameNotFoundException("User not found");
-            return user;
+            System.out.println("userDetailsService2");
+            return userRepository.findByEmail(username).orElseThrow();
         } ;
     }
     @Bean
@@ -46,6 +42,13 @@ public class AppConfig {
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+    @Bean
+    public AuthenticationProvider agentAuthProvider(){
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(agentDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
