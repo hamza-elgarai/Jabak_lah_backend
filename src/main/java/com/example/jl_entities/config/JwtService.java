@@ -65,6 +65,11 @@ public class JwtService {
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
+    public List<String> extractRoles(String token){
+        return extractAllClaims(token).get("roles",List.class);
+    }
+
+
 
     private Claims extractAllClaims(String token){
         return Jwts

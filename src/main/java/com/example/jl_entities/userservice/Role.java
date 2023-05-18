@@ -1,4 +1,4 @@
-package com.example.jl_entities.user;
+package com.example.jl_entities.userservice;
 
 public enum Role {
 

@@ -1,4 +1,4 @@
-package com.example.jl_entities.user;
+package com.example.jl_entities.userservice;
 
 
 import jakarta.persistence.*;

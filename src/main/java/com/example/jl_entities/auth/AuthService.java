@@ -2,9 +2,9 @@ package com.example.jl_entities.auth;
 
 
 import com.example.jl_entities.config.JwtService;
-import com.example.jl_entities.user.Role;
-import com.example.jl_entities.user.User;
-import com.example.jl_entities.user.UserRepository;
+import com.example.jl_entities.userservice.Role;
+import com.example.jl_entities.userservice.User;
+import com.example.jl_entities.userservice.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
