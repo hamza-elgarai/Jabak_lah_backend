@@ -3,6 +3,8 @@ package com.example.jl_entities.service;
 import com.example.jl_entities.CredentialsRequest;
 import com.example.jl_entities.auth.AuthService;
 import com.example.jl_entities.auth.RegisterRequest;
+import com.example.jl_entities.auth.agentauth.AgentAuthService;
+import com.example.jl_entities.auth.agentauth.AgentRegisterRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.repository.*;
 import lombok.AllArgsConstructor;
@@ -13,13 +15,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @AllArgsConstructor
 public class FakeDataLoadService {
     private AccountTypeRepository accountTypeRepository;
-    private AgentRepository agentRepository;
     private AgencyRepository agencyRepository;
     private ChampRepository champRepository;
     private ClientRepository clientRepository;
@@ -32,6 +32,7 @@ public class FakeDataLoadService {
     private ImpayeRepositoryImpl impayeRepositoryImpl;
     private CompteBancaireRepository compteBancaireRepository;
     private AuthService authService;
+    private AgentAuthService agentAuthService;
 
 
     public List<Impaye> loadImpaye(CredentialsRequest request){
@@ -93,7 +94,7 @@ public class FakeDataLoadService {
         Creance creance2 = new Creance(null,"IAM-RE","IAM Recharge",creancier1,formulaire1);
         Creance creance3 = new Creance(null,"RED-P","Paiement Redal",creancier2,formulaire2);
 
-        // I used cascade for the Creancier attribute so it's persisted with the objects Creance
+        // I used cascade for the Creancier attribute, so it's persisted with the objects Creance
 
         creanceRepository.save(creance1);
         creanceRepository.save(creance2);
@@ -108,33 +109,35 @@ public class FakeDataLoadService {
         agencyRepository.saveAllAndFlush(List.of(agency1,agency2));
 
         // 6 - Agents
+        AgentRegisterRequest agent1;
+        AgentRegisterRequest agent2;
+        agent1 = new AgentRegisterRequest("Ahmed","ELMOURABIT","CIN","EE850351","15-02-1994","NR 12 ASKEJOUR MARRAKECH","0632750369","ahmed2345","AEM23548","HH-53154","file_path",1L);
+        agent2 = new AgentRegisterRequest("Karim","BENJELLOUN","CIN","KK586032","30-04-2000","NR 25 LMAARIF CASABLANCA","0653214123","karim@688","KBJ35489","ES-00354","file_path",1L);
+
+        agentAuthService.register(agent1);
+        agentAuthService.register(agent2);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        Agent agent1 = null;
-        Agent agent2 = null;
-        try {
-            agent1 = new Agent(null,"Ahmed","ELMOURABIT","CIN","EE850351",sdf.parse("15-02-1994"),"NR 12 ASKEJOUR MARRAKECH","0632750369","ahmed2345","AEM23548","HH-53154","file_path",agency1);
-            agent2 = new Agent(null,"Karim","BENJELLOUN","CIN","KK586032",sdf.parse("30-04-2000"),"NR 25 LMAARIF CASABLANCA","0653214123","karim@688","KBJ35489","ES-00354","file_path",agency1);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        agentRepository.saveAllAndFlush(List.of(agent1,agent2));
-
         // 7 - Impayes
-        Impaye impaye1,impaye2,impaye3=null;
+        Impaye impaye1,impaye12,impaye2,impaye3;
         try {
-            impaye1 = new Impaye(null,"Facture internet 02/2023",250.0,"simple",false,sdf.parse("27-03-2023"),creance1,new ArrayList<ImpayeCredential>());
-            impaye2 = new Impaye(null,"Facture internet 03/2023",250.0,"simple",false,sdf.parse("27-04-2023"),creance1,new ArrayList<ImpayeCredential>());
-            impaye3 = new Impaye(null,"Facture Redal",1550.0,"simple",false,sdf.parse("02-06-2023"),creance3,new ArrayList<ImpayeCredential>());
+            impaye1 = new Impaye(null,"Facture internet 02/2023",250.0,"simple",false,sdf.parse("27-03-2023"),creance1,new ArrayList<>());
+            impaye12 = new Impaye(null,"Facture internet 05/2023",250.0,"simple",false,sdf.parse("30-06-2023"),creance1,new ArrayList<>());
+            impaye2 = new Impaye(null,"Facture internet 03/2023",250.0,"simple",false,sdf.parse("27-04-2023"),creance1,new ArrayList<>());
+            impaye3 = new Impaye(null,"Facture Redal",1550.0,"simple",false,sdf.parse("02-06-2023"),creance3,new ArrayList<>());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        impayeRepository.saveAllAndFlush(List.of(impaye1,impaye2,impaye3));
+        impayeRepository.saveAllAndFlush(List.of(impaye1,impaye12,impaye2,impaye3));
 
 
         //Credentials of impaye1
         ImpayeCredential ic11 = new ImpayeCredential(null,"email","hamza@gmail.com",impaye1);
         ImpayeCredential ic12 = new ImpayeCredential(null,"invoice-number","192168",impaye1);
+
+        //Credentials of impaye12
+        ImpayeCredential ic121 = new ImpayeCredential(null,"email","hamza@gmail.com",impaye12);
+        ImpayeCredential ic122 = new ImpayeCredential(null,"invoice-number","192168",impaye12);
 
         //credentials of impaye2
         ImpayeCredential ic21 = new ImpayeCredential(null,"email","hamza@gmail.com",impaye2);
@@ -143,7 +146,7 @@ public class FakeDataLoadService {
         //Credentials of impaye3
         ImpayeCredential ic31 = new ImpayeCredential(null,"email","hamza@gmail.com",impaye3);
         ImpayeCredential ic32 = new ImpayeCredential(null,"phone","0634348550",impaye3);
-        impayeCredentialRepository.saveAllAndFlush(List.of(ic11,ic12,ic21,ic22,ic31,ic32));
+        impayeCredentialRepository.saveAllAndFlush(List.of(ic11,ic12,ic121,ic122,ic21,ic22,ic31,ic32));
 
 
         // 10 - Paiements
