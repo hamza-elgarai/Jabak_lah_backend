@@ -36,8 +36,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         System.out.println(" security Filter chain");
         http
-//                .cors()
-//                .and()
+                .cors()
+                .and()
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()

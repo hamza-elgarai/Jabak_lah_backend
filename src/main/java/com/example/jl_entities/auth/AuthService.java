@@ -35,8 +35,10 @@ public class AuthService {
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .refreshToken(refreshToken)
                 .build();
     }
 
@@ -52,8 +54,14 @@ public class AuthService {
                 .orElseThrow();
         System.out.println("user found");
         var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .refreshToken(refreshToken)
                 .build();
+    }
+
+    public String getFromRefreshToken(String accessToken){
+        return jwtService.generateFromRefreshToken(accessToken,"USER");
     }
 }

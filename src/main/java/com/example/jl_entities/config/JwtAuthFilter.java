@@ -44,6 +44,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
         userEmail = jwtService.extractUsername(jwt);
         List<String> roles = jwtService.extractRoles(jwt);
+        if(roles==null){
+            System.out.println("Refresh token haha");
+            filterChain.doFilter(request, response);
+            return;
+        }
         String role = roles.get(0);
         System.out.println(roles);
         UserDetails userDetails;
