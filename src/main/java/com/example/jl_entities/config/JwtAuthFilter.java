@@ -26,11 +26,8 @@ import java.util.List;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    @Qualifier("userDetailsService")
     private final UserDetailsService userDetailsService;
-    @Qualifier("agentDetailsService")
     private final UserDetailsService agentDetailsService;
-    @Qualifier("clientDetailsService")
     private final UserDetailsService clientDetailsService;
 
     @Override

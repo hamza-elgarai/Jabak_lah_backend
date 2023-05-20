@@ -26,7 +26,6 @@ public class AppConfig {
     private final ClientRepository clientRepository;
 
     @Bean
-    @Primary
     public UserDetailsService userDetailsService(){
         System.out.println("userDetailsService");
         return username ->{
@@ -43,6 +42,7 @@ public class AppConfig {
         } ;
     }
 
+    @Bean
     public UserDetailsService clientDetailsService(){
         return username -> {
             UserDetails user = clientRepository.findByTel(username).orElse(null);
