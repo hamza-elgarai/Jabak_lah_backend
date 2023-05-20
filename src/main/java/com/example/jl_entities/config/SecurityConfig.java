@@ -2,6 +2,7 @@ package com.example.jl_entities.config;
 
 
 import com.example.jl_entities.auth.agentauth.provider.AgentAuthenticationProvider;
+import com.example.jl_entities.auth.clientauth.provider.ClientAuthenticationProvider;
 import com.example.jl_entities.userservice.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,15 @@ public class SecurityConfig {
     private  JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final AgentAuthenticationProvider agentAuthenticationProvider;
+    private final ClientAuthenticationProvider clientAuthenticationProvider;
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder
                 .authenticationProvider(authenticationProvider)
-                .authenticationProvider(agentAuthenticationProvider);
+                .authenticationProvider(agentAuthenticationProvider)
+                .authenticationProvider(clientAuthenticationProvider);
         return authenticationManagerBuilder.build();
     }
     @Bean
@@ -44,6 +47,7 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/agent/auth/**").permitAll()
+                .requestMatchers("/client/auth/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/load-data").permitAll()
                 .requestMatchers("/agent-protected").hasAnyAuthority(Role.ADMIN.name(),Role.AGENT.name())

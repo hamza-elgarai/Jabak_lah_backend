@@ -5,6 +5,8 @@ import com.example.jl_entities.auth.AuthService;
 import com.example.jl_entities.auth.RegisterRequest;
 import com.example.jl_entities.auth.agentauth.AgentAuthService;
 import com.example.jl_entities.auth.agentauth.AgentRegisterRequest;
+import com.example.jl_entities.auth.clientauth.ClientAuthService;
+import com.example.jl_entities.auth.clientauth.ClientRegisterRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.repository.*;
 import lombok.AllArgsConstructor;
@@ -33,6 +35,7 @@ public class FakeDataLoadService {
     private CompteBancaireRepository compteBancaireRepository;
     private AuthService authService;
     private AgentAuthService agentAuthService;
+    private ClientAuthService clientAuthService;
 
 
     public List<Impaye> loadImpaye(CredentialsRequest request){
@@ -62,14 +65,16 @@ public class FakeDataLoadService {
 
 
         // 2 - Clients
-        Client c1 = new Client(null,"Hamza","ELGARAI","hamzaelgarai10@gmail.com","0634348550","hamza1234",ac1,new ArrayList<>(),compteBancaire1,"verified");
-        Client c2 = new Client(null,"Mohamed","HAMDANI","hamdanimee@gmail.com","0632751035","medqs546",ac3,new ArrayList<>(),compteBancaire2,"verified");
-        Client c3 = new Client(null,"Mohamed","BENAARROUCH","medbenarr20@gmail.com","06359820348","medben3544",ac2,new ArrayList<>(),compteBancaire3,"pending");
-        clientRepository.save(c1);
-        clientRepository.save(c2);
-        clientRepository.save(c3);
-        clientRepository.flush();
+        ClientRegisterRequest client1;
+        ClientRegisterRequest client2;
+        ClientRegisterRequest client3;
+        client1 = new ClientRegisterRequest("Hamza","ELGARAI","hamzaelgarai10@gmail.com","0634348550","hamza1234", 1L);
+        client2 = new ClientRegisterRequest("Mohamed","HAMDANI","hamdanimee@gmail.com","0632751035","medqs546", 1L);
+        client3 = new ClientRegisterRequest("Mohamed","BENAARROUCH","medbenarr20@gmail.com","06359820348","medben3544", 1L);
 
+        clientAuthService.register(client1);
+        clientAuthService.register(client2);
+        clientAuthService.register(client3);
 
         // 8 - Formulaires
         Formulaire formulaire1 = new Formulaire(null,new ArrayList<>(),null);
@@ -150,8 +155,8 @@ public class FakeDataLoadService {
 
 
         // 10 - Paiements
-        Paiement p1 = new Paiement(null,new Date().getTime(),"3548 AA32 2335 6872",c1,impaye1);
-        Paiement p2 = new Paiement(null,new Date().getTime(),"2256 6576 9763 3487",c1,impaye2);
+        //Paiement p1 = new Paiement(null,new Date().getTime(),"3548 AA32 2335 6872",c1,impaye1);
+        //Paiement p2 = new Paiement(null,new Date().getTime(),"2256 6576 9763 3487",c1,impaye2);
 
 
 
@@ -160,7 +165,7 @@ public class FakeDataLoadService {
         impaye2.setIsPaid(true);
         impayeRepository.saveAllAndFlush(List.of(impaye1,impaye2));
 
-        paiementRepository.saveAllAndFlush(List.of(p1,p2));
+        //paiementRepository.saveAllAndFlush(List.of(p1,p2));
 
 
 

@@ -1,6 +1,7 @@
 package com.example.jl_entities.config;
 
 import com.example.jl_entities.repository.AgentRepository;
+import com.example.jl_entities.repository.ClientRepository;
 import com.example.jl_entities.userservice.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -22,12 +23,15 @@ public class JwtService {
     @Autowired
     private AgentRepository agentRepository;
     @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
     private UserRepository userRepository;
 
     private static final String SECRET_KEY = "26452948404D635166546A576E5A7234753778217A25432A462D4A614E645267";
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }
+
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
         final Claims claims = extractAllClaims(token);
@@ -85,8 +89,9 @@ public class JwtService {
         UserDetails user;
         if(role.equals("AGENT")){
             user = agentRepository.findByUsername(username).orElse(null);
-        }
-        else{
+        } else if (role.equals("CLIENT")) {
+            user = clientRepository.findByTel(username).orElse(null);
+        } else{
             user = userRepository.findByEmail(username).orElse(null);
         }
         Map<String,Object> roles = new HashMap<>();

@@ -17,4 +17,10 @@ public class Randomizer {
         return username;
     }
 
+    public static String generateClientCompte(){
+        Random random = new Random();
+        String compte = RandomStringUtils.random( 8, alphabetUppercase )+RandomStringUtils.random(8,numbers);
+        return compte;
+    }
+
 }

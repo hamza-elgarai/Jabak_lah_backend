@@ -1,11 +1,14 @@
 package com.example.jl_entities.config;
 
 
+import com.example.jl_entities.entity.Client;
 import com.example.jl_entities.repository.AgentRepository;
+import com.example.jl_entities.repository.ClientRepository;
 import com.example.jl_entities.userservice.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,8 +23,10 @@ public class AppConfig {
 
     private final UserRepository userRepository;
     private final AgentRepository agentRepository;
+    private final ClientRepository clientRepository;
 
     @Bean
+    @Primary
     public UserDetailsService userDetailsService(){
         System.out.println("userDetailsService");
         return username ->{
@@ -38,6 +43,14 @@ public class AppConfig {
         } ;
     }
 
+    public UserDetailsService clientDetailsService(){
+        return username -> {
+            UserDetails user = clientRepository.findByTel(username).orElse(null);
+            if(user == null) throw new UsernameNotFoundException("User not found");
+            return user;
+        };
+    }
+
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -49,6 +62,13 @@ public class AppConfig {
     public AuthenticationProvider agentAuthProvider(){
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(agentDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+    @Bean
+    public AuthenticationProvider clientAuthProvider(){
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(clientDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }

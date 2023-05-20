@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,8 +26,12 @@ import java.util.List;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
+    @Qualifier("userDetailsService")
     private final UserDetailsService userDetailsService;
+    @Qualifier("agentDetailsService")
     private final UserDetailsService agentDetailsService;
+    @Qualifier("clientDetailsService")
+    private final UserDetailsService clientDetailsService;
 
     @Override
     protected void doFilterInternal(
@@ -59,6 +64,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             } else if (role.equals("AGENT")) {
                 System.out.println("AGENT detected in filter!");
                 userDetails = this.agentDetailsService.loadUserByUsername(username);
+            } else if (role.equals("CLIENT")) {
+                System.out.println("CLIENT detected in filter!");
+                //
+                userDetails = this.clientDetailsService.loadUserByUsername(username);
             } else {
                 System.out.println("Role is weird! doing USER instead");
                 userDetails = this.userDetailsService.loadUserByUsername(username);
