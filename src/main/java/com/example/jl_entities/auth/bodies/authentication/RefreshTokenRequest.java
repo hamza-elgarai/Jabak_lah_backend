@@ -1,4 +1,4 @@
-package com.example.jl_entities.auth.agentauth;
+package com.example.jl_entities.auth.bodies.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AgentAuthenticationRequest {
-
-    private String username;
-    String password;
+public class RefreshTokenRequest {
+    private String token;
 }

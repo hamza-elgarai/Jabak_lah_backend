@@ -1,4 +1,4 @@
-package com.example.jl_entities.auth;
+package com.example.jl_entities.auth.bodies.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RefreshTokenRequest {
-    private String token;
+public class AuthenticationRequest {
+
+    private String username;
+    String password;
 }

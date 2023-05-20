@@ -34,6 +34,10 @@ public class PaiementController {
     private String agent(){
         return "This is an endpoint only for agents!";
     }
+    @GetMapping("/client-protected")
+    private String client(){
+        return "This is an endpoint only for clients!";
+    }
     @GetMapping("/impaye")
     private List<Impaye> getImpayes(@RequestBody CredentialsRequest request){
         return fakeDataLoadService.loadImpaye(request);

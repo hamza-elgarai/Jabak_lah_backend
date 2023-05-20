@@ -1,4 +1,4 @@
-package com.example.jl_entities.auth.agentauth.provider;
+package com.example.jl_entities.auth.provider;
 
 import com.example.jl_entities.entity.Agent;
 import org.springframework.security.authentication.AuthenticationProvider;

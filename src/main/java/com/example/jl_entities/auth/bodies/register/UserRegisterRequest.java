@@ -1,4 +1,4 @@
-package com.example.jl_entities.auth;
+package com.example.jl_entities.auth.bodies.register;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class UserRegisterRequest {
 
     private String firstname;
     private String lastname;

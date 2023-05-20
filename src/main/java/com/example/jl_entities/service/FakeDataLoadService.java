@@ -1,12 +1,12 @@
 package com.example.jl_entities.service;
 
 import com.example.jl_entities.CredentialsRequest;
-import com.example.jl_entities.auth.AuthService;
-import com.example.jl_entities.auth.RegisterRequest;
-import com.example.jl_entities.auth.agentauth.AgentAuthService;
-import com.example.jl_entities.auth.agentauth.AgentRegisterRequest;
-import com.example.jl_entities.auth.clientauth.ClientAuthService;
-import com.example.jl_entities.auth.clientauth.ClientRegisterRequest;
+import com.example.jl_entities.auth.service.AuthService;
+import com.example.jl_entities.auth.bodies.register.UserRegisterRequest;
+import com.example.jl_entities.auth.service.AgentAuthService;
+import com.example.jl_entities.auth.bodies.register.AgentRegisterRequest;
+import com.example.jl_entities.auth.service.ClientAuthService;
+import com.example.jl_entities.auth.bodies.register.ClientRegisterRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.repository.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,8 +42,8 @@ public class FakeDataLoadService {
     }
     public void loadData(){
 
-        authService.register(new RegisterRequest("Hamza","ELGARAI","hamza@gmail.com","hamza123",null));
-        authService.register(new RegisterRequest("John","Doe","johndoe@gmail.com","john123","admin"));
+        authService.register(new UserRegisterRequest("Hamza","ELGARAI","hamza@gmail.com","hamza123",null));
+        authService.register(new UserRegisterRequest("John","Doe","johndoe@gmail.com","john123","admin"));
 
         // 1 - Account types
         AccountType ac1 = new AccountType(null,1,200.0);
@@ -55,13 +54,13 @@ public class FakeDataLoadService {
         accountTypeRepository.save(ac3);
         accountTypeRepository.flush();
 
-        CompteBancaire compteBancaire1 = new CompteBancaire(null,"1234 5678 9101 1123",500.0);
-        CompteBancaire compteBancaire2 = new CompteBancaire(null,"0003 1234 2434 3863",5800.0);
-        CompteBancaire compteBancaire3 = new CompteBancaire(null,"5603 8976 5722 3540",1800.0);
+//        CompteBancaire compteBancaire1 = new CompteBancaire(null,"1234 5678 9101 1123",500.0);
+//        CompteBancaire compteBancaire2 = new CompteBancaire(null,"0003 1234 2434 3863",5800.0);
+//        CompteBancaire compteBancaire3 = new CompteBancaire(null,"5603 8976 5722 3540",1800.0);
 
-        compteBancaireRepository.saveAllAndFlush(List.of(
-                compteBancaire1,compteBancaire2,compteBancaire3
-        ));
+//        compteBancaireRepository.saveAllAndFlush(List.of(
+//                compteBancaire1,compteBancaire2,compteBancaire3
+//        ));
 
 
         // 2 - Clients

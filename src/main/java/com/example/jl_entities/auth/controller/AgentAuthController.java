@@ -1,5 +1,9 @@
-package com.example.jl_entities.auth.agentauth;
+package com.example.jl_entities.auth.controller;
 
+import com.example.jl_entities.auth.service.AgentAuthService;
+import com.example.jl_entities.auth.bodies.authentication.AuthenticationRequest;
+import com.example.jl_entities.auth.bodies.register.AgentRegisterRequest;
+import com.example.jl_entities.auth.bodies.authentication.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +26,7 @@ public class AgentAuthController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody AgentAuthenticationRequest request
+            @RequestBody AuthenticationRequest request
     ){
         return ResponseEntity.ok(service.authenticate(request));
     }

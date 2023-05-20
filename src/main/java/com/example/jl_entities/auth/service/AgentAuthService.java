@@ -1,7 +1,9 @@
-package com.example.jl_entities.auth.agentauth;
+package com.example.jl_entities.auth.service;
 
 
-import com.example.jl_entities.auth.agentauth.provider.AgentAuthenticationProvider;
+import com.example.jl_entities.auth.bodies.authentication.AuthenticationRequest;
+import com.example.jl_entities.auth.bodies.register.AgentRegisterRequest;
+import com.example.jl_entities.auth.bodies.authentication.AuthenticationResponse;
 import com.example.jl_entities.config.JwtService;
 import com.example.jl_entities.entity.Agency;
 import com.example.jl_entities.entity.Agent;
@@ -58,7 +60,7 @@ public class AgentAuthService {
                 .role(Role.AGENT)
                 .agency(agency)
                 .build();
-        repository.save(user);
+        repository.saveAndFlush(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         return AuthenticationResponse.builder()
@@ -67,7 +69,7 @@ public class AgentAuthService {
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AgentAuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         System.out.println("authenticate!!!");
         agentAuthProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(

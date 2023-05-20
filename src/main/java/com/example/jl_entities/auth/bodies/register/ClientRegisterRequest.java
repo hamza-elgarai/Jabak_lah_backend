@@ -1,4 +1,4 @@
-package com.example.jl_entities.auth.clientauth;
+package com.example.jl_entities.auth.bodies.register;
 
 import com.example.jl_entities.entity.AccountType;
 import com.example.jl_entities.entity.Paiement;

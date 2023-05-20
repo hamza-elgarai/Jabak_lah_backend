@@ -45,7 +45,10 @@ public class AppConfig {
     @Bean
     public UserDetailsService clientDetailsService(){
         return username -> {
+            System.out.println("clientDetailsService");
+            System.out.println(username);
             UserDetails user = clientRepository.findByTel(username).orElse(null);
+            System.out.println(user);
             if(user == null) throw new UsernameNotFoundException("User not found");
             return user;
         };

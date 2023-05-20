@@ -1,4 +1,4 @@
-package com.example.jl_entities.auth.clientauth;
+package com.example.jl_entities.auth.bodies.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientAuthenticationResponse {
+public class AuthenticationResponse {
 
     private String token;
     private String refreshToken;

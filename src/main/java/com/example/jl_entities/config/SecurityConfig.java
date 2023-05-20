@@ -1,8 +1,8 @@
 package com.example.jl_entities.config;
 
 
-import com.example.jl_entities.auth.agentauth.provider.AgentAuthenticationProvider;
-import com.example.jl_entities.auth.clientauth.provider.ClientAuthenticationProvider;
+import com.example.jl_entities.auth.provider.AgentAuthenticationProvider;
+import com.example.jl_entities.auth.provider.ClientAuthenticationProvider;
 import com.example.jl_entities.userservice.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +51,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/load-data").permitAll()
                 .requestMatchers("/agent-protected").hasAnyAuthority(Role.ADMIN.name(),Role.AGENT.name())
+                .requestMatchers("/client-protected").hasAnyAuthority(Role.ADMIN.name(),Role.CLIENT.name())
                 .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
                 .requestMatchers("/impaye").permitAll()
                 .anyRequest()

@@ -1,14 +1,14 @@
-package com.example.jl_entities.auth.clientauth;
+package com.example.jl_entities.auth.service;
 
-import com.example.jl_entities.auth.clientauth.ClientAuthenticationResponse;
+import com.example.jl_entities.auth.bodies.authentication.AuthenticationRequest;
+import com.example.jl_entities.auth.bodies.authentication.AuthenticationResponse;
+import com.example.jl_entities.auth.bodies.register.ClientRegisterRequest;
 import com.example.jl_entities.config.JwtService;
 import com.example.jl_entities.entity.AccountType;
-import com.example.jl_entities.entity.Agency;
 import com.example.jl_entities.entity.Client;
 import com.example.jl_entities.entity.CompteBancaire;
 import com.example.jl_entities.randomizer.Randomizer;
 import com.example.jl_entities.repository.AccountTypeRepository;
-import com.example.jl_entities.repository.AgencyRepository;
 import com.example.jl_entities.repository.ClientRepository;
 import com.example.jl_entities.repository.CompteBancaireRepository;
 import com.example.jl_entities.userservice.Role;
@@ -36,7 +36,7 @@ public class ClientAuthService {
     private CompteBancaireRepository compteBancaireRepository;
 
 
-    public ClientAuthenticationResponse register(ClientRegisterRequest request) {
+    public AuthenticationResponse register(ClientRegisterRequest request) {
 
         AccountType accountType = accountTypeRepository.findById(request.getIdType()).orElse(null);
         Double plafond;
@@ -48,6 +48,7 @@ public class ClientAuthService {
         }
 
         CompteBancaire compteBancaire = new CompteBancaire(null, Randomizer.generateClientCompte(), plafond);
+        compteBancaireRepository.saveAndFlush(compteBancaire);
 
         var user = Client.builder()
                 .fname(request.getFname())
@@ -56,34 +57,34 @@ public class ClientAuthService {
                 .compteBancaire(compteBancaire)
                 .verificationStatus("pending")
                 .tel(request.getTel())
-                .id(request.getIdType())
+                .type(accountType)
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.CLIENT)
                 .build();
-        repository.save(user);
+        repository.saveAndFlush(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
-        return ClientAuthenticationResponse.builder()
+        return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
     }
 
-    public ClientAuthenticationResponse authenticate(ClientAuthenticationRequest request) {
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         System.out.println("authenticate!!!");
         clientAuthProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getTel(),
+                        request.getUsername(),
                         request.getPassword()
                 )
 
         );
-        Client user = repository.findByTel(request.getTel())
+        Client user = repository.findByTel(request.getUsername())
                 .orElse(null);
         System.out.println("Client found");
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
-        return ClientAuthenticationResponse.builder()
+        return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .refreshToken(refreshToken)
                 .build();

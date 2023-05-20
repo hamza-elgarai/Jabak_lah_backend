@@ -1,4 +1,4 @@
-package com.example.jl_entities.auth.agentauth;
+package com.example.jl_entities.auth.bodies.register;
 
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
