@@ -36,13 +36,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String userEmail;
+        final String username;
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request, response);
             return;
         }
         jwt = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(jwt);
+        username = jwtService.extractUsername(jwt);
         List<String> roles = jwtService.extractRoles(jwt);
         if(roles==null){
             System.out.println("Refresh token haha");
@@ -52,16 +52,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String role = roles.get(0);
         System.out.println(roles);
         UserDetails userDetails;
-        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             if(role.equals("USER")){
                 System.out.println("USER detected in filter!");
-                userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+                userDetails = this.userDetailsService.loadUserByUsername(username);
             } else if (role.equals("AGENT")) {
                 System.out.println("AGENT detected in filter!");
-                userDetails = this.agentDetailsService.loadUserByUsername(userEmail);
+                userDetails = this.agentDetailsService.loadUserByUsername(username);
             } else {
                 System.out.println("Role is weird! doing USER instead");
-                userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+                userDetails = this.userDetailsService.loadUserByUsername(username);
             }
             if(jwtService.isTokenValid(jwt, userDetails)){
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(

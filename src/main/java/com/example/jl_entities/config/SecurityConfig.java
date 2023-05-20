@@ -29,7 +29,9 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.authenticationProvider(authenticationProvider).authenticationProvider(agentAuthenticationProvider);
+        authenticationManagerBuilder
+                .authenticationProvider(authenticationProvider)
+                .authenticationProvider(agentAuthenticationProvider);
         return authenticationManagerBuilder.build();
     }
     @Bean
