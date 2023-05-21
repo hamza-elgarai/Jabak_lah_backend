@@ -22,6 +22,6 @@ public class Creance implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonSerialize(using = HibernateProxySerializer.class)
     private Creancier creancier;
-    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Formulaire formulaire;
+    //@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    //private Formulaire formulaire;
 }

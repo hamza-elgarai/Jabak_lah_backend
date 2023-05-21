@@ -1,6 +1,6 @@
 package com.example.jl_entities;
 
-import com.example.jl_entities.controller.PaiementController;
+//import com.example.jl_entities.controller.PaiementController;
 import com.example.jl_entities.entity.Agency;
 import com.example.jl_entities.entity.Paiement;
 import com.example.jl_entities.repository.PaiementRepository;

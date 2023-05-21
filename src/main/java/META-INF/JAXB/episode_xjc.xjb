@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="3.0" xmlns="https://jakarta.ee/xml/ns/jaxb">
+  <!--
+
+Ce fichier a été généré par Eclipse Implementation of JAXB, v3.0.0 
+Voir https://eclipse-ee4j.github.io/jaxb-ri 
+Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
+Généré le : 2023.05.21 à 01:32:29 PM WEST 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.jl_entities.com/creancierservice">
+    <schemaBindings map="false">
+      <package name="com.jl_entities.creancierservice"/>
+    </schemaBindings>
+    <bindings scd="tns:GetCreancesByCreancierIDRequest">
+      <class ref="com.jl_entities.creancierservice.GetCreancesByCreancierIDRequest"/>
+    </bindings>
+    <bindings scd="tns:GetCreancesByCreancierIDResponse">
+      <class ref="com.jl_entities.creancierservice.GetCreancesByCreancierIDResponse"/>
+    </bindings>
+    <bindings scd="~tns:Creance">
+      <class ref="com.jl_entities.creancierservice.Creance"/>
+    </bindings>
+    <bindings scd="tns:GetAllCreanciersRequest">
+      <class ref="com.jl_entities.creancierservice.GetAllCreanciersRequest"/>
+    </bindings>
+    <bindings scd="tns:GetAllCreanciersResponse">
+      <class ref="com.jl_entities.creancierservice.GetAllCreanciersResponse"/>
+    </bindings>
+    <bindings scd="~tns:Creancier">
+      <class ref="com.jl_entities.creancierservice.Creancier"/>
+    </bindings>
+  </bindings>
+</bindings>
+

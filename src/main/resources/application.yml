@@ -9,7 +9,7 @@ spring:
     username:
       root
     password:
-      V@ste789
+
     driver-class-name:
       com.mysql.cj.jdbc.Driver
 
