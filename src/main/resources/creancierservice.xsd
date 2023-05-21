@@ -12,7 +12,7 @@
     <xs:element name="GetCreancesByCreancierIDResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="creances" type="tns:Creance" maxOccurs="unbounded"/>
+                <xs:element name="creances" type="tns:CreanceSoap" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -27,21 +27,23 @@
     <xs:element name="GetAllCreanciersResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="creanciers" type="tns:Creancier" maxOccurs="unbounded"/>
+                <xs:element name="creanciers" type="tns:CreancierSoap" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="Creancier">
+    <xs:complexType name="CreancierSoap">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
             <xs:element name="code" type="xs:string"/>
             <xs:element name="name" type="xs:string"/>
             <xs:element name="logoUrl" type="xs:string"/>
-            <xs:element name="creanceList" type="tns:Creance" maxOccurs="unbounded" />
+<!--
+            <xs:element name="creanceList" type="tns:CreanceSoap" maxOccurs="unbounded" />
+-->
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="Creance">
+    <xs:complexType name="CreanceSoap">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
             <xs:element name="code" type="xs:string"/>

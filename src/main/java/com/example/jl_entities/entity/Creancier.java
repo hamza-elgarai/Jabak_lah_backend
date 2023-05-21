@@ -20,8 +20,8 @@ public class Creancier {
     private String name;
     private String logoUrl;
 
-    @OneToMany(mappedBy = "creancier")
-    List<Creance> creanceList;
+    /*@OneToMany(mappedBy = "creancier")
+    List<Creance> creanceList;*/
 
 
 }

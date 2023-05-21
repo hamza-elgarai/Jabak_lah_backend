@@ -3,10 +3,7 @@ package com.example.jl_entities.endpoint;
 import com.example.jl_entities.entity.Creancier;
 import com.example.jl_entities.entity.Creance;
 import com.example.jl_entities.service.CreancierService;
-import com.jl_entities.creancierservice.GetAllCreanciersRequest;
-import com.jl_entities.creancierservice.GetAllCreanciersResponse;
-import com.jl_entities.creancierservice.GetCreancesByCreancierIDRequest;
-import com.jl_entities.creancierservice.GetCreancesByCreancierIDResponse;
+import com.jl_entities.creancierservice.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -31,11 +28,11 @@ public class CreancierServiceEndpoint {
 
         List<Creancier> creanciers = creancierService.getAllCreanciers();
 
-        List<com.jl_entities.creancierservice.Creancier> creancierList = new ArrayList<>();
+        List<CreancierSoap> creancierList = new ArrayList<>();
         for (Creancier creancier : creanciers) {
-            com.jl_entities.creancierservice.Creancier creancierS = new com.jl_entities.creancierservice.Creancier();
-            BeanUtils.copyProperties(creancier, creancierS);
-            creancierList.add(creancierS);
+            CreancierSoap creancierSoap = new CreancierSoap();
+            BeanUtils.copyProperties(creancier, creancierSoap);
+            creancierList.add(creancierSoap);
         }
         response.getCreanciers().addAll(creancierList);
 
@@ -49,11 +46,11 @@ public class CreancierServiceEndpoint {
 
         long creancierID = request.getId();
         List<Creance> creances = creancierService.getCreancesByCreancierID(creancierID);
-        List<com.jl_entities.creancierservice.Creance> creanceList = new ArrayList<>();
+        List<CreanceSoap> creanceList = new ArrayList<>();
         for (Creance creance : creances) {
-            com.jl_entities.creancierservice.Creance creanceS = new com.jl_entities.creancierservice.Creance();
-            BeanUtils.copyProperties(creance, creanceS);
-            creanceList.add(creanceS);
+            CreanceSoap creanceSoap = new CreanceSoap();
+            BeanUtils.copyProperties(creance, creanceSoap);
+            creanceList.add(creanceSoap);
         }
         response.getCreances().addAll(creanceList);
 
