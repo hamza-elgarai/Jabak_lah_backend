@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -71,13 +72,17 @@ public class AgentAuthService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         System.out.println("authenticate!!!");
-        agentAuthProvider.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
+        try{
+            agentAuthProvider.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
 
-        );
+            );
+        }catch (AuthenticationException e){
+            return null;
+        }
         Agent user = repository.findByUsername(request.getUsername())
                 .orElse(null);
         System.out.println("Agent found");

@@ -6,8 +6,12 @@ import com.example.jl_entities.auth.bodies.register.AgentRegisterRequest;
 import com.example.jl_entities.auth.bodies.authentication.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/agent/auth")
@@ -25,10 +29,16 @@ public class AgentAuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity register(
             @RequestBody AuthenticationRequest request
     ){
-        return ResponseEntity.ok(service.authenticate(request));
+        AuthenticationResponse response = service.authenticate(request);
+        if(response==null) {
+            Map<String,String> error = new HashMap<>();
+            error.put("error","Agent not found");
+            return ResponseEntity.status(401).contentType(MediaType.APPLICATION_JSON).body(error);
+        }
+        return ResponseEntity.ok(response);
     }
     @GetMapping("/test")
     public String hello(){

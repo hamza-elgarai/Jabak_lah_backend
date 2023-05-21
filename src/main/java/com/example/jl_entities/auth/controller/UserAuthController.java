@@ -29,12 +29,14 @@ public class UserAuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity register(
             @RequestBody AuthenticationRequest request
     ){
-        return ResponseEntity.ok(service.authenticate(request));
+        AuthenticationResponse response = service.authenticate(request);
+        if(response==null) return ResponseEntity.status(401).body("User not found");
+        return ResponseEntity.ok(response);
     }
-    @GetMapping("/refresh")
+    @PostMapping("/refresh")
     public ResponseEntity<Map> getFromRefreshToken(@RequestBody RefreshTokenRequest request){
         Map<String,String> map = new HashMap<>();
         map.put("token",service.getFromRefreshToken(request.getToken()));

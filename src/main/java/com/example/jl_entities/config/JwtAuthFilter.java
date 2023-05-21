@@ -1,6 +1,8 @@
 package com.example.jl_entities.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
@@ -9,6 +11,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +25,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -29,6 +37,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     private final UserDetailsService agentDetailsService;
     private final UserDetailsService clientDetailsService;
+    private final ObjectMapper mapper;
 
     @Override
     protected void doFilterInternal(
@@ -38,22 +47,33 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String username;
+        String username = null;
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
             filterChain.doFilter(request, response);
             return;
         }
         jwt = authHeader.substring(7);
-        username = jwtService.extractUsername(jwt);
-        List<String> roles = jwtService.extractRoles(jwt);
-        if(roles==null){
-            System.out.println("Refresh token haha");
-            filterChain.doFilter(request, response);
+
+        //Test if token is expired
+        try{
+            username = jwtService.extractUsername(jwt);
+        }catch (ExpiredJwtException expiredJwtException){
+            sendError(response, HttpServletResponse.SC_UNAUTHORIZED, "Token expired");
             return;
         }
+
+        List<String> roles = jwtService.extractRoles(jwt);
+
+        //If a user tries to access using refresh token
+        if(roles==null){
+            System.out.println("Refresh token haha");
+            sendError(response, HttpServletResponse.SC_UNAUTHORIZED, "This is a refresh token");
+            return;
+        }
+
         String role = roles.get(0);
-        System.out.println(roles);
         UserDetails userDetails;
+
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             if(role.equals("USER")){
                 System.out.println("USER detected in filter!");
@@ -83,5 +103,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
 
+    }
+    private void sendError(HttpServletResponse response, int status, String message) throws IOException {
+        response.setStatus(status);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"error\": \"" + message + "\"}");
     }
 }
