@@ -3,8 +3,10 @@ package com.example.jl_entities.controller;
 import com.example.jl_entities.CredentialsRequest;
 import com.example.jl_entities.entity.Client;
 import com.example.jl_entities.entity.Creance;
+import com.example.jl_entities.entity.Creancier;
 import com.example.jl_entities.entity.Impaye;
 import com.example.jl_entities.repository.ClientRepository;
+import com.example.jl_entities.repository.CreancierRepository;
 import com.example.jl_entities.service.FakeDataLoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,6 +25,8 @@ public class PaiementController {
     private FakeDataLoadService fakeDataLoadService;
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private CreancierRepository creancierRepository;
 
     @GetMapping("/load-data")
     private String loadData(){
@@ -32,6 +36,10 @@ public class PaiementController {
     @GetMapping("/clients")
     private List<Client> getAllClients(){
         return clientRepository.findAll();
+    }
+    @GetMapping("/creanciers")
+    private List<Creancier> getAllCreanciers(){
+        return creancierRepository.findAll();
     }
     @GetMapping("/agent-protected")
     private Map<String,String> agent(){

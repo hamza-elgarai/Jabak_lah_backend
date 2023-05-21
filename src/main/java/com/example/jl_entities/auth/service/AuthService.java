@@ -69,7 +69,7 @@ public class AuthService {
                                 .build();
     }
 
-    public String getFromRefreshToken(String accessToken){
-        return jwtService.generateFromRefreshToken(accessToken,"AGENT");
+    public String getFromRefreshToken(String accessToken,String role){
+        return jwtService.generateFromRefreshToken(accessToken,role);
     }
 }

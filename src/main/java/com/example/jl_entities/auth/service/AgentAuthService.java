@@ -93,7 +93,4 @@ public class AgentAuthService {
                 .refreshToken(refreshToken)
                 .build();
     }
-    public String getFromRefreshToken(String accessToken){
-        return jwtService.generateFromRefreshToken(accessToken,"AGENT");
-    }
 }

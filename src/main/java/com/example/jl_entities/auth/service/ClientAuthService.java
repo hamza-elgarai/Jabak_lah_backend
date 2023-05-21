@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -72,13 +73,17 @@ public class ClientAuthService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         System.out.println("authenticate!!!");
-        clientAuthProvider.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
+        try{
+            clientAuthProvider.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
 
-        );
+            );
+        }catch(AuthenticationException exception){
+            return null;
+        }
         Client user = repository.findByTel(request.getUsername())
                 .orElse(null);
         System.out.println("Client found");
@@ -89,7 +94,5 @@ public class ClientAuthService {
                 .refreshToken(refreshToken)
                 .build();
     }
-    public String getFromRefreshToken(String accessToken){
-        return jwtService.generateFromRefreshToken(accessToken,"CLIENT");
-    }
+
 }

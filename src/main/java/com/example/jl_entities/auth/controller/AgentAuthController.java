@@ -1,9 +1,11 @@
 package com.example.jl_entities.auth.controller;
 
+import com.example.jl_entities.auth.bodies.authentication.RefreshTokenRequest;
 import com.example.jl_entities.auth.service.AgentAuthService;
 import com.example.jl_entities.auth.bodies.authentication.AuthenticationRequest;
 import com.example.jl_entities.auth.bodies.register.AgentRegisterRequest;
 import com.example.jl_entities.auth.bodies.authentication.AuthenticationResponse;
+import com.example.jl_entities.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,6 +22,8 @@ import java.util.Map;
 public class AgentAuthController {
     @Autowired
     private final AgentAuthService service;
+    @Autowired
+    private final AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
@@ -40,9 +44,11 @@ public class AgentAuthController {
         }
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/test")
-    public String hello(){
-        return "Hello";
+    @PostMapping("/refresh")
+    public ResponseEntity<Map> getFromRefreshToken(@RequestBody RefreshTokenRequest request){
+        Map<String,String> map = new HashMap<>();
+        map.put("token",authService.getFromRefreshToken(request.getToken(),"AGENT"));
+        return ResponseEntity.ok(map);
     }
 
 

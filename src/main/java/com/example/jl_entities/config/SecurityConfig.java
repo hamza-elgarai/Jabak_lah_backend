@@ -80,6 +80,7 @@ public class SecurityConfig {
                 .requestMatchers("/agent-protected").hasAnyAuthority(Role.ADMIN.name(),Role.AGENT.name())
                 .requestMatchers("/client-protected").hasAnyAuthority(Role.ADMIN.name(),Role.CLIENT.name())
                 .requestMatchers("/clients").hasAnyAuthority(Role.ADMIN.name(),Role.AGENT.name())
+                .requestMatchers("/creanciers").hasAnyAuthority(Role.CLIENT.name())
                 .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
                 .requestMatchers("/impaye").permitAll()
                 .anyRequest()
