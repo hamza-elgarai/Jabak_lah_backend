@@ -113,6 +113,8 @@
                 <configuration>
                     <sources>
                         <source>src/main/resources/creancierservice.xsd</source>
+                        <source>src/main/resources/formsservice.xsd</source>
+
                     </sources>
                     <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
                     <clearOutputDir>false</clearOutputDir>

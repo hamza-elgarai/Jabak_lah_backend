@@ -50,4 +50,59 @@
             <xs:element name="name" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
+    <xs:element name="GetImpayesByCreanceIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetImpayesByCreanceIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="impayes" type="tns:ImpayeSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="ImpayeSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="price" type="xs:double"/>
+            <xs:element name="isPaid" type="xs:boolean"/>
+            <xs:element name="date" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="GetFormsByCreanceIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetFormsByCreanceIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="forms" type="tns:FormsSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="FormsSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="champs" type="tns:ChampSoap" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ChampSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="type" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="label" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
 </xs:schema>
