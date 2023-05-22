@@ -1,0 +1,108 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://www.jl_entities.com/creancierservice"
+           targetNamespace="http://www.jl_entities.com/creancierservice"
+           elementFormDefault="qualified">
+    <xs:element name="GetCreancesByCreancierIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCreancesByCreancierIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="creances" type="tns:CreanceSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllCreanciersRequest">
+        <xs:complexType>
+            <xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllCreanciersResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="creanciers" type="tns:CreancierSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="CreancierSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="logoUrl" type="xs:string"/>
+<!--
+            <xs:element name="creanceList" type="tns:CreanceSoap" maxOccurs="unbounded" />
+-->
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CreanceSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="GetImpayesByCreanceIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetImpayesByCreanceIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="impayes" type="tns:ImpayeSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="ImpayeSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="price" type="xs:double"/>
+            <xs:element name="isPaid" type="xs:boolean"/>
+            <xs:element name="date" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="GetFormsByCreanceIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetFormsByCreanceIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="forms" type="tns:FormsSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="FormsSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="champs" type="tns:ChampSoap" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ChampSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="type" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="label" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

@@ -9,4 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ChampRepository extends JpaRepository<Champ,Long> {
+    List<Champ> findByFormulaireId(long id);
 }
