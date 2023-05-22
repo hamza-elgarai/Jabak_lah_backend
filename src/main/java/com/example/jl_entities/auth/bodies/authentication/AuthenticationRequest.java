@@ -1,4 +1,4 @@
-package com.example.jl_entities.auth;
+package com.example.jl_entities.auth.bodies.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationRequest {
 
-    private String email;
+    private String username;
     String password;
 }

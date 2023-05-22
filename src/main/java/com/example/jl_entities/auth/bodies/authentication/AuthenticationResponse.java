@@ -1,4 +1,4 @@
-package com.example.jl_entities.auth;
+package com.example.jl_entities.auth.bodies.authentication;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class AuthenticationResponse {
 
     private String token;
+    private String refreshToken;
 }
