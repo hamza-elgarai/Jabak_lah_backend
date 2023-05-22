@@ -1,7 +1,7 @@
 package com.example.jl_entities.endpoint;
 
-import com.example.jl_entities.entity.Creancier;
-import com.example.jl_entities.entity.Creance;
+
+import com.example.jl_entities.entity.*;
 import com.example.jl_entities.service.CreancierService;
 import com.jl_entities.creancierservice.*;
 import org.springframework.beans.BeanUtils;
@@ -12,6 +12,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,60 @@ public class CreancierServiceEndpoint {
         }
         response.getCreances().addAll(creanceList);
 
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetImpayesByCreanceIDRequest")
+    @ResponsePayload
+    public GetImpayesByCreanceIDResponse getImpayesByCreanceID(@RequestPayload GetImpayesByCreanceIDRequest request){
+        GetImpayesByCreanceIDResponse response = new GetImpayesByCreanceIDResponse();
+        List<Impaye> impayes = creancierService.getImpayesByCreanceID(request.getId());
+        List<ImpayeSoap> impayeSoapList = new ArrayList<>();
+        for (Impaye impaye : impayes){
+            ImpayeSoap impayeSoap = new ImpayeSoap();
+            BeanUtils.copyProperties(impaye,impayeSoap);
+            impayeSoapList.add(impayeSoap);
+        }
+        response.getImpayes().addAll(impayeSoapList);
+        return response;
+    }
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFormsByCreanceIDRequest")
+    @ResponsePayload
+    private GetFormsByCreanceIDResponse getFormsByCreanceID(@RequestPayload GetFormsByCreanceIDRequest request){
+        GetFormsByCreanceIDResponse response = new GetFormsByCreanceIDResponse();
+        List<Formulaire> formulaires = creancierService.getFormsByCreanceID(request.getId());
+        List<Champ> champs = creancierService.getChampsByFormulaireID(request.getId());
+
+        List<FormsSoap> formsSoapList = new ArrayList<>();
+        for (Formulaire formulaire: formulaires) {
+            FormsSoap formsSoap = new FormsSoap();
+            BeanUtils.copyProperties(formulaire, formsSoap);
+
+            // Copy the champs list manually
+            List<ChampSoap> champsList = new ArrayList<>();
+            for (Champ champ : champs) {
+                ChampSoap champSoap = new ChampSoap();
+                BeanUtils.copyProperties(champ,champSoap );
+                champsList.add(champSoap);
+            }
+            formsSoap.getChamps().addAll(champsList);
+            formsSoapList.add(formsSoap);
+        }
+        /*for (Formulaire formulaire:formulaires){
+            FormsSoap formsSoap = new FormsSoap();
+            BeanUtils.copyProperties(formulaire,formsSoap);
+            List<Champ> champsList = new ArrayList<>();
+            for (Champ champ : formulaire.getChamps()) {
+                Champ champCopy = new Champ();
+                BeanUtils.copyProperties(champ, champCopy);
+                champsList.add(champCopy);
+            }
+            formsSoap.setChamps(champsList);
+
+            formsSoapList.add(formsSoap);
+        }*/
+        response.getForms().addAll(formsSoapList);
+        System.out.println(response.getForms());
         return response;
     }
 }

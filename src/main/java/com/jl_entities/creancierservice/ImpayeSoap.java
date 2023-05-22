@@ -8,26 +8,29 @@
 
 package com.jl_entities.creancierservice;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CreancierSoap complex type.
+ * <p>Java class for ImpayeSoap complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="CreancierSoap"&gt;
+ * &lt;complexType name="ImpayeSoap"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="logoUrl" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="isPaid" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -37,21 +40,23 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "CreancierSoap", propOrder = {
+@XmlType(name = "ImpayeSoap", propOrder = {
     "id",
-    "code",
     "name",
-    "logoUrl"
+    "price",
+    "isPaid",
+    "date"
 })
-public class CreancierSoap {
+public class ImpayeSoap {
 
     protected long id;
     @XmlElement(required = true)
-    protected String code;
-    @XmlElement(required = true)
     protected String name;
+    protected double price;
+    protected boolean isPaid;
     @XmlElement(required = true)
-    protected String logoUrl;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar date;
 
     /**
      * Gets the value of the id property.
@@ -67,30 +72,6 @@ public class CreancierSoap {
      */
     public void setId(long value) {
         this.id = value;
-    }
-
-    /**
-     * Gets the value of the code property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * Sets the value of the code property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCode(String value) {
-        this.code = value;
     }
 
     /**
@@ -118,27 +99,59 @@ public class CreancierSoap {
     }
 
     /**
-     * Gets the value of the logoUrl property.
+     * Gets the value of the price property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getLogoUrl() {
-        return logoUrl;
+    public double getPrice() {
+        return price;
     }
 
     /**
-     * Sets the value of the logoUrl property.
+     * Sets the value of the price property.
+     * 
+     */
+    public void setPrice(double value) {
+        this.price = value;
+    }
+
+    /**
+     * Gets the value of the isPaid property.
+     * 
+     */
+    public boolean isIsPaid() {
+        return isPaid;
+    }
+
+    /**
+     * Sets the value of the isPaid property.
+     * 
+     */
+    public void setIsPaid(boolean value) {
+        this.isPaid = value;
+    }
+
+    /**
+     * Gets the value of the date property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getDate() {
+        return date;
+    }
+
+    /**
+     * Sets the value of the date property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setLogoUrl(String value) {
-        this.logoUrl = value;
+    public void setDate(XMLGregorianCalendar value) {
+        this.date = value;
     }
 
 }

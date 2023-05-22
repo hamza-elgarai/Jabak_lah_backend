@@ -27,7 +27,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="creanciers" type="{http://www.jl_entities.com/creancierservice}CreancierSoap" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="forms" type="{http://www.jl_entities.com/creancierservice}FormsSoap" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,41 +38,41 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "creanciers"
+    "forms"
 })
-@XmlRootElement(name = "GetAllCreanciersResponse")
-public class GetAllCreanciersResponse {
+@XmlRootElement(name = "GetFormsByCreanceIDResponse")
+public class GetFormsByCreanceIDResponse {
 
     @XmlElement(required = true)
-    protected List<CreancierSoap> creanciers;
+    protected List<FormsSoap> forms;
 
     /**
-     * Gets the value of the creanciers property.
+     * Gets the value of the forms property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the Jakarta XML Binding object.
-     * This is why there is not a <CODE>set</CODE> method for the creanciers property.
+     * This is why there is not a <CODE>set</CODE> method for the forms property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getCreanciers().add(newItem);
+     *    getForms().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link CreancierSoap }
+     * {@link FormsSoap }
      * 
      * 
      */
-    public List<CreancierSoap> getCreanciers() {
-        if (creanciers == null) {
-            creanciers = new ArrayList<CreancierSoap>();
+    public List<FormsSoap> getForms() {
+        if (forms == null) {
+            forms = new ArrayList<FormsSoap>();
         }
-        return this.creanciers;
+        return this.forms;
     }
 
 }

@@ -8,6 +8,8 @@
 
 package com.jl_entities.creancierservice;
 
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -15,18 +17,17 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for CreanceSoap complex type.
+ * <p>Java class for FormsSoap complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="CreanceSoap"&gt;
+ * &lt;complexType name="FormsSoap"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="champs" type="{http://www.jl_entities.com/creancierservice}ChampSoap" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,18 +37,15 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "CreanceSoap", propOrder = {
+@XmlType(name = "FormsSoap", propOrder = {
     "id",
-    "code",
-    "name"
+    "champs"
 })
-public class CreanceSoap {
+public class FormsSoap {
 
     protected long id;
     @XmlElement(required = true)
-    protected String code;
-    @XmlElement(required = true)
-    protected String name;
+    protected List<ChampSoap> champs;
 
     /**
      * Gets the value of the id property.
@@ -66,51 +64,32 @@ public class CreanceSoap {
     }
 
     /**
-     * Gets the value of the code property.
+     * Gets the value of the champs property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * Sets the value of the code property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the Jakarta XML Binding object.
+     * This is why there is not a <CODE>set</CODE> method for the champs property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCode(String value) {
-        this.code = value;
-    }
-
-    /**
-     * Gets the value of the name property.
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getChamps().add(newItem);
+     * </pre>
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ChampSoap }
+     * 
+     * 
      */
-    public void setName(String value) {
-        this.name = value;
+    public List<ChampSoap> getChamps() {
+        if (champs == null) {
+            champs = new ArrayList<ChampSoap>();
+        }
+        return this.champs;
     }
 
 }
