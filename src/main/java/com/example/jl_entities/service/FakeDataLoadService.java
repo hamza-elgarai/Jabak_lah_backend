@@ -78,7 +78,8 @@ public class FakeDataLoadService {
         // 8 - Formulaires
         Formulaire formulaire1 = new Formulaire(null,new ArrayList<>(),null);
         Formulaire formulaire2 = new Formulaire(null,new ArrayList<>(),null);
-        formulaireRepository.saveAllAndFlush(List.of(formulaire1,formulaire2));
+        Formulaire formulaire3 = new Formulaire(null,new ArrayList<>(),null);
+        formulaireRepository.saveAllAndFlush(List.of(formulaire1,formulaire2,formulaire3));
         // 9 - Champs
             //Champs du formulaire 1
         Champ champ11 = new Champ(null,"text","invoice-number","","Numero de facture",formulaire1);
@@ -87,16 +88,31 @@ public class FakeDataLoadService {
 
         Champ champ21 = new Champ(null,"text","email","","E-mail",formulaire2);
         Champ champ22 = new Champ(null,"text","phone","","Téléphone",formulaire2);
-        champRepository.saveAllAndFlush(List.of(champ11,champ12,champ21,champ22));
+
+        //Champs du formulaire 2
+
+        Champ champ31 = new Champ(null,"text","contract-number","","Numero de contrat",formulaire3);
+        Champ champ32 = new Champ(null,"text","phone","","Téléphone",formulaire3);
+        champRepository.saveAllAndFlush(List.of(champ11,champ12,champ21,champ22,champ31,champ32));
 
 
         // 3 - Créanciers
         Creancier creancier1 = new Creancier(null,"IAM54","Maroc Telecom","logo_url");
         Creancier creancier2 = new Creancier(null,"RED35","Redal","logo_url");
+        creancierRepository.saveAllAndFlush(List.of(
+                creancier1,creancier2
+        ));
+
         // 4 - Créances
         Creance creance1 = new Creance(null,"IAM-FI","IAM facture Internet",creancier1,formulaire1);
-        Creance creance2 = new Creance(null,"IAM-RE","IAM Recharge",creancier1,formulaire1);
-        Creance creance3 = new Creance(null,"RED-P","Paiement Redal",creancier2,formulaire2);
+        Creance creance2 = new Creance(null,"IAM-RE","IAM Recharge",creancier1,formulaire2);
+        Creance creance3 = new Creance(null,"RED-P","Paiement Redal",creancier2,formulaire3);
+        creanceRepository.saveAllAndFlush(List.of(
+                creance1,creance2,creance3
+        ));
+        formulaire1.setCreance(creance1);
+        formulaire2.setCreance(creance2);
+        formulaire3.setCreance(creance3);
 
         // I used cascade for the Creancier attribute, so it's persisted with the objects Creance
 
@@ -104,6 +120,7 @@ public class FakeDataLoadService {
         creanceRepository.save(creance2);
         creanceRepository.save(creance3);
         creanceRepository.flush();
+        formulaireRepository.saveAllAndFlush(List.of(formulaire1,formulaire2,formulaire3));
 
         // 5 - Agences
 
