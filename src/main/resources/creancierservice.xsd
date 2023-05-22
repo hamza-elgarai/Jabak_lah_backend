@@ -1,0 +1,53 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://www.jl_entities.com/creancierservice"
+           targetNamespace="http://www.jl_entities.com/creancierservice"
+           elementFormDefault="qualified">
+    <xs:element name="GetCreancesByCreancierIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetCreancesByCreancierIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="creances" type="tns:CreanceSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllCreanciersRequest">
+        <xs:complexType>
+            <xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllCreanciersResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="creanciers" type="tns:CreancierSoap" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="CreancierSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="logoUrl" type="xs:string"/>
+<!--
+            <xs:element name="creanceList" type="tns:CreanceSoap" maxOccurs="unbounded" />
+-->
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CreanceSoap">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
