@@ -33,13 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**")
                 .permitAll()
-<<<<<<< HEAD
-                .requestMatchers("/load-data").permitAll()
-                .requestMatchers("/impaye").permitAll()
-                .requestMatchers("/getClient").permitAll()
-=======
 //                .requestMatchers("/load-data").permitAll()
->>>>>>> OussamaDarif
                 .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
 //                .requestMatchers("/impaye").permitAll()
                 .anyRequest()
