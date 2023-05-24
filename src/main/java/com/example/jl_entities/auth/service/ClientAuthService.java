@@ -12,6 +12,7 @@ import com.example.jl_entities.repository.AccountTypeRepository;
 import com.example.jl_entities.repository.ClientRepository;
 import com.example.jl_entities.repository.CompteBancaireRepository;
 import com.example.jl_entities.userservice.Role;
+import com.mysql.cj.jdbc.exceptions.SQLError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -19,6 +20,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 
 
 @Service
@@ -49,7 +52,6 @@ public class ClientAuthService {
         }
 
         CompteBancaire compteBancaire = new CompteBancaire(null, Randomizer.generateClientCompte(), plafond);
-        compteBancaireRepository.saveAndFlush(compteBancaire);
 
         var user = Client.builder()
                 .fname(request.getFname())
@@ -62,6 +64,10 @@ public class ClientAuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.CLIENT)
                 .build();
+        compteBancaireRepository.saveAndFlush(compteBancaire);
+        Client current = repository.findByTel(request.getTel()).orElse(null);
+        if(current!=null) return null;
+        System.out.println("There is no client with that phone number, saving ...");
         repository.saveAndFlush(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
