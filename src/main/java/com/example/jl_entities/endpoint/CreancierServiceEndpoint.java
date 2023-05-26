@@ -63,7 +63,9 @@ public class CreancierServiceEndpoint {
     @ResponsePayload
     public GetImpayesByCreanceIDResponse getImpayesByCreanceID(@RequestPayload GetImpayesByCreanceIDRequest request){
         GetImpayesByCreanceIDResponse response = new GetImpayesByCreanceIDResponse();
-        List<Impaye> impayes = creancierService.getImpayesByCreanceID(request.getId());
+        List<Impaye> impayes = creancierService.getImpayesByCreanceID(request.getCreanceId());
+        System.out.println(request.getCreanceId());
+        System.out.println(request.getCreandentials().get(0).getCredential().get(0).getCredentialName());
         List<ImpayeSoap> impayeSoapList = new ArrayList<>();
         for (Impaye impaye : impayes){
             ImpayeSoap impayeSoap = new ImpayeSoap();

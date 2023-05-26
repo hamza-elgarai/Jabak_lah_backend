@@ -17,17 +17,16 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour FormsSoap complex type.
+ * <p>Classe Java pour credentials complex type.
  * 
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="FormsSoap"&gt;
+ * &lt;complexType name="credentials"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element name="champs" type="{http://www.jl_entities.com/creancierservice}ChampSoap" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="credential" type="{http://www.jl_entities.com/creancierservice}credential" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -37,59 +36,41 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "FormsSoap", propOrder = {
-    "id",
-    "champs"
+@XmlType(name = "credentials", propOrder = {
+    "credential"
 })
-public class FormsSoap {
+public class Credentials {
 
-    protected long id;
     @XmlElement(required = true)
-    protected List<ChampSoap> champs;
+    protected List<Credential> credential;
 
     /**
-     * Obtient la valeur de la propriété id.
-     * 
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * Définit la valeur de la propriété id.
-     * 
-     */
-    public void setId(long value) {
-        this.id = value;
-    }
-
-    /**
-     * Gets the value of the champs property.
+     * Gets the value of the credential property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the Jakarta XML Binding object.
-     * This is why there is not a <CODE>set</CODE> method for the champs property.
+     * This is why there is not a <CODE>set</CODE> method for the credential property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getChamps().add(newItem);
+     *    getCredential().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link ChampSoap }
+     * {@link Credential }
      * 
      * 
      */
-    public List<ChampSoap> getChamps() {
-        if (champs == null) {
-            champs = new ArrayList<ChampSoap>();
+    public List<Credential> getCredential() {
+        if (credential == null) {
+            credential = new ArrayList<Credential>();
         }
-        return this.champs;
+        return this.credential;
     }
 
 }

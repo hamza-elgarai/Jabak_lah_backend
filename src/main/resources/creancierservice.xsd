@@ -53,7 +53,8 @@
     <xs:element name="GetImpayesByCreanceIDRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:long" />
+                <xs:element name="creanceId" type="xs:long"/>
+                <xs:element name="creandentials" type="tns:credentials" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -65,6 +66,18 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:complexType name="credentials">
+        <xs:sequence>
+            <xs:element name="credential" type="tns:credential" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="credential">
+        <xs:sequence>
+            <xs:element name="credentialName" type="xs:string"/>
+            <xs:element name="credentialValue" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:complexType name="ImpayeSoap">
         <xs:sequence>

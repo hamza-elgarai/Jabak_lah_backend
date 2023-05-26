@@ -15,18 +15,17 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Classe Java pour CreanceSoap complex type.
+ * <p>Classe Java pour credential complex type.
  * 
  * <p>Le fragment de schéma suivant indique le contenu attendu figurant dans cette classe.
  * 
  * <pre>
- * &lt;complexType name="CreanceSoap"&gt;
+ * &lt;complexType name="credential"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
- *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="credentialName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="credentialValue" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,81 +35,63 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "CreanceSoap", propOrder = {
-    "id",
-    "code",
-    "name"
+@XmlType(name = "credential", propOrder = {
+    "credentialName",
+    "credentialValue"
 })
-public class CreanceSoap {
+public class Credential {
 
-    protected long id;
     @XmlElement(required = true)
-    protected String code;
+    protected String credentialName;
     @XmlElement(required = true)
-    protected String name;
+    protected String credentialValue;
 
     /**
-     * Obtient la valeur de la propriété id.
-     * 
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * Définit la valeur de la propriété id.
-     * 
-     */
-    public void setId(long value) {
-        this.id = value;
-    }
-
-    /**
-     * Obtient la valeur de la propriété code.
+     * Obtient la valeur de la propriété credentialName.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getCode() {
-        return code;
+    public String getCredentialName() {
+        return credentialName;
     }
 
     /**
-     * Définit la valeur de la propriété code.
+     * Définit la valeur de la propriété credentialName.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setCode(String value) {
-        this.code = value;
+    public void setCredentialName(String value) {
+        this.credentialName = value;
     }
 
     /**
-     * Obtient la valeur de la propriété name.
+     * Obtient la valeur de la propriété credentialValue.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getName() {
-        return name;
+    public String getCredentialValue() {
+        return credentialValue;
     }
 
     /**
-     * Définit la valeur de la propriété name.
+     * Définit la valeur de la propriété credentialValue.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setName(String value) {
-        this.name = value;
+    public void setCredentialValue(String value) {
+        this.credentialValue = value;
     }
 
 }
