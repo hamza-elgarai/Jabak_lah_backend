@@ -86,7 +86,7 @@ public class FakeDataLoadService {
         Champ champ12 = new Champ(null,"email","email","","E-mail",formulaire1);
             //Champs du formulaire 2
 
-        Champ champ21 = new Champ(null,"text","email","","E-mail",formulaire2);
+        Champ champ21 = new Champ(null,"email","email","","E-mail",formulaire2);
         Champ champ22 = new Champ(null,"text","phone","","Téléphone",formulaire2);
 
         //Champs du formulaire 2
@@ -140,16 +140,16 @@ public class FakeDataLoadService {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         // 7 - Impayes
-        Impaye impaye1,impaye12,impaye2,impaye3;
+        Impaye impaye1,impaye2,impaye3,impaye4;
         try {
             impaye1 = new Impaye(null,"Facture internet 02/2023",250.0,"simple",false,sdf.parse("27-03-2023"),creance1,new ArrayList<>());
-            impaye12 = new Impaye(null,"Facture internet 05/2023",250.0,"simple",false,sdf.parse("30-06-2023"),creance1,new ArrayList<>());
-            impaye2 = new Impaye(null,"Facture internet 03/2023",250.0,"simple",false,sdf.parse("27-04-2023"),creance1,new ArrayList<>());
-            impaye3 = new Impaye(null,"Facture Redal",1550.0,"simple",false,sdf.parse("02-06-2023"),creance3,new ArrayList<>());
+            impaye2 = new Impaye(null,"Facture internet 05/2023",250.0,"simple",false,sdf.parse("30-06-2023"),creance1,new ArrayList<>());
+            impaye3 = new Impaye(null,"Facture internet 03/2023",250.0,"simple",false,sdf.parse("27-04-2023"),creance1,new ArrayList<>());
+            impaye4 = new Impaye(null,"Facture Redal",1550.0,"simple",false,sdf.parse("02-06-2023"),creance3,new ArrayList<>());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        impayeRepository.saveAllAndFlush(List.of(impaye1,impaye12,impaye2,impaye3));
+        impayeRepository.saveAllAndFlush(List.of(impaye1,impaye2,impaye3,impaye4));
 
 
         //Credentials of impaye1
@@ -157,16 +157,16 @@ public class FakeDataLoadService {
         ImpayeCredential ic12 = new ImpayeCredential(null,"invoice-number","192168",impaye1);
 
         //Credentials of impaye12
-        ImpayeCredential ic121 = new ImpayeCredential(null,"email","hamza@gmail.com",impaye12);
-        ImpayeCredential ic122 = new ImpayeCredential(null,"invoice-number","192168",impaye12);
+        ImpayeCredential ic121 = new ImpayeCredential(null,"email","hamza@gmail.com",impaye2);
+        ImpayeCredential ic122 = new ImpayeCredential(null,"invoice-number","192168",impaye2);
 
         //credentials of impaye2
-        ImpayeCredential ic21 = new ImpayeCredential(null,"email","hamza@gmail.com",impaye2);
-        ImpayeCredential ic22 = new ImpayeCredential(null,"phone","0634348550",impaye2);
+        ImpayeCredential ic21 = new ImpayeCredential(null,"email","hamdani@gmail.com",impaye3);
+        ImpayeCredential ic22 = new ImpayeCredential(null,"invoice-number","55555",impaye3);
 
         //Credentials of impaye3
-        ImpayeCredential ic31 = new ImpayeCredential(null,"email","hamza@gmail.com",impaye3);
-        ImpayeCredential ic32 = new ImpayeCredential(null,"phone","0634348550",impaye3);
+        ImpayeCredential ic31 = new ImpayeCredential(null,"contract-number","00109810",impaye4);
+        ImpayeCredential ic32 = new ImpayeCredential(null,"phone","0634348550",impaye4);
         impayeCredentialRepository.saveAllAndFlush(List.of(ic11,ic12,ic121,ic122,ic21,ic22,ic31,ic32));
 
 
@@ -177,9 +177,9 @@ public class FakeDataLoadService {
 
 
         //impaye1 is paid so ...
-        impaye1.setIsPaid(true);
-        impaye2.setIsPaid(true);
-        impayeRepository.saveAllAndFlush(List.of(impaye1,impaye2));
+//        impaye1.setIsPaid(true);
+//        impaye2.setIsPaid(true);
+//        impayeRepository.saveAllAndFlush(List.of(impaye1,impaye3));
 
         //paiementRepository.saveAllAndFlush(List.of(p1,p2));
 

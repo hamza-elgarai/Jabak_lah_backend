@@ -52,7 +52,7 @@ public class ImpayeRepositoryImpl{
         int i =1;
         String query = "SELECT * FROM impaye \n " ;
         for(String s : champsNames){
-
+            System.out.println(s);
             String selectCredential = "JOIN (\n" +
                     "    SELECT impaye_id\n" +
                     "    FROM impaye_credential\n" +

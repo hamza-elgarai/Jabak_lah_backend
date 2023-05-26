@@ -1,5 +1,6 @@
 package com.example.jl_entities.service;
 
+import com.example.jl_entities.CredentialsRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.repository.*;
 
@@ -21,6 +22,8 @@ public class CreancierService {
     private final FormulaireRepository formulaireRepository;
     @Autowired
     private final ChampRepository champRepository;
+    @Autowired
+    private FakeDataLoadService fakeDataLoadService;
 
 
     public CreancierService(CreancierRepository creancierRepository, CreanceRepository creanceRepository, ImpayeRepository impayeRepository, FormulaireRepository formulaireRepository, ChampRepository champRepository) {
@@ -58,8 +61,9 @@ public class CreancierService {
     }
 
     public List<Creance> getCreancesByCreancierID(long id) {return creanceRepository.findAllByCreancierId(id);}
-    public List<Impaye> getImpayesByCreanceID(long id) {
-        return impayeRepository.findAllByCreanceId(id);
+    public List<Impaye> getImpayesByCreanceID(CredentialsRequest request) {
+        return fakeDataLoadService.loadImpaye(request);
+//        return impayeRepository.findAllByCreanceId(id);
     }
     public List<Formulaire> getFormsByCreanceID(long id){
         return formulaireRepository.findAllByCreanceId(id);

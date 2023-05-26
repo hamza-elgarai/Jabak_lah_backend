@@ -1,6 +1,7 @@
 package com.example.jl_entities.endpoint;
 
 
+import com.example.jl_entities.CredentialsRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.service.CreancierService;
 import com.jl_entities.creancierservice.*;
@@ -14,7 +15,9 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Endpoint
 public class CreancierServiceEndpoint {
@@ -63,9 +66,19 @@ public class CreancierServiceEndpoint {
     @ResponsePayload
     public GetImpayesByCreanceIDResponse getImpayesByCreanceID(@RequestPayload GetImpayesByCreanceIDRequest request){
         GetImpayesByCreanceIDResponse response = new GetImpayesByCreanceIDResponse();
-        List<Impaye> impayes = creancierService.getImpayesByCreanceID(request.getCreanceId());
-        System.out.println(request.getCreanceId());
-        System.out.println(request.getCreandentials().get(0).getCredential().get(0).getCredentialName());
+
+        CredentialsRequest credentialsRequest=new CredentialsRequest();
+        credentialsRequest.setCreanceId(request.getCreanceId());
+
+        Map<String,String> credentialsMap=new HashMap<String,String>();
+        for(Credential credential: request.getCredentials().getCredential()){
+//            System.out.println(credential.getCredentialName()+" "+credential.getCredentialValue());
+            credentialsMap.put(credential.getCredentialName(),credential.getCredentialValue());
+        }
+        credentialsRequest.setCredentials(credentialsMap);
+
+        List<Impaye> impayes = creancierService.getImpayesByCreanceID(credentialsRequest);
+
         List<ImpayeSoap> impayeSoapList = new ArrayList<>();
         for (Impaye impaye : impayes){
             ImpayeSoap impayeSoap = new ImpayeSoap();
