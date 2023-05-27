@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -49,6 +50,22 @@ public class AgentAuthController {
         Map<String,String> map = new HashMap<>();
         map.put("token",authService.getFromRefreshToken(request.getToken(),"AGENT"));
         return ResponseEntity.ok(map);
+    }
+    @PostMapping("/change-password")
+    @PreAuthorize("isAuthenticated() and #request.username == authentication.principal.username")
+    public ResponseEntity<AuthenticationResponse> changePassword(@RequestBody AuthenticationRequest request){
+        AuthenticationResponse response=null;
+        if(request.getPassword().equals("") || request.getPassword().length()<8 ){
+            return null;
+        }
+        response = service.changePassword(request);
+        if(response==null) return null;
+        return ResponseEntity.ok(response);
+    }
+    @PostMapping("/is-password-changed")
+    @PreAuthorize("isAuthenticated() and #request.username == authentication.principal.username")
+    public ResponseEntity<Boolean> isPasswordChanged(@RequestBody Map<String,String> request){
+        return ResponseEntity.ok(service.isPasswordChanged(request.get("username")));
     }
 
 

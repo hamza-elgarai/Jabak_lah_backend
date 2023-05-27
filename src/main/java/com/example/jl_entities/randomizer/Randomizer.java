@@ -8,19 +8,23 @@ public class Randomizer {
     private Random random;
     private static final String alphabetUppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String alphabetLowercase = "abcdefghijklmnopqrstuvwxyz";
+    private static final String alphabet=alphabetLowercase+alphabetUppercase;
     private static final String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
     private static final String numbers = "0123456789";
 
     public static String generateAgentUser(){
-        Random random = new Random();
         String username = RandomStringUtils.random( 5, alphabetUppercase )+RandomStringUtils.random(4,numbers);
         return username;
     }
 
     public static String generateClientCompte(){
-        Random random = new Random();
         String compte = RandomStringUtils.random( 8, alphabetUppercase )+RandomStringUtils.random(8,numbers);
         return compte;
+    }
+    public static String generatePassword(){
+        String password = RandomStringUtils.random(5,alphabet)+RandomStringUtils.random(4,numbers);
+        System.out.println(password);
+        return password;
     }
 
 }

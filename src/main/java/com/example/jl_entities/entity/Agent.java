@@ -26,6 +26,7 @@ public class Agent implements UserDetails {
     private String fname;
     @Column(nullable = false)
     private String lname;
+    private Boolean isPasswordChanged;
     @Column(nullable = false)
     private String identityType;
     @Column(nullable = false)
