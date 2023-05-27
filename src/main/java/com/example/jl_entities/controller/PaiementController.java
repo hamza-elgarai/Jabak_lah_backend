@@ -33,6 +33,13 @@ public class PaiementController {
         fakeDataLoadService.loadData();
         return "Successfully loaded data!";
     }
+    @PostMapping("/api/client")
+    private Client getClient(@RequestBody String tel){
+        System.out.println("getting the client");
+        Client client=clientRepository.findByTel(tel).orElse(null);
+        System.out.println("printing the client "+client);
+        return client;
+    }
     @GetMapping("/clients")
     private List<Client> getAllClients(){
         return clientRepository.findAll();
