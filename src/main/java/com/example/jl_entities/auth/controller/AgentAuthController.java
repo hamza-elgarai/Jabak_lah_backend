@@ -1,5 +1,6 @@
 package com.example.jl_entities.auth.controller;
 
+import com.example.jl_entities.auth.bodies.authentication.IsPasswordChangedRequest;
 import com.example.jl_entities.auth.bodies.authentication.RefreshTokenRequest;
 import com.example.jl_entities.auth.service.AgentAuthService;
 import com.example.jl_entities.auth.bodies.authentication.AuthenticationRequest;
@@ -64,8 +65,8 @@ public class AgentAuthController {
     }
     @PostMapping("/is-password-changed")
     @PreAuthorize("isAuthenticated() and #request.username == authentication.principal.username")
-    public ResponseEntity<Boolean> isPasswordChanged(@RequestBody Map<String,String> request){
-        return ResponseEntity.ok(service.isPasswordChanged(request.get("username")));
+    public ResponseEntity<Boolean> isPasswordChanged(@RequestBody IsPasswordChangedRequest request){
+        return ResponseEntity.ok(service.isPasswordChanged(request.getUsername()));
     }
 
 
