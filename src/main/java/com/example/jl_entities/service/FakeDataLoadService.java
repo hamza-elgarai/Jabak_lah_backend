@@ -124,10 +124,11 @@ public class FakeDataLoadService {
 
         // 5 - Agences
 
-        Agency agency1 = new Agency(null,"Tashilat");
-        Agency agency2 = new Agency(null,"Cashplus");
+        Agency agency1 = new Agency(null,"Agence Mhamid");
+        Agency agency2 = new Agency(null,"Agence Gueliz");
+        Agency agency3 = new Agency(null,"Agence Sidi Youssef");
 
-        agencyRepository.saveAllAndFlush(List.of(agency1,agency2));
+        agencyRepository.saveAllAndFlush(List.of(agency1,agency2,agency3));
 
         // 6 - Agents
         AgentRegisterRequest agent1;

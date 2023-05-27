@@ -37,7 +37,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     private final UserDetailsService agentDetailsService;
     private final UserDetailsService clientDetailsService;
-    private final ObjectMapper mapper;
 
     @Override
     protected void doFilterInternal(

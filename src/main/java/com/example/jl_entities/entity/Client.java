@@ -30,6 +30,7 @@ public class Client implements UserDetails {
     @Column(unique = true,nullable = false)
     private String tel;
     private String password;
+    private Boolean isPasswordChanged;
 
     @Enumerated(EnumType.STRING)
     private Role role;

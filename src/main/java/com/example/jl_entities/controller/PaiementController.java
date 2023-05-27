@@ -1,10 +1,8 @@
 package com.example.jl_entities.controller;
 
 import com.example.jl_entities.CredentialsRequest;
-import com.example.jl_entities.entity.Client;
-import com.example.jl_entities.entity.Creance;
-import com.example.jl_entities.entity.Creancier;
-import com.example.jl_entities.entity.Impaye;
+import com.example.jl_entities.entity.*;
+import com.example.jl_entities.repository.AgencyRepository;
 import com.example.jl_entities.repository.ClientRepository;
 import com.example.jl_entities.repository.CreancierRepository;
 import com.example.jl_entities.service.FakeDataLoadService;
@@ -27,6 +25,8 @@ public class PaiementController {
     private ClientRepository clientRepository;
     @Autowired
     private CreancierRepository creancierRepository;
+    @Autowired
+    private AgencyRepository agencyRepository;
 
     @GetMapping("/load-data")
     private String loadData(){
@@ -61,6 +61,10 @@ public class PaiementController {
     @GetMapping("/impaye")
     private List<Impaye> getImpayes(@RequestBody CredentialsRequest request){
         return fakeDataLoadService.loadImpaye(request);
+    }
+    @GetMapping("/agencies")
+    private List<Agency> getAgencies(){
+        return agencyRepository.findAll();
     }
 
 }

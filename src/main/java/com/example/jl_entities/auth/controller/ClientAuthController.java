@@ -2,6 +2,7 @@ package com.example.jl_entities.auth.controller;
 
 import com.example.jl_entities.auth.bodies.authentication.AuthenticationRequest;
 import com.example.jl_entities.auth.bodies.authentication.AuthenticationResponse;
+import com.example.jl_entities.auth.bodies.authentication.IsPasswordChangedRequest;
 import com.example.jl_entities.auth.bodies.authentication.RefreshTokenRequest;
 import com.example.jl_entities.auth.bodies.register.ClientRegisterRequest;
 import com.example.jl_entities.auth.service.AuthService;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -53,4 +56,20 @@ public class ClientAuthController {
         return ResponseEntity.ok(map);
     }
 
+    @PostMapping("/change-password")
+    @PreAuthorize("isAuthenticated() and #request.username == authentication.principal.username")
+    public ResponseEntity<AuthenticationResponse> changePassword(@RequestBody AuthenticationRequest request){
+        AuthenticationResponse response;
+        if(request.getPassword().equals("") || request.getPassword().length()<8 ){
+            return null;
+        }
+        response = service.changePassword(request);
+        if(response==null) return null;
+        return ResponseEntity.ok(response);
+    }
+    @PostMapping("/is-password-changed")
+    @PreAuthorize("isAuthenticated() and #request.username == authentication.principal.username")
+    public ResponseEntity<Boolean> isPasswordChanged(@RequestBody IsPasswordChangedRequest request) {
+        return ResponseEntity.ok(service.isPasswordChanged(request.getUsername()));
+    }
 }

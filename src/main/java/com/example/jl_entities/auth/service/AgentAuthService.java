@@ -18,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,7 +55,8 @@ public class AgentAuthService {
                 .birthday(date)
                 .address(request.getAddress())
                 .tel(request.getTel())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(passwordEncoder.encode(Randomizer.generatePassword()))
+                .isPasswordChanged(false)
                 .immatriculation(request.getImmatriculation())
                 .licenseNumber(request.getLicenseNumber())
                 .idFilePath(request.getIdFilePath())
@@ -92,5 +94,24 @@ public class AgentAuthService {
                 .token(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
+    }
+    public AuthenticationResponse changePassword(@RequestBody AuthenticationRequest request){
+        Agent agent = repository.findByUsername(request.getUsername()).orElse(null);
+        if(agent==null) return null;
+        agent.setPassword(passwordEncoder.encode(request.getPassword()));
+        agent.setIsPasswordChanged(true);
+        repository.saveAndFlush(agent);
+
+        var jwtToken = jwtService.generateToken(agent);
+        var refreshToken = jwtService.generateRefreshToken(agent);
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+    public Boolean isPasswordChanged( String username){
+        Agent agent= repository.findByUsername(username).orElse(null);
+        if(agent==null) return null;
+        return agent.getIsPasswordChanged();
     }
 }

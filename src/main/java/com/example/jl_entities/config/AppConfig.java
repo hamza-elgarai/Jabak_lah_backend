@@ -27,9 +27,7 @@ public class AppConfig {
 
     @Bean
     public UserDetailsService userDetailsService(){
-        System.out.println("userDetailsService");
         return username ->{
-            System.out.println("userDetailsService2");
             return userRepository.findByEmail(username).orElseThrow();
         } ;
     }
