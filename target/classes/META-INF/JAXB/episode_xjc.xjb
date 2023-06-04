@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="3.0" xmlns="https://jakarta.ee/xml/ns/jaxb">
+  <!--
+
+Ce fichier a été généré par Eclipse Implementation of JAXB, v3.0.0 
+Voir https://eclipse-ee4j.github.io/jaxb-ri 
+Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
+Généré le : 2023.05.26 à 10:50:23 PM WEST 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.jl_entities.com/creancierservice">
+    <schemaBindings map="false">
+      <package name="com.jl_entities.creancierservice"/>
+    </schemaBindings>
+    <bindings scd="tns:GetCreancesByCreancierIDRequest">
+      <class ref="com.jl_entities.creancierservice.GetCreancesByCreancierIDRequest"/>
+    </bindings>
+    <bindings scd="tns:GetCreancesByCreancierIDResponse">
+      <class ref="com.jl_entities.creancierservice.GetCreancesByCreancierIDResponse"/>
+    </bindings>
+    <bindings scd="~tns:CreanceSoap">
+      <class ref="com.jl_entities.creancierservice.CreanceSoap"/>
+    </bindings>
+    <bindings scd="tns:GetAllCreanciersRequest">
+      <class ref="com.jl_entities.creancierservice.GetAllCreanciersRequest"/>
+    </bindings>
+    <bindings scd="tns:GetAllCreanciersResponse">
+      <class ref="com.jl_entities.creancierservice.GetAllCreanciersResponse"/>
+    </bindings>
+    <bindings scd="~tns:CreancierSoap">
+      <class ref="com.jl_entities.creancierservice.CreancierSoap"/>
+    </bindings>
+    <bindings scd="tns:GetImpayesByCreanceIDRequest">
+      <class ref="com.jl_entities.creancierservice.GetImpayesByCreanceIDRequest"/>
+    </bindings>
+    <bindings scd="~tns:credentials">
+      <class ref="com.jl_entities.creancierservice.Credentials"/>
+    </bindings>
+    <bindings scd="tns:GetImpayesByCreanceIDResponse">
+      <class ref="com.jl_entities.creancierservice.GetImpayesByCreanceIDResponse"/>
+    </bindings>
+    <bindings scd="~tns:ImpayeSoap">
+      <class ref="com.jl_entities.creancierservice.ImpayeSoap"/>
+    </bindings>
+    <bindings scd="tns:GetFormsByCreanceIDRequest">
+      <class ref="com.jl_entities.creancierservice.GetFormsByCreanceIDRequest"/>
+    </bindings>
+    <bindings scd="tns:GetFormsByCreanceIDResponse">
+      <class ref="com.jl_entities.creancierservice.GetFormsByCreanceIDResponse"/>
+    </bindings>
+    <bindings scd="~tns:FormsSoap">
+      <class ref="com.jl_entities.creancierservice.FormsSoap"/>
+    </bindings>
+    <bindings scd="~tns:credential">
+      <class ref="com.jl_entities.creancierservice.Credential"/>
+    </bindings>
+    <bindings scd="~tns:ChampSoap">
+      <class ref="com.jl_entities.creancierservice.ChampSoap"/>
+    </bindings>
+  </bindings>
+</bindings>
+
