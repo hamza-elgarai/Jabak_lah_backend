@@ -1,5 +1,5 @@
 # Use a base image with Java pre-installed
-FROM openjdk:19-jdk-alphine
+FROM openjdk:19-jdk-alpine
 
 # Copy the Spring JAR file to the container
 COPY ./target/jl_entities-0.0.1-SNAPSHOT.jar /usr/app/app.jar
