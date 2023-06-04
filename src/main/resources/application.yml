@@ -2,7 +2,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto:
-        update
+        create
   datasource:
     url:
 #      jdbc:postgresql://ep-weathered-rice-648785.eu-central-1.aws.neon.tech/neondb
@@ -12,7 +12,8 @@ spring:
       root
     password:
 #      AT9kiHQ4bMOw
-      V@ste789
+#      V@ste789
+      Massaq51354
     driver-class-name:
 #      org.postgresql.Driver
       com.mysql.cj.jdbc.Driver

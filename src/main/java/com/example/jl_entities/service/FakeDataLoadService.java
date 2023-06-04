@@ -1,5 +1,6 @@
 package com.example.jl_entities.service;
 
+import com.example.jl_entities.CreanceNotFoundException;
 import com.example.jl_entities.CredentialsRequest;
 import com.example.jl_entities.auth.service.AuthService;
 import com.example.jl_entities.auth.bodies.register.UserRegisterRequest;
@@ -37,7 +38,8 @@ public class FakeDataLoadService {
     private ClientAuthService clientAuthService;
 
 
-    public List<Impaye> loadImpaye(CredentialsRequest request){
+    public List<Impaye> loadImpaye(CredentialsRequest request) throws CreanceNotFoundException {
+
         return impayeRepositoryImpl.findAllByCredentials(request);
     }
     public void loadData(){
@@ -143,10 +145,10 @@ public class FakeDataLoadService {
         // 7 - Impayes
         Impaye impaye1,impaye2,impaye3,impaye4;
         try {
-            impaye1 = new Impaye(null,"Facture internet 02/2023",50.0,"simple",false,sdf.parse("27-03-2023"),creance1,new ArrayList<>());
-            impaye2 = new Impaye(null,"Facture internet 05/2023",50.0,"simple",false,sdf.parse("30-06-2023"),creance1,new ArrayList<>());
-            impaye3 = new Impaye(null,"Facture internet 03/2023",50.0,"simple",false,sdf.parse("27-04-2023"),creance1,new ArrayList<>());
-            impaye4 = new Impaye(null,"Facture Redal",550.0,"simple",false,sdf.parse("02-06-2023"),creance3,new ArrayList<>());
+            impaye1 = new Impaye(null,"Facture internet 02/2023",50.0,"simple",false,sdf.parse("27-03-2023").getTime(),creance1,new ArrayList<>());
+            impaye2 = new Impaye(null,"Facture internet 05/2023",50.0,"simple",false,sdf.parse("30-06-2023").getTime(),creance1,new ArrayList<>());
+            impaye3 = new Impaye(null,"Facture internet 03/2023",50.0,"simple",false,sdf.parse("27-04-2023").getTime(),creance1,new ArrayList<>());
+            impaye4 = new Impaye(null,"Facture Redal",550.0,"simple",false,sdf.parse("02-06-2023").getTime(),creance3,new ArrayList<>());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

@@ -22,7 +22,7 @@ public class Impaye implements Serializable {
     private Double price;
     private String type;
     private Boolean isPaid;
-    private Date date;
+    private Long date;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonSerialize(using = HibernateProxySerializer.class)
     private Creance creance;

@@ -2,17 +2,15 @@
 // Ce fichier a été généré par Eclipse Implementation of JAXB, v3.0.0 
 // Voir https://eclipse-ee4j.github.io/jaxb-ri 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2023.05.26 à 10:50:23 PM WEST 
+// Généré le : 2023.06.04 à 12:22:28 AM WEST 
 //
 
 
 package com.jl_entities.creancierservice;
 
-import javax.xml.datatype.XMLGregorianCalendar;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -30,7 +28,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="isPaid" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/&gt;
+ *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -54,9 +52,7 @@ public class ImpayeSoap {
     protected String name;
     protected double price;
     protected boolean isPaid;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "dateTime")
-    protected XMLGregorianCalendar date;
+    protected long date;
 
     /**
      * Obtient la valeur de la propriété id.
@@ -133,24 +129,16 @@ public class ImpayeSoap {
     /**
      * Obtient la valeur de la propriété date.
      * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
      */
-    public XMLGregorianCalendar getDate() {
+    public long getDate() {
         return date;
     }
 
     /**
      * Définit la valeur de la propriété date.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
      */
-    public void setDate(XMLGregorianCalendar value) {
+    public void setDate(long value) {
         this.date = value;
     }
 

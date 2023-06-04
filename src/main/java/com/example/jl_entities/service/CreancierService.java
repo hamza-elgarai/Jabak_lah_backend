@@ -1,5 +1,6 @@
 package com.example.jl_entities.service;
 
+import com.example.jl_entities.CreanceNotFoundException;
 import com.example.jl_entities.CredentialsRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.repository.*;
@@ -61,7 +62,7 @@ public class CreancierService {
     }
 
     public List<Creance> getCreancesByCreancierID(long id) {return creanceRepository.findAllByCreancierId(id);}
-    public List<Impaye> getImpayesByCreanceID(CredentialsRequest request) {
+    public List<Impaye> getImpayesByCreanceID(CredentialsRequest request) throws CreanceNotFoundException {
         return fakeDataLoadService.loadImpaye(request);
 //        return impayeRepository.findAllByCreanceId(id);
     }

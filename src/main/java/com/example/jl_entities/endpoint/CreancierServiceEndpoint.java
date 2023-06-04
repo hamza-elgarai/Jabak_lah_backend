@@ -1,6 +1,7 @@
 package com.example.jl_entities.endpoint;
 
 
+import com.example.jl_entities.CreanceNotFoundException;
 import com.example.jl_entities.CredentialsRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.service.CreancierService;
@@ -12,8 +13,10 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import org.springframework.ws.soap.*;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +67,7 @@ public class CreancierServiceEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetImpayesByCreanceIDRequest")
     @ResponsePayload
-    public GetImpayesByCreanceIDResponse getImpayesByCreanceID(@RequestPayload GetImpayesByCreanceIDRequest request){
+    public GetImpayesByCreanceIDResponse getImpayesByCreanceID(@RequestPayload GetImpayesByCreanceIDRequest request) throws CreanceNotFoundException {
         GetImpayesByCreanceIDResponse response = new GetImpayesByCreanceIDResponse();
 
         CredentialsRequest credentialsRequest=new CredentialsRequest();
@@ -76,7 +79,6 @@ public class CreancierServiceEndpoint {
             credentialsMap.put(credential.getCredentialName(),credential.getCredentialValue());
         }
         credentialsRequest.setCredentials(credentialsMap);
-
         List<Impaye> impayes = creancierService.getImpayesByCreanceID(credentialsRequest);
 
         List<ImpayeSoap> impayeSoapList = new ArrayList<>();
@@ -88,6 +90,9 @@ public class CreancierServiceEndpoint {
         response.getImpayes().addAll(impayeSoapList);
         return response;
     }
+
+
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetFormsByCreanceIDRequest")
     @ResponsePayload
     private GetFormsByCreanceIDResponse getFormsByCreanceID(@RequestPayload GetFormsByCreanceIDRequest request){

@@ -1,5 +1,6 @@
 package com.example.jl_entities.repository;
 
+import com.example.jl_entities.CreanceNotFoundException;
 import com.example.jl_entities.CredentialsRequest;
 import com.example.jl_entities.entity.Champ;
 import com.example.jl_entities.entity.Creance;
@@ -43,8 +44,9 @@ public class ImpayeRepositoryImpl{
         System.out.println(query);
         return em.createNativeQuery(query,Impaye.class).getResultList();
     }
-    public List<Impaye> findAllByCredentials(CredentialsRequest request){
+    public List<Impaye> findAllByCredentials(CredentialsRequest request) throws CreanceNotFoundException {
         Creance c = creanceRepository.findById(request.getCreanceId()).orElse(null);
+        if(c==null) throw new CreanceNotFoundException("creance not found");
         Formulaire form = c.getFormulaire();
         List<Champ> champs = form.getChamps();
         List<String> champsNames = champs.stream().map(Champ::getName).toList();
