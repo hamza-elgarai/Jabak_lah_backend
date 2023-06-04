@@ -20,14 +20,18 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    @Autowired
-    private AgentRepository agentRepository;
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final AgentRepository agentRepository;
+    private final ClientRepository clientRepository;
+    private final UserRepository userRepository;
 
     private static final String SECRET_KEY = "26452948404D635166546A576E5A7234753778217A25432A462D4A614E645267";
+
+    public JwtService(AgentRepository agentRepository, ClientRepository clientRepository, UserRepository userRepository) {
+        this.agentRepository = agentRepository;
+        this.clientRepository = clientRepository;
+        this.userRepository = userRepository;
+    }
+
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }

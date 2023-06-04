@@ -22,14 +22,17 @@ import java.util.Map;
 @CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
 @ComponentScan(basePackageClasses = FakeDataLoadService.class)
 public class PaiementController {
-    @Autowired
-    private FakeDataLoadService fakeDataLoadService;
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private CreancierRepository creancierRepository;
-    @Autowired
-    private AgencyRepository agencyRepository;
+    private final FakeDataLoadService fakeDataLoadService;
+    private final ClientRepository clientRepository;
+    private final CreancierRepository creancierRepository;
+    private final AgencyRepository agencyRepository;
+
+    public PaiementController(FakeDataLoadService fakeDataLoadService, ClientRepository clientRepository, CreancierRepository creancierRepository, AgencyRepository agencyRepository) {
+        this.fakeDataLoadService = fakeDataLoadService;
+        this.clientRepository = clientRepository;
+        this.creancierRepository = creancierRepository;
+        this.agencyRepository = agencyRepository;
+    }
 
     @GetMapping("/load-data")
     private String loadData(){

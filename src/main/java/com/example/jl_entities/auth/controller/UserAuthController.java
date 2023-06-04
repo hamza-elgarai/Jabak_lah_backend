@@ -16,10 +16,13 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
 @RequestMapping("/auth")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class UserAuthController {
-    @Autowired
     private final AuthService service;
+
+    public UserAuthController(AuthService service) {
+        this.service = service;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(

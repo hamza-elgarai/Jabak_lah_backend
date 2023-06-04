@@ -26,8 +26,11 @@ import java.util.Map;
 public class CreancierServiceEndpoint {
     private static final String NAMESPACE_URI = "http://www.jl_entities.com/creancierservice";
 
-    @Autowired
-    private CreancierService creancierService;
+    private final CreancierService creancierService;
+
+    public CreancierServiceEndpoint(CreancierService creancierService) {
+        this.creancierService = creancierService;
+    }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetAllCreanciersRequest")
     @ResponsePayload

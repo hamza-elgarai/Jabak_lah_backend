@@ -34,12 +34,19 @@ public class ClientAuthService {
     private final ClientRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    @Autowired
     private final AuthenticationProvider clientAuthProvider;
-    @Autowired
     private AccountTypeRepository accountTypeRepository;
-    @Autowired
     private CompteBancaireRepository compteBancaireRepository;
+
+    @Autowired
+    public ClientAuthService(ClientRepository repository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationProvider clientAuthProvider, AccountTypeRepository accountTypeRepository, CompteBancaireRepository compteBancaireRepository) {
+        this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.clientAuthProvider = clientAuthProvider;
+        this.accountTypeRepository = accountTypeRepository;
+        this.compteBancaireRepository = compteBancaireRepository;
+    }
 
 
     public AuthenticationResponse register(ClientRegisterRequest request) {

@@ -19,22 +19,27 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
     private  JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final AgentAuthenticationProvider agentAuthenticationProvider;
     private final ClientAuthenticationProvider clientAuthenticationProvider;
+
+    @Autowired
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter, AuthenticationProvider authenticationProvider, AgentAuthenticationProvider agentAuthenticationProvider, ClientAuthenticationProvider clientAuthenticationProvider) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.authenticationProvider = authenticationProvider;
+        this.agentAuthenticationProvider = agentAuthenticationProvider;
+        this.clientAuthenticationProvider = clientAuthenticationProvider;
+    }
 //    private final AccessDeniedHandler accessDeniedHandler;
 
     @Bean

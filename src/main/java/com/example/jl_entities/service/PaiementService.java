@@ -10,8 +10,11 @@ import java.util.List;
 
 @Service
 public class PaiementService {
-    @Autowired
-    private PaiementRepository paiementRepository;
+    private final PaiementRepository paiementRepository;
+
+    public PaiementService(PaiementRepository paiementRepository) {
+        this.paiementRepository = paiementRepository;
+    }
 
 //    List<Paiement> getPaiementsByClient(Long clientId){
 //        return paiementRepository.getPaiementsByClientId(clientId);

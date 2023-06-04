@@ -18,10 +18,13 @@ import java.util.List;
 public class ImpayeRepositoryImpl{
     @PersistenceContext
     private EntityManager em;
-    @Autowired
-    private CreanceRepository creanceRepository;
-    @Autowired
-    private ChampRepository champRepository;
+    private final CreanceRepository creanceRepository;
+    private final ChampRepository champRepository;
+
+    public ImpayeRepositoryImpl(CreanceRepository creanceRepository, ChampRepository champRepository) {
+        this.creanceRepository = creanceRepository;
+        this.champRepository = champRepository;
+    }
 
 
     public List<Impaye> findAllByCredentials2(CredentialsRequest request){

@@ -13,27 +13,30 @@ import java.util.List;
 @Service
 
 public class CreancierService {
-    @Autowired
     private final CreancierRepository creancierRepository;
-    @Autowired
     private final CreanceRepository creanceRepository;
-    @Autowired
     private final ImpayeRepository impayeRepository;
-    @Autowired
     private final FormulaireRepository formulaireRepository;
-    @Autowired
     private final ChampRepository champRepository;
-    @Autowired
-    private FakeDataLoadService fakeDataLoadService;
+    private final FakeDataLoadService fakeDataLoadService;
 
-
-    public CreancierService(CreancierRepository creancierRepository, CreanceRepository creanceRepository, ImpayeRepository impayeRepository, FormulaireRepository formulaireRepository, ChampRepository champRepository) {
+    public CreancierService(CreancierRepository creancierRepository, CreanceRepository creanceRepository, ImpayeRepository impayeRepository, FormulaireRepository formulaireRepository, ChampRepository champRepository, FakeDataLoadService fakeDataLoadService) {
         this.creancierRepository = creancierRepository;
         this.creanceRepository = creanceRepository;
         this.impayeRepository = impayeRepository;
         this.formulaireRepository = formulaireRepository;
         this.champRepository = champRepository;
+        this.fakeDataLoadService = fakeDataLoadService;
     }
+
+
+//    public CreancierService(CreancierRepository creancierRepository, CreanceRepository creanceRepository, ImpayeRepository impayeRepository, FormulaireRepository formulaireRepository, ChampRepository champRepository) {
+//        this.creancierRepository = creancierRepository;
+//        this.creanceRepository = creanceRepository;
+//        this.impayeRepository = impayeRepository;
+//        this.formulaireRepository = formulaireRepository;
+//        this.champRepository = champRepository;
+//    }
 
 
 

@@ -22,10 +22,15 @@ import java.util.Map;
 @CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
 @RequiredArgsConstructor
 public class AgentAuthController {
-    @Autowired
     private final AgentAuthService service;
-    @Autowired
     private final AuthService authService;
+
+    @Autowired
+    public AgentAuthController(AgentAuthService service, AuthService authService) {
+        this.service = service;
+        this.authService = authService;
+    }
+
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(

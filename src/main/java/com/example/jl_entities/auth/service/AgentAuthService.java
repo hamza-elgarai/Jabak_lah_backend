@@ -31,10 +31,17 @@ public class AgentAuthService {
     private final AgentRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    @Autowired
     private final AuthenticationProvider agentAuthProvider;
-    @Autowired
     private AgencyRepository agencyRepository;
+
+    @Autowired
+    public AgentAuthService(AuthenticationProvider agentAuthProvider, AgencyRepository agencyRepository, AgentRepository repository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+        this.agentAuthProvider = agentAuthProvider;
+        this.agencyRepository = agencyRepository;
+        this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+    }
 
     public AuthenticationResponse register(AgentRegisterRequest request) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");

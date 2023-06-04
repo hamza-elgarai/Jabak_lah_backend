@@ -25,10 +25,14 @@ import java.util.Map;
 public class ClientAuthController {
 
 
-    @Autowired
     private final ClientAuthService service;
-    @Autowired
     private final AuthService authService;
+
+    @Autowired
+    public ClientAuthController(ClientAuthService service, AuthService authService) {
+        this.service = service;
+        this.authService = authService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
