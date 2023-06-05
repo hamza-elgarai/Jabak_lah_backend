@@ -27,7 +27,7 @@ RUN mvn -f /home/app/pom.xml clean package
 #
 # Package stage
 #
-#FROM amazoncorretto:19-alpine3.17-jdk
+FROM amazoncorretto:19-alpine3.17-jdk
 #COPY --from=build /target/jl_entities-0.0.1-SNAPSHOT.jar app.jar
 ## ENV PORT=8080
 #EXPOSE 8090
