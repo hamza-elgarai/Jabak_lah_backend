@@ -16,16 +16,22 @@
 #
 # Build stage
 #
-
-FROM maven:3.9.0-amazoncorretto-19 AS build
-COPY . .
-RUN mvn clean package -DskipTests
-
 #
-# Package stage
+#FROM maven:3.9.0-amazoncorretto-19 AS build
+#COPY . .
+#RUN mvn clean package -DskipTests
 #
+##
+## Package stage
+##
+#FROM amazoncorretto:19-alpine3.17-jdk
+#COPY --from=build /target/jl_entities-0.0.1-SNAPSHOT.jar app.jar
+## ENV PORT=8080
+#EXPOSE 8090
+#ENTRYPOINT ["java","-jar","app.jar"]
+
 FROM amazoncorretto:19-alpine3.17-jdk
-COPY --from=build /target/jl_entities-0.0.1-SNAPSHOT.jar app.jar
-# ENV PORT=8080
 EXPOSE 8090
-ENTRYPOINT ["java","-jar","app.jar"]
+ARG JAR_FILE=target/jl_entities-0.0.1-SNAPSHOT.jar
+ADD ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
