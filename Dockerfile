@@ -36,7 +36,7 @@
 #ADD ${JAR_FILE} app.jar
 #ENTRYPOINT ["java","-jar","/app.jar"]
 
-FROM amazoncorretto:19-alpine3.17-jdk
+FROM eclipse-temurin:19-jdk-alpine
 
 WORKDIR /app
 
