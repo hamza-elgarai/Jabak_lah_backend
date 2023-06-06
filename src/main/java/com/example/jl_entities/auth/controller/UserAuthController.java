@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = {"https://hostingbranch--effulgent-dieffenbachia-045a91.netlify.app","http://localhost:4200","http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class UserAuthController {
