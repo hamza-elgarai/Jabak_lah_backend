@@ -20,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/client/auth")
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
+@CrossOrigin(origins = {"https://hostingbranch--effulgent-dieffenbachia-045a91.netlify.app","http://localhost:4200", "http://localhost:3000"})
 @RequiredArgsConstructor
 public class ClientAuthController {
 
