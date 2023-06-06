@@ -4,11 +4,15 @@ import com.example.jl_entities.auth.bodies.register.UserRegisterRequest;
 import com.example.jl_entities.auth.service.AuthService;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.repository.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
+@AllArgsConstructor
 public class InitialDataService {
 
     private AuthService authService;
