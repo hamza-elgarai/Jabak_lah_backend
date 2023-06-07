@@ -30,7 +30,7 @@ public class InitialDataService {
         authService.register(new UserRegisterRequest("Admin","Admin","admin@jabaklah.ma","admin","admin"));
 
         //Account types
-        AccountType accountType1 = new AccountType(null,1,200.0);
+        AccountType accountType1 = new AccountType(null,1,2000.0);
         AccountType accountType2 = new AccountType(null,2,2000.0);
         AccountType accountType3 = new AccountType(null,3,50000.0);
         accountTypeRepository.saveAllAndFlush(List.of(accountType1,accountType2,accountType3));
@@ -121,9 +121,9 @@ public class InitialDataService {
         //Creances
 
             //Creancier1 - MAROC TELECOM
-            Creance creance11=new Creance(null,"","Mobile",creancier1,formulaire1);
-            Creance creance12=new Creance(null,"","Fixe",creancier1,formulaire2);
-            Creance creance13=new Creance(null,"","Internet",creancier1,formulaire3);
+            Creance creance11=new Creance(null,"11","Mobile",creancier1,formulaire1);
+            Creance creance12=new Creance(null,"12","Fixe",creancier1,formulaire2);
+            Creance creance13=new Creance(null,"13","Internet",creancier1,formulaire3);
             creanceRepository.saveAllAndFlush(List.of(creance11,creance12,creance13));
                 //Update formulaires
                 formulaire1.setCreance(creance11);
@@ -132,16 +132,16 @@ public class InitialDataService {
                 formulaireRepository.saveAllAndFlush(List.of(formulaire1,formulaire2,formulaire3));
 
             //Creancier2 - WIN BY INWI
-            Creance creance21=new Creance(null,"","none",creancier2,formulaire4);
+            Creance creance21=new Creance(null,"21","none",creancier2,formulaire4);
             creanceRepository.saveAndFlush(creance21);
                 //Update formulaire
                 formulaire4.setCreance(creance21);
                 formulaireRepository.saveAndFlush(formulaire4);
 
             //Creancier3 - LYDEC
-            Creance creance31=new Creance(null,"","Paiement par reference",creancier3,formulaire5);
-            Creance creance32=new Creance(null,"","Paiement par N de contrat",creancier3,formulaire6);
-            Creance creance33=new Creance(null,"","Paiement par N de facture",creancier3,formulaire7);
+            Creance creance31=new Creance(null,"31","Paiement par reference",creancier3,formulaire5);
+            Creance creance32=new Creance(null,"32","Paiement par N de contrat",creancier3,formulaire6);
+            Creance creance33=new Creance(null,"33","Paiement par N de facture",creancier3,formulaire7);
             creanceRepository.saveAllAndFlush(List.of(creance31,creance32,creance33));
                 //Update formulaires
                 formulaire5.setCreance(creance31);
@@ -150,15 +150,15 @@ public class InitialDataService {
                 formulaireRepository.saveAllAndFlush(List.of(formulaire5,formulaire6,formulaire7));
 
             //Creancier4 - ALCS
-            Creance creance41=new Creance(null,"","none",creancier4,formulaire8);
+            Creance creance41=new Creance(null,"41","none",creancier4,formulaire8);
             creanceRepository.saveAndFlush(creance41);
                 //Update formulaire
                 formulaire8.setCreance(creance41);
                 formulaireRepository.saveAndFlush(formulaire8);
 
             //Creancier5 - TOTAL MAROC
-            Creance creance51=new Creance(null,"","Booster",creancier5,formulaire9);
-            Creance creance52=new Creance(null,"","Recharge carte",creancier5,formulaire10);
+            Creance creance51=new Creance(null,"51","Booster",creancier5,formulaire9);
+            Creance creance52=new Creance(null,"52","Recharge carte",creancier5,formulaire10);
             creanceRepository.saveAllAndFlush(List.of(creance51,creance52));
                 //Update formulaires
                 formulaire9.setCreance(creance51);
@@ -166,11 +166,14 @@ public class InitialDataService {
                 formulaireRepository.saveAllAndFlush(List.of(formulaire9,formulaire10));
 
             //Creancier6 - AVITO
-            Creance creance61=new Creance(null,"","none",creancier6,formulaire11);
+            Creance creance61=new Creance(null,"61","none",creancier6,formulaire11);
             creanceRepository.saveAndFlush(creance61);
                 //Update formulaire
                 formulaire11.setCreance(creance61);
                 formulaireRepository.saveAndFlush(formulaire11);
+
+        //Impaye
+
 
         //Agences
         Agency agency1 = new Agency(null,"Agence Mhamid");
