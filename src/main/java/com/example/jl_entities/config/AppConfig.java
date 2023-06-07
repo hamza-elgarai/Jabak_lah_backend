@@ -35,7 +35,6 @@ public class AppConfig {
     public UserDetailsService agentDetailsService(){
         return username ->{
             UserDetails user = agentRepository.findByUsername(username).orElse(null);
-            if(user == null) throw new UsernameNotFoundException("User not found");
             return user;
         } ;
     }
