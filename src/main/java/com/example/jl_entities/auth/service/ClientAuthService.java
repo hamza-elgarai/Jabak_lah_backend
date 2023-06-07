@@ -49,6 +49,16 @@ public class ClientAuthService {
 
         if(request.getSolde()<200) return Map.of("message","Le solde minimum est 200DH");
 
+        String regexPattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        if(!request.getTel().matches("^0\\d{9}$")){
+            System.out.println("tel err");
+            return Map.of("message","Format de téléphone erronée");
+        }
+        if(!request.getEmail().matches(regexPattern)){
+            System.out.println("email err");
+            return Map.of("message","Format d'email erronée");
+        }
+
         AccountType accountType = accountTypeRepository.findById(request.getIdType()).orElse(null);
 
         if(accountType==null) return Map.of("message","Erreur de type");
