@@ -37,7 +37,7 @@ public class AgentAuthService {
     @Autowired
     private AgencyRepository agencyRepository;
 
-    public AuthenticationResponse register(AgentRegisterRequest request) {
+    public Map<String,String> register(AgentRegisterRequest request) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date date;
         Agency agency = agencyRepository.findById(request.getAgencyId()).orElse(null);
@@ -45,8 +45,16 @@ public class AgentAuthService {
             date = sdf.parse(request.getBirthday());
         } catch (ParseException e) {
             System.out.println("Date parse exception");
-            return null;
+            return Map.of("message","Date n'est pas valable");
         }
+
+        String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        String telRegex = "^0\\d{9}$";
+        if(!request.getTel().matches(telRegex)){
+            return Map.of("message","Le téléphone doit être de format 0XXXXXXXXX");
+        }
+
+
         var user = Agent.builder()
                 .fname(request.getFname())
                 .lname(request.getLname())
@@ -65,12 +73,13 @@ public class AgentAuthService {
                 .agency(agency)
                 .build();
         repository.saveAndFlush(user);
-        var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
+//        var jwtToken = jwtService.generateToken(user);
+//        var refreshToken = jwtService.generateRefreshToken(user);
+//        return AuthenticationResponse.builder()
+//                .token(jwtToken)
+//                .refreshToken(refreshToken)
+//                .build();
+        return Map.of("message","Agent ajouté!");
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {

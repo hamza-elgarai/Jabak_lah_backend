@@ -34,6 +34,7 @@ public class UserAuthController {
     ){
         AuthenticationResponse response = service.authenticate(request);
         if(response==null) return ResponseEntity.status(401).body("User not found");
+        if(response==null) return ResponseEntity.status(401).body("User not found");
         return ResponseEntity.ok(response);
     }
     @PostMapping("/refresh")

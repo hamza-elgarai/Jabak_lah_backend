@@ -13,8 +13,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +29,7 @@ public class AuthService {
     private final AuthenticationProvider authenticationProvider;
 
     public AuthenticationResponse register(UserRegisterRequest request) {
+        System.out.println(request);
         Role role = Role.USER ;
         if(request.getRole()!=null && request.getRole().equals("admin")){
             role = Role.ADMIN;
@@ -58,9 +62,14 @@ public class AuthService {
         }catch (AuthenticationException exception){
             return null;
         }
-        var user = repository.findByEmail(request.getUsername())
+        User user = repository.findByEmail(request.getUsername())
                 .orElseThrow();
         System.out.println("user found");
+        Role role = user.getRole();
+        if(!role.toString().equals("ADMIN")){
+            return null;
+        }
+
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         return AuthenticationResponse.builder()
