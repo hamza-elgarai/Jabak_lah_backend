@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +25,9 @@ public class InitialDataService {
     private CreanceRepository creanceRepository;
     private FormulaireRepository formulaireRepository;
     private ChampRepository champRepository;
+    private ImpayeRepository impayeRepository;
     private AgencyRepository agencyRepository;
+    private ImpayeCredentialRepository impayeCredentialRepository;
 
 
     public void loadData(){
@@ -52,6 +57,9 @@ public class InitialDataService {
                 Champ champ11=new Champ(null,"text","tel","","Numero de telephone mobile",formulaire1);
                 Champ champ12=new Champ(null,"text","code-fidelio","","Code Fidelio",formulaire1);
                 champRepository.saveAllAndFlush(List.of(champ11,champ12));
+                    //update formulaire
+                    formulaire1.setChamps(List.of(champ11,champ12));
+//                    formulaireRepository.saveAndFlush(formulaire1);
 
             //MAROC TELECOM - FIXE
             Formulaire formulaire2=new Formulaire(null,new ArrayList<>(),null);
@@ -59,24 +67,36 @@ public class InitialDataService {
                 Champ champ21=new Champ(null,"text","tel","","Numero de telephone fixe",formulaire2);
                 Champ champ22=new Champ(null,"text","code-confidentiel","","Code Confidentiel",formulaire2);
                 champRepository.saveAllAndFlush(List.of(champ21,champ22));
+                    //update formulaire
+                    formulaire2.setChamps(List.of(champ21,champ22));
+//                    formulaireRepository.saveAndFlush(formulaire2);
 
             //MAROC TELECOM - INTERNET
             Formulaire formulaire3=new Formulaire(null,new ArrayList<>(),null);
             formulaireRepository.saveAndFlush(formulaire3);
                 Champ champ31=new Champ(null,"text","identifiant-paiement","","Identifiant Paiement",formulaire3);
                 champRepository.saveAllAndFlush(List.of(champ31));
+                    //update formulaire
+                    formulaire3.setChamps(List.of(champ31));
+//                    formulaireRepository.saveAndFlush(formulaire3);
 
             //WIN BY INWI
             Formulaire formulaire4=new Formulaire(null,new ArrayList<>(),null);
             formulaireRepository.saveAndFlush(formulaire4);
                 Champ champ41=new Champ(null,"text","reference-fatourati","","Reference Fatourati",formulaire4);
                 champRepository.saveAllAndFlush(List.of(champ41));
+                    //update formulaire
+                    formulaire4.setChamps(List.of(champ41));
+//                    formulaireRepository.saveAndFlush(formulaire4);
 
             //LYDEC - PAIEMENT PAR REFERENCE
             Formulaire formulaire5=new Formulaire(null,new ArrayList<>(),null);
             formulaireRepository.saveAndFlush(formulaire5);
                 Champ champ51=new Champ(null,"text","reference","","Reference",formulaire5);
                 champRepository.saveAllAndFlush(List.of(champ51));
+                    //update formulaire
+                    formulaire5.setChamps(List.of(champ51));
+//                    formulaireRepository.saveAndFlush(formulaire5);
 
             //LYDEC - PAIEMENT PAR N DE CONTRAT
             Formulaire formulaire6=new Formulaire(null,new ArrayList<>(),null);
@@ -84,18 +104,27 @@ public class InitialDataService {
                 Champ champ61=new Champ(null,"text","numero-contrat","","Numero de Contrat",formulaire6);
                 Champ champ62=new Champ(null,"select","service","<option>Service</option><option>EAU</option><option>ELECTRICITÉ</option><option>MOYENNE TENSION</option>","",formulaire6);
                 champRepository.saveAllAndFlush(List.of(champ61,champ62));
+                    //update formulaire
+                    formulaire6.setChamps(List.of(champ61,champ62));
+//                    formulaireRepository.saveAndFlush(formulaire6);
 
             //LYDEC - PAIEMENT PAR N DE FACTURE
             Formulaire formulaire7=new Formulaire(null,new ArrayList<>(),null);
             formulaireRepository.saveAndFlush(formulaire7);
                 Champ champ71=new Champ(null,"text","numero-facture","","Numero de Facture",formulaire7);
                 champRepository.saveAllAndFlush(List.of(champ71));
+                    //update formulaire
+                    formulaire7.setChamps(List.of(champ71));
+//                    formulaireRepository.saveAndFlush(formulaire7);
 
             //ALCS
             Formulaire formulaire8=new Formulaire(null,new ArrayList<>(),null);
             formulaireRepository.saveAndFlush(formulaire8);
                 Champ champ81=new Champ(null,"number","montant-don","","Montant du don",formulaire8);
                 champRepository.saveAllAndFlush(List.of(champ81));
+                    //update formulaire
+                    formulaire8.setChamps(List.of(champ81));
+//                    formulaireRepository.saveAndFlush(formulaire8);
 
             //TOTAL MAROC-BOOSTER
             Formulaire formulaire9=new Formulaire(null,new ArrayList<>(),null);
@@ -103,6 +132,9 @@ public class InitialDataService {
                 Champ champ91=new Champ(null,"text","reference-fatourati","","Reference Fatourati",formulaire9);
                 Champ champ92=new Champ(null,"number","montant","","Montant",formulaire9);
                 champRepository.saveAllAndFlush(List.of(champ91,champ92));
+                    //update formulaire
+                    formulaire9.setChamps(List.of(champ91,champ92));
+//                    formulaireRepository.saveAndFlush(formulaire9);
 
             //TOTAL MAROC-RECHARGE CARTE
             Formulaire formulaire10=new Formulaire(null,new ArrayList<>(),null);
@@ -110,6 +142,9 @@ public class InitialDataService {
                 Champ champ101=new Champ(null,"text","reference-fatourati","","Reference Fatourati",formulaire10);
                 Champ champ102=new Champ(null,"number","montant","","Montant",formulaire10);
                 champRepository.saveAllAndFlush(List.of(champ101,champ102));
+                    //update formulaire
+                    formulaire10.setChamps(List.of(champ101,champ102));
+//                    formulaireRepository.saveAndFlush(formulaire10);
 
             //AVITO
             Formulaire formulaire11=new Formulaire(null,new ArrayList<>(),null);
@@ -117,6 +152,9 @@ public class InitialDataService {
                 Champ champ111=new Champ(null,"text","reference-fatourati","","Reference Fatourati",formulaire11);
                 Champ champ112=new Champ(null,"number","montant","","Montant",formulaire11);
                 champRepository.saveAllAndFlush(List.of(champ111,champ112));
+                    //update formulaire
+                    formulaire11.setChamps(List.of(champ111,champ112));
+//                    formulaireRepository.saveAndFlush(formulaire11);
 
         //Creances
 
@@ -173,6 +211,56 @@ public class InitialDataService {
                 formulaireRepository.saveAndFlush(formulaire11);
 
         //Impaye
+            //Creancier1 - MAROC TELECOM
+
+                //Creance11 - MOBILE
+                Impaye impaye111=new Impaye(null,"Facture Mobile",200.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2023,05,01,00,00)).getTime(),creance11,new ArrayList<>());
+                Impaye impaye112=new Impaye(null,"Facture Mobile",200.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2023,04,01,00,00)).getTime(),creance11,new ArrayList<>());
+                Impaye impaye113=new Impaye(null,"Facture Mobile",200.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2023,03,01,00,00)).getTime(),creance11,new ArrayList<>());
+                Impaye impaye114=new Impaye(null,"Facture Mobile",200.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2023,02,01,00,00)).getTime(),creance11,new ArrayList<>());
+                Impaye impaye115=new Impaye(null,"Facture Mobile",200.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2022,12,01,00,00)).getTime(),creance11,new ArrayList<>());
+                impayeRepository.saveAllAndFlush(List.of(impaye111,impaye112,impaye113,impaye114,impaye115));
+                    //credentials - group 1
+                        //impaye11
+                        ImpayeCredential impayeCredential111=new ImpayeCredential(null,formulaire1.getChamps().get(0).getName(),"0676168831",impaye111);
+                        ImpayeCredential impayeCredential112=new ImpayeCredential(null,formulaire1.getChamps().get(1).getName(),"10000",impaye111);
+                        //impaye12
+                        ImpayeCredential impayeCredential113=new ImpayeCredential(null,formulaire1.getChamps().get(0).getName(),"0676168831",impaye112);
+                        ImpayeCredential impayeCredential114=new ImpayeCredential(null,formulaire1.getChamps().get(1).getName(),"10000",impaye112);
+                        //impaye13
+                        ImpayeCredential impayeCredential115=new ImpayeCredential(null,formulaire1.getChamps().get(0).getName(),"0676168831",impaye113);
+                        ImpayeCredential impayeCredential116=new ImpayeCredential(null,formulaire1.getChamps().get(1).getName(),"10000",impaye113);
+                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential111,impayeCredential112,impayeCredential113,impayeCredential114,impayeCredential115,impayeCredential116));
+                    //credentials - group2
+                        //impaye14
+                        ImpayeCredential impayeCredential117=new ImpayeCredential(null,formulaire1.getChamps().get(0).getName(),"0677168831",impaye114);
+                        ImpayeCredential impayeCredential118=new ImpayeCredential(null,formulaire1.getChamps().get(1).getName(),"10001",impaye114);
+                        //impaye15
+                        ImpayeCredential impayeCredential119=new ImpayeCredential(null,formulaire1.getChamps().get(0).getName(),"0677168831",impaye115);
+                        ImpayeCredential impayeCredential1110=new ImpayeCredential(null,formulaire1.getChamps().get(1).getName(),"10001",impaye115);
+                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential117,impayeCredential118,impayeCredential119,impayeCredential1110));
+                //Creance13 - INTERNET
+                Impaye impaye131=new Impaye(null,"Facture Internet ADSL",250.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2023,05,01,00,00)).getTime(),creance13,new ArrayList<>());
+                Impaye impaye132=new Impaye(null,"Facture Internet FIBRE",500.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2023,05,01,00,00)).getTime(),creance13,new ArrayList<>());
+                impayeRepository.saveAllAndFlush(List.of(impaye131,impaye132));
+                    //credentials - group 1
+                        //impaye31
+                        ImpayeCredential impayeCredential131=new ImpayeCredential(null,formulaire3.getChamps().get(0).getName(),"12345678",impaye131);
+                        impayeCredentialRepository.saveAndFlush(impayeCredential131);
+                        //impaye32
+                        ImpayeCredential impayeCredential132=new ImpayeCredential(null,formulaire3.getChamps().get(0).getName(),"12300000",impaye132);
+                        impayeCredentialRepository.saveAndFlush(impayeCredential132);
+
+            //Creancier3 - Lydec
+
+            //Creancier4 - ALCS
+                //Creance41 - none
+                Impaye impaye411=new Impaye(null,"Don ALCS",0.0,"simple",false,0L,creance41,new ArrayList<>());
+                    //credentials
+                        //impaye411
+                        ImpayeCredential impayeCredential411=new ImpayeCredential(null,formulaire8.getChamps().get(0).getName(),"0",impaye411);
+                        impayeCredentialRepository.saveAndFlush(impayeCredential411);
+
 
 
         //Agences
