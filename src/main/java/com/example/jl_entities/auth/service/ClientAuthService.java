@@ -50,12 +50,12 @@ public class ClientAuthService {
         if(request.getSolde()<200) return Map.of("message","Le solde minimum est 200DH");
 
         AccountType accountType = accountTypeRepository.findById(request.getIdType()).orElse(null);
-        Double plafond;
-        if (accountType != null) {
-            plafond = accountType.getPlafond();
-        } else {
-            return Map.of("message","Erreur du type de compte");
-        }
+
+        if(accountType==null) return Map.of("message","Erreur de type");
+
+        if(request.getSolde()>accountType.getPlafond())
+            return Map.of("message","Le solde inséré dépasse le plafond");
+
 
         CompteBancaire compteBancaire = new CompteBancaire(null, Randomizer.generateClientCompte(), request.getSolde());
 
