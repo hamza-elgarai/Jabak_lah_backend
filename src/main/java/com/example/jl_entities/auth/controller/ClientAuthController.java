@@ -31,7 +31,7 @@ public class ClientAuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<Map> register(
             @RequestBody ClientRegisterRequest request
     ) {
         return ResponseEntity.ok(service.register(request));

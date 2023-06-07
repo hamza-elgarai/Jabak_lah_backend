@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -95,19 +96,23 @@ public class AgentAuthService {
                 .refreshToken(refreshToken)
                 .build();
     }
-    public AuthenticationResponse changePassword(@RequestBody AuthenticationRequest request){
+    public Map<String,String> changePassword(@RequestBody AuthenticationRequest request){
         Agent agent = repository.findByUsername(request.getUsername()).orElse(null);
-        if(agent==null) return null;
+        if(agent==null) return Map.of("message","Agent non trouvé");
+
+        if(request.getPassword().length()<8) return Map.of("message","Le mot de passe doit contenir 8 caractères ou plus");
+
         agent.setPassword(passwordEncoder.encode(request.getPassword()));
         agent.setIsPasswordChanged(true);
         repository.saveAndFlush(agent);
 
-        var jwtToken = jwtService.generateToken(agent);
-        var refreshToken = jwtService.generateRefreshToken(agent);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
+//        var jwtToken = jwtService.generateToken(agent);
+//        var refreshToken = jwtService.generateRefreshToken(agent);
+//        return AuthenticationResponse.builder()
+//                .token(jwtToken)
+//                .refreshToken(refreshToken)
+//                .build();
+        return Map.of("message","Mot de passe changé");
     }
     public Boolean isPasswordChanged( String username){
         Agent agent= repository.findByUsername(username).orElse(null);

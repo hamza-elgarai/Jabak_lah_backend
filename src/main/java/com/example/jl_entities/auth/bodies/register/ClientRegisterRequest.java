@@ -22,5 +22,6 @@ public class ClientRegisterRequest {
     private String tel;
     private String password;
     private Long idType;
+    private Double solde;
 
 }

@@ -69,9 +69,9 @@ public class FakeDataLoadService {
         ClientRegisterRequest client1;
         ClientRegisterRequest client2;
         ClientRegisterRequest client3;
-        client1 = new ClientRegisterRequest("Hamza","ELGARAI","hamzaelgarai10@gmail.com","0634348550","hamza1234", 1L);
-        client2 = new ClientRegisterRequest("Mohamed","HAMDANI","hamdanimee@gmail.com","0632751035","medqs546", 1L);
-        client3 = new ClientRegisterRequest("Mohamed","BENAARROUCH","medbenarr20@gmail.com","06359820348","medben3544", 1L);
+        client1 = new ClientRegisterRequest("Hamza","ELGARAI","hamzaelgarai10@gmail.com","0634348550","hamza1234", 1L,200.0);
+        client2 = new ClientRegisterRequest("Mohamed","HAMDANI","hamdanimee@gmail.com","0632751035","medqs546", 2L,250.0);
+        client3 = new ClientRegisterRequest("Mohamed","BENAARROUCH","medbenarr20@gmail.com","06359820348","medben3544", 3L,500.0);
 
         clientAuthService.register(client1);
         clientAuthService.register(client2);

@@ -54,13 +54,9 @@ public class AgentAuthController {
     }
     @PostMapping("/change-password")
     @PreAuthorize("isAuthenticated() and #request.username == authentication.principal.username")
-    public ResponseEntity<AuthenticationResponse> changePassword(@RequestBody AuthenticationRequest request){
-        AuthenticationResponse response=null;
-        if(request.getPassword().equals("") || request.getPassword().length()<8 ){
-            return null;
-        }
-        response = service.changePassword(request);
-        if(response==null) return null;
+    public ResponseEntity<Map> changePassword(@RequestBody AuthenticationRequest request){
+
+        Map<String,String> response = service.changePassword(request);
         return ResponseEntity.ok(response);
     }
     @PostMapping("/is-password-changed")

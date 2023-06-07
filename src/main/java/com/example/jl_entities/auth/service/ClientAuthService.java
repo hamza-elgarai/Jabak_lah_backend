@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Map;
 
 
 @Service
@@ -42,21 +43,21 @@ public class ClientAuthService {
     private CompteBancaireRepository compteBancaireRepository;
 
 
-    public AuthenticationResponse register(ClientRegisterRequest request) {
+    public Map<String,String> register(ClientRegisterRequest request) {
         Client current = repository.findByTel(request.getTel()).orElse(null);
-        if(current!=null) return null;
-        System.out.println("There is no client with that phone number, saving ...");
+        if(current!=null) return Map.of("message","Numéro de téléphone existe déjà");
+
+        if(request.getSolde()<200) return Map.of("message","Le solde minimum est 200DH");
 
         AccountType accountType = accountTypeRepository.findById(request.getIdType()).orElse(null);
         Double plafond;
         if (accountType != null) {
             plafond = accountType.getPlafond();
         } else {
-            System.out.println("plafond get problem !!!");
-            return null;
+            return Map.of("message","Erreur du type de compte");
         }
 
-        CompteBancaire compteBancaire = new CompteBancaire(null, Randomizer.generateClientCompte(), plafond);
+        CompteBancaire compteBancaire = new CompteBancaire(null, Randomizer.generateClientCompte(), request.getSolde());
 
         var user = Client.builder()
                 .fname(request.getFname())
@@ -72,12 +73,8 @@ public class ClientAuthService {
                 .build();
         compteBancaireRepository.saveAndFlush(compteBancaire);
         repository.saveAndFlush(user);
-        var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .refreshToken(refreshToken)
-                .build();
+        return Map.of("message","Client créé");
+
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
