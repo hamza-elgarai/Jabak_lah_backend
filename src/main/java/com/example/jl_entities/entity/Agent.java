@@ -38,6 +38,8 @@ public class Agent implements UserDetails {
     @Column(nullable = false)
     private String address;
     @Column(nullable = false)
+    private String email;
+    @Column(nullable = false)
     private String tel;
     @Column(nullable = false)
     private String password;

@@ -40,7 +40,7 @@ public class UserAuthController {
     @PostMapping("/refresh")
     public ResponseEntity<Map> getFromRefreshToken(@RequestBody RefreshTokenRequest request){
         Map<String,String> map = new HashMap<>();
-        map.put("token",service.getFromRefreshToken(request.getToken(),"USER"));
+        map.put("token",service.getFromRefreshToken(request.getToken(),"ADMIN"));
         return ResponseEntity.ok(map);
     }
 

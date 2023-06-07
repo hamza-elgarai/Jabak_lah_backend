@@ -21,6 +21,7 @@ public class AgentRegisterRequest {
     private String birthday;
     private String address;
     private String tel;
+    private String email;
     private String password;
     private String immatriculation;
     private String licenseNumber;

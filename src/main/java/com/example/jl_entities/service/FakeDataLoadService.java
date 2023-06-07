@@ -135,8 +135,8 @@ public class FakeDataLoadService {
         // 6 - Agents
         AgentRegisterRequest agent1;
         AgentRegisterRequest agent2;
-        agent1 = new AgentRegisterRequest("Ahmed","ELMOURABIT","CIN","EE850351","15-02-1994","NR 12 ASKEJOUR MARRAKECH","0632750369","ahmed2345","AEM23548","HH-53154","file_path",1L);
-        agent2 = new AgentRegisterRequest("Karim","BENJELLOUN","CIN","KK586032","30-04-2000","NR 25 LMAARIF CASABLANCA","0653214123","karim@688","KBJ35489","ES-00354","file_path",1L);
+        agent1 = new AgentRegisterRequest("Ahmed","ELMOURABIT","CIN","EE850351","15-02-1994","NR 12 ASKEJOUR MARRAKECH","0632750369","ahmed123@gmail.com","ahmed2345","AEM23548","HH-53154","file_path",1L);
+        agent2 = new AgentRegisterRequest("Karim","BENJELLOUN","CIN","KK586032","30-04-2000","NR 25 LMAARIF CASABLANCA","0653214123","karim456@gmail.com","karim@688","KBJ35489","ES-00354","file_path",1L);
 
         agentAuthService.register(agent1);
         agentAuthService.register(agent2);
