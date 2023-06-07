@@ -88,10 +88,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 System.out.println("Role is weird! doing USER instead");
                 userDetails = this.userDetailsService.loadUserByUsername(username);
             }
-            if(userDetails==null){
-                sendError(response, HttpServletResponse.SC_UNAUTHORIZED, "User not found");
-                return;
-            }
             if(jwtService.isTokenValid(jwt, userDetails)){
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,

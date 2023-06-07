@@ -14,6 +14,7 @@ public class Randomizer {
 
     public static String generateAgentUser(){
         String username = RandomStringUtils.random( 5, alphabetUppercase )+RandomStringUtils.random(4,numbers);
+        System.out.println(username);
         return username;
     }
 
