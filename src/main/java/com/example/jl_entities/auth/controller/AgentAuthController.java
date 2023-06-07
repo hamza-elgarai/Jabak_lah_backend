@@ -28,7 +28,7 @@ public class AgentAuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<Map> register(
             @RequestBody AgentRegisterRequest request
     ){
         return ResponseEntity.ok(service.register(request));
