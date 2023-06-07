@@ -53,6 +53,9 @@ public class AgentAuthService {
         if(!request.getTel().matches(telRegex)){
             return Map.of("message","Le téléphone doit être de format 0XXXXXXXXX");
         }
+        if(!request.getEmail().matches(emailRegex)){
+            return Map.of("message","L'email est invalide");
+        }
 
 
         var user = Agent.builder()
@@ -64,6 +67,7 @@ public class AgentAuthService {
                 .birthday(date)
                 .address(request.getAddress())
                 .tel(request.getTel())
+                .email(request.getEmail())
                 .password(passwordEncoder.encode(Randomizer.generatePassword()))
                 .isPasswordChanged(false)
                 .immatriculation(request.getImmatriculation())
