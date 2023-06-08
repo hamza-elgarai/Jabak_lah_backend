@@ -36,8 +36,8 @@ public class InitialDataService {
 
         //Account types
         AccountType accountType1 = new AccountType(null,1,2000.0);
-        AccountType accountType2 = new AccountType(null,2,2000.0);
-        AccountType accountType3 = new AccountType(null,3,50000.0);
+        AccountType accountType2 = new AccountType(null,2,10000.0);
+        AccountType accountType3 = new AccountType(null,3,100000.0);
         accountTypeRepository.saveAllAndFlush(List.of(accountType1,accountType2,accountType3));
 
         //Creancier
@@ -58,7 +58,7 @@ public class InitialDataService {
                 Champ champ12=new Champ(null,"text","code-fidelio","","Code Fidelio",formulaire1);
                 champRepository.saveAllAndFlush(List.of(champ11,champ12));
                     //update formulaire
-                    formulaire1.setChamps(List.of(champ11,champ12));
+                    formulaire1.getChamps().addAll(List.of(champ11,champ12));
 //                    formulaireRepository.saveAndFlush(formulaire1);
 
             //MAROC TELECOM - FIXE
@@ -68,7 +68,7 @@ public class InitialDataService {
                 Champ champ22=new Champ(null,"text","code-confidentiel","","Code Confidentiel",formulaire2);
                 champRepository.saveAllAndFlush(List.of(champ21,champ22));
                     //update formulaire
-                    formulaire2.setChamps(List.of(champ21,champ22));
+                    formulaire2.getChamps().addAll(List.of(champ21,champ22));
 //                    formulaireRepository.saveAndFlush(formulaire2);
 
             //MAROC TELECOM - INTERNET
@@ -77,7 +77,7 @@ public class InitialDataService {
                 Champ champ31=new Champ(null,"text","identifiant-paiement","","Identifiant Paiement",formulaire3);
                 champRepository.saveAllAndFlush(List.of(champ31));
                     //update formulaire
-                    formulaire3.setChamps(List.of(champ31));
+                    formulaire3.getChamps().addAll(List.of(champ31));
 //                    formulaireRepository.saveAndFlush(formulaire3);
 
             //WIN BY INWI
@@ -86,7 +86,7 @@ public class InitialDataService {
                 Champ champ41=new Champ(null,"text","reference-fatourati","","Reference Fatourati",formulaire4);
                 champRepository.saveAllAndFlush(List.of(champ41));
                     //update formulaire
-                    formulaire4.setChamps(List.of(champ41));
+                    formulaire4.getChamps().addAll(List.of(champ41));
 //                    formulaireRepository.saveAndFlush(formulaire4);
 
             //LYDEC - PAIEMENT PAR REFERENCE
@@ -95,7 +95,7 @@ public class InitialDataService {
                 Champ champ51=new Champ(null,"text","reference","","Reference",formulaire5);
                 champRepository.saveAllAndFlush(List.of(champ51));
                     //update formulaire
-                    formulaire5.setChamps(List.of(champ51));
+                    formulaire5.getChamps().addAll(List.of(champ51));
 //                    formulaireRepository.saveAndFlush(formulaire5);
 
             //LYDEC - PAIEMENT PAR N DE CONTRAT
@@ -105,7 +105,7 @@ public class InitialDataService {
                 Champ champ62=new Champ(null,"select","service","<option>Service</option><option>EAU</option><option>ELECTRICITE</option><option>MOYENNE TENSION</option>","",formulaire6);
                 champRepository.saveAllAndFlush(List.of(champ61,champ62));
                     //update formulaire
-                    formulaire6.setChamps(List.of(champ61,champ62));
+                    formulaire6.getChamps().addAll(List.of(champ61,champ62));
 //                    formulaireRepository.saveAndFlush(formulaire6);
 
             //LYDEC - PAIEMENT PAR N DE FACTURE
@@ -114,7 +114,7 @@ public class InitialDataService {
                 Champ champ71=new Champ(null,"text","numero-facture","","Numero de Facture",formulaire7);
                 champRepository.saveAllAndFlush(List.of(champ71));
                     //update formulaire
-                    formulaire7.setChamps(List.of(champ71));
+                    formulaire7.getChamps().addAll(List.of(champ71));
 //                    formulaireRepository.saveAndFlush(formulaire7);
 
             //ALCS
@@ -123,7 +123,7 @@ public class InitialDataService {
                 Champ champ81=new Champ(null,"number","montant-don","","Montant du don",formulaire8);
                 champRepository.saveAllAndFlush(List.of(champ81));
                     //update formulaire
-                    formulaire8.setChamps(List.of(champ81));
+                    formulaire8.getChamps().addAll(List.of(champ81));
 //                    formulaireRepository.saveAndFlush(formulaire8);
 
             //TOTAL MAROC-BOOSTER
@@ -133,7 +133,7 @@ public class InitialDataService {
                 Champ champ92=new Champ(null,"number","montant","","Montant",formulaire9);
                 champRepository.saveAllAndFlush(List.of(champ91,champ92));
                     //update formulaire
-                    formulaire9.setChamps(List.of(champ91,champ92));
+                    formulaire9.getChamps().addAll(List.of(champ91,champ92));
 //                    formulaireRepository.saveAndFlush(formulaire9);
 
             //TOTAL MAROC-RECHARGE CARTE
@@ -143,7 +143,7 @@ public class InitialDataService {
                 Champ champ102=new Champ(null,"number","montant","","Montant",formulaire10);
                 champRepository.saveAllAndFlush(List.of(champ101,champ102));
                     //update formulaire
-                    formulaire10.setChamps(List.of(champ101,champ102));
+                    formulaire10.getChamps().addAll(List.of(champ101,champ102));
 //                    formulaireRepository.saveAndFlush(formulaire10);
 
             //AVITO
@@ -153,7 +153,7 @@ public class InitialDataService {
                 Champ champ112=new Champ(null,"number","montant","","Montant",formulaire11);
                 champRepository.saveAllAndFlush(List.of(champ111,champ112));
                     //update formulaire
-                    formulaire11.setChamps(List.of(champ111,champ112));
+                    formulaire11.getChamps().addAll(List.of(champ111,champ112));
 //                    formulaireRepository.saveAndFlush(formulaire11);
 
         //Creances
@@ -191,7 +191,7 @@ public class InitialDataService {
             Creance creance41=new Creance(null,"41","none",creancier4,formulaire8);
             creanceRepository.saveAndFlush(creance41);
                 //Update formulaire
-                formulaire8.setCreance(creance41);
+                    formulaire8.setCreance(creance41);
                 formulaireRepository.saveAndFlush(formulaire8);
 
             //Creancier5 - TOTAL MAROC
@@ -293,6 +293,7 @@ public class InitialDataService {
 
                 //Creance41 - none
                 Impaye impaye411=new Impaye(null,"Don ALCS",0.0,"simple",false,0L,creance41,new ArrayList<>());
+                impayeRepository.saveAndFlush(impaye411);
                     //credentials
                         //impaye411
                         ImpayeCredential impayeCredential411=new ImpayeCredential(null,formulaire8.getChamps().get(0).getName(),"0",impaye411);
