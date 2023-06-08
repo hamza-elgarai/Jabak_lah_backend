@@ -211,8 +211,8 @@ public class InitialDataService {
                 formulaireRepository.saveAndFlush(formulaire11);
 
         //Impaye
-            //Creancier1 - MAROC TELECOM
 
+            //Creancier1 - MAROC TELECOM
                 //Creance11 - MOBILE
                 Impaye impaye111=new Impaye(null,"Facture Mobile",200.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2023,05,01,00,00)).getTime(),creance11,new ArrayList<>());
                 Impaye impaye112=new Impaye(null,"Facture Mobile",200.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2023,04,01,00,00)).getTime(),creance11,new ArrayList<>());
@@ -256,6 +256,24 @@ public class InitialDataService {
                         ImpayeCredential impayeCredential132=new ImpayeCredential(null,formulaire3.getChamps().get(0).getName(),"12300000",impaye132);
                         impayeCredentialRepository.saveAndFlush(impayeCredential132);
 
+            //Creancier2 - WIN BY INWI
+                //Creance21 - none
+                Impaye impaye211=new Impaye(null,"Achats par internet",169.00,"simple",false,Timestamp.valueOf(LocalDateTime.of(2023,05,01,00,00,00)).getTime(),creance21,new ArrayList<>());
+                Impaye impaye212=new Impaye(null,"Achats par internet",169.00,"simple",false,Timestamp.valueOf(LocalDateTime.of(2023,04,01,00,00,00)).getTime(),creance21,new ArrayList<>());
+                Impaye impaye213=new Impaye(null,"Achats par internet",169.00,"simple",false,Timestamp.valueOf(LocalDateTime.of(2023,05,01,00,00,00)).getTime(),creance21,new ArrayList<>());
+                impayeRepository.saveAllAndFlush(List.of(impaye211,impaye212,impaye213));
+                    //credentials - group 1
+                        //impaye211
+                        ImpayeCredential impayeCredential211=new ImpayeCredential(null,formulaire4.getChamps().get(0).getName(),"12341165",impaye211);
+                        impayeCredentialRepository.saveAndFlush(impayeCredential211);
+                        //impaye212
+                        ImpayeCredential impayeCredential212=new ImpayeCredential(null,formulaire4.getChamps().get(0).getName(),"12341165",impaye212);
+                        impayeCredentialRepository.saveAndFlush(impayeCredential212);
+                    //credentials - group 2
+                        //impaye213
+                        ImpayeCredential impayeCredential213=new ImpayeCredential(null,formulaire4.getChamps().get(0).getName(),"34560987",impaye213);
+                        impayeCredentialRepository.saveAndFlush(impayeCredential213);
+
             //Creancier3 - Lydec
                 //Creance32 - Paiement par N de Contrat
                 Impaye impaye321=new Impaye(null,"Paiement par N de Contrat",400.00,"simple",false,Timestamp.valueOf(LocalDateTime.of(2023,02,01,00,00,00)).getTime(),creance32,new ArrayList<>());
@@ -271,9 +289,8 @@ public class InitialDataService {
                         ImpayeCredential impayeCredential324=new ImpayeCredential(null,formulaire6.getChamps().get(0).getName(),"EAU",impaye322);
                         impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential323,impayeCredential324));
 
-
-
             //Creancier4 - ALCS
+
                 //Creance41 - none
                 Impaye impaye411=new Impaye(null,"Don ALCS",0.0,"simple",false,0L,creance41,new ArrayList<>());
                     //credentials
