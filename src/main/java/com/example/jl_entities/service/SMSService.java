@@ -3,6 +3,10 @@ package com.example.jl_entities.service;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import com.vonage.client.VonageClient;
+import com.vonage.client.sms.MessageStatus;
+import com.vonage.client.sms.SmsSubmissionResponse;
+import com.vonage.client.sms.messages.TextMessage;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +41,23 @@ public class SMSService {
                 smsMessage).create();
 
         return message.getStatus().toString();
+    }
+    public String sendVonageSms(String number,String smsMessage) {
+        System.out.println(number);
+        VonageClient client = VonageClient.builder().apiKey("30ac1021").apiSecret("8fMBYUpb90TTMs0Q").build();
+        TextMessage message = new TextMessage("Vonage APIs",
+                number,
+                smsMessage
+        );
+
+        SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+
+        if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
+            return "success";
+        } else {
+            System.out.println(response.getMessages().get(0).getErrorText());
+            return "error";
+        }
     }
 
 }

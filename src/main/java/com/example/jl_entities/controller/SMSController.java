@@ -58,14 +58,13 @@ public class SMSController {
         }
         String smsMessage = "Your verification code is: " + generatedCode;
         System.out.println(smsMessage);
+        String status = smsService.sendVonageSms(smsNumber, smsMessage);
+        if (status.equals("success")) {
+            return Map.of("message","L'SMS est envoyé");
+        } else {
+            return Map.of("messsage","Echec de l'envoi de l'SMS");
+        }
 
-        return Map.of("message","success");
-//        String status = smsService.sendSMS(smsNumber, smsMessage);
-//        if (status.equals("queued") || status.equals("sent")) {
-//            return "SMS sent successfully";
-//        } else {
-//            return "Failed to send SMS";
-//        }
     }
 
     private String generateCode() {
