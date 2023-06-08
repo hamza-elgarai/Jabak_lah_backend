@@ -10,6 +10,7 @@ import com.example.jl_entities.entity.Agent;
 import com.example.jl_entities.randomizer.Randomizer;
 import com.example.jl_entities.repository.AgencyRepository;
 import com.example.jl_entities.repository.AgentRepository;
+import com.example.jl_entities.service.EmailService;
 import com.example.jl_entities.userservice.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class AgentAuthService {
     private final AuthenticationProvider agentAuthProvider;
     @Autowired
     private AgencyRepository agencyRepository;
+    private final EmailService emailService;
 
     public Map<String,String> register(AgentRegisterRequest request) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -57,18 +59,20 @@ public class AgentAuthService {
             return Map.of("message","L'email est invalide");
         }
 
+        String generatedPassword = Randomizer.generatePassword();
+        String generatedUsername = Randomizer.generateAgentUser();
 
         var user = Agent.builder()
                 .fname(request.getFname())
                 .lname(request.getLname())
                 .identityType(request.getIdentityType())
                 .identityNumber(request.getIdentityNumber())
-                .username(Randomizer.generateAgentUser())
+                .username(generatedUsername)
                 .birthday(date)
                 .address(request.getAddress())
                 .tel(request.getTel())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(Randomizer.generatePassword()))
+                .password(passwordEncoder.encode(generatedPassword))
                 .isPasswordChanged(false)
                 .immatriculation(request.getImmatriculation())
                 .licenseNumber(request.getLicenseNumber())
@@ -77,6 +81,9 @@ public class AgentAuthService {
                 .agency(agency)
                 .build();
         repository.saveAndFlush(user);
+
+        String emailMessage = "Here's your username : " + generatedUsername +" and your password is: " + generatedPassword + ". Please change it once you're connected to secure your account.";
+        emailService.sendMail(request.getEmail(), "Welcome agent: "+ request.getFname() + " " + request.getLname() + " to our bank", emailMessage);
 //        var jwtToken = jwtService.generateToken(user);
 //        var refreshToken = jwtService.generateRefreshToken(user);
 //        return AuthenticationResponse.builder()
