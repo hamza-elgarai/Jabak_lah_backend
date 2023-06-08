@@ -6,6 +6,7 @@ import com.example.jl_entities.bodies.EditClientRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.repository.*;
 import com.example.jl_entities.service.FakeDataLoadService;
+import com.example.jl_entities.service.InitialDataService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.apache.coyote.Response;
@@ -41,10 +42,13 @@ public class PaiementController {
     private CompteBancaireRepository compteBancaireRepository;
     @Autowired
     private OperationRepository operationRepository;
+    @Autowired
+    private InitialDataService initialDataService;
 
     @GetMapping("/load-data")
     private String loadData(){
-        fakeDataLoadService.loadData();
+//        fakeDataLoadService.loadData();
+        initialDataService.loadData();
         return "Successfully loaded data!";
     }
 
