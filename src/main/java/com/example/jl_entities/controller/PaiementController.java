@@ -2,30 +2,28 @@ package com.example.jl_entities.controller;
 
 import com.example.jl_entities.CreanceNotFoundException;
 import com.example.jl_entities.CredentialsRequest;
+import com.example.jl_entities.bodies.ConfirmerPayementBody;
 import com.example.jl_entities.bodies.EditClientRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.repository.*;
 import com.example.jl_entities.service.FakeDataLoadService;
 import com.example.jl_entities.service.InitialDataService;
+import com.example.jl_entities.service.PaiementService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
 @RestController
 @RequestMapping("/")
 @NoArgsConstructor
 @AllArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000","https://6481213b9f815c007cfc023a--aquamarine-sprinkles-1893c1.netlify.app/"})
 @ComponentScan(basePackageClasses = FakeDataLoadService.class)
 public class PaiementController {
     @Autowired
@@ -44,6 +42,9 @@ public class PaiementController {
     private OperationRepository operationRepository;
     @Autowired
     private InitialDataService initialDataService;
+    @Autowired
+    private PaiementService paiementService;
+
 
     @GetMapping("/load-data")
     private String loadData(){
@@ -92,10 +93,11 @@ public class PaiementController {
         }
 
         compteBancaire.setSolde(newSolde);
+        Operation op = new Operation(null,"versement","Versement de l'agent", new Date().getTime(),versement,compteBancaire);
+        compteBancaire.getOperations().add(op);
+        operationRepository.saveAndFlush(op);
         compteBancaireRepository.saveAndFlush(compteBancaire);
 
-        Operation op = new Operation(null,"versement","Versement de l'agent", new Date().getTime(),versement,compteBancaire);
-        operationRepository.saveAndFlush(op);
 
         return ResponseEntity.ok(Map.of("message","Versement ajouté de "+versement+" DH"));
     }
@@ -138,6 +140,17 @@ public class PaiementController {
             return ResponseEntity.status(404).body(new ArrayList<>());
         }
     }
+
+    @PostMapping("/pay")
+    private ResponseEntity<Map> pay(@RequestBody ConfirmerPayementBody request){
+        Map<String,String> result = paiementService.confirmerPayement(request);
+        if(!result.get("message").equals("Paiement effectué")){
+            return ResponseEntity.status(403).body(result);
+        }
+        return ResponseEntity.ok(result);
+
+    }
+
     @GetMapping("/agencies")
     private List<Agency> getAgencies(){
         return agencyRepository.findAll();

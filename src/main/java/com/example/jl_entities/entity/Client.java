@@ -1,11 +1,9 @@
 package com.example.jl_entities.entity;
 
 import com.example.jl_entities.userservice.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,7 +35,9 @@ public class Client implements UserDetails {
 
     @ManyToOne(fetch = FetchType.EAGER,targetEntity = AccountType.class)
     private AccountType type;
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "client")
+    @ToString.Exclude
     List<Paiement> paiements;
 
     @OneToOne

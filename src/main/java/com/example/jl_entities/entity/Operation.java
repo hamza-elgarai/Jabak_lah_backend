@@ -1,12 +1,13 @@
 package com.example.jl_entities.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.example.jl_entities.serializer.HibernateProxySerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -19,6 +20,8 @@ public class Operation {
     private String description;
     private Long date;
     private Double amount;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonSerialize(using = HibernateProxySerializer.class)
+    @ToString.Exclude
     private CompteBancaire compteBancaire;
 }
