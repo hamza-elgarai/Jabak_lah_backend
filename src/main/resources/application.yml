@@ -12,11 +12,23 @@ spring:
       root
     password:
 #      AT9kiHQ4bMOw
-      V@ste789
+      7F9K1N3O
 #      Massaq51354
     driver-class-name:
 #      org.postgresql.Driver
       com.mysql.cj.jdbc.Driver
+  mail:
+    host: smtp.gmail.com
+    username: mohamedham72@gmail.com
+    password: yhbnfisjibqkodxl
+    port: 587
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+
 
 
 server:
@@ -27,3 +39,4 @@ twilio:
   account-sid: AC2e6a7c5d18e16fead92005b1369f3e58
   auth-token: ea2cfae727861197da12a38aa917d61e
   trial-phone-number: +12543303862
+

@@ -17,7 +17,7 @@ public class SMSController {
         this.smsService = smsService;
     }
 
-    @PostMapping("/send")
+    @PostMapping("/sendsms")
     public String sendSMS(@RequestBody SMSSendRequest sendRequest){
 
         String smsNumber = sendRequest.getDestinationSMSNumber();

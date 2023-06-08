@@ -12,6 +12,7 @@ import com.example.jl_entities.randomizer.Randomizer;
 import com.example.jl_entities.repository.AccountTypeRepository;
 import com.example.jl_entities.repository.ClientRepository;
 import com.example.jl_entities.repository.CompteBancaireRepository;
+import com.example.jl_entities.service.EmailService;
 import com.example.jl_entities.userservice.Role;
 import com.mysql.cj.jdbc.exceptions.SQLError;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class ClientAuthService {
     private AccountTypeRepository accountTypeRepository;
     @Autowired
     private CompteBancaireRepository compteBancaireRepository;
+    private final EmailService emailService;
 
 
     public Map<String,String> register(ClientRegisterRequest request) {
@@ -69,6 +71,8 @@ public class ClientAuthService {
 
         CompteBancaire compteBancaire = new CompteBancaire(null, Randomizer.generateClientCompte(), request.getSolde());
 
+        String generatedPassword = Randomizer.generatePassword();
+
         var user = Client.builder()
                 .fname(request.getFname())
                 .lname(request.getLname())
@@ -77,12 +81,16 @@ public class ClientAuthService {
                 .verificationStatus("pending")
                 .tel(request.getTel())
                 .type(accountType)
-                .password(passwordEncoder.encode(Randomizer.generatePassword()))
+                .password(passwordEncoder.encode(generatedPassword))
                 .isPasswordChanged(false)
                 .role(Role.CLIENT)
                 .build();
         compteBancaireRepository.saveAndFlush(compteBancaire);
         repository.saveAndFlush(user);
+
+        String emailMessage = "Your password is: " + generatedPassword + ". Please change it once you're connected to secure your account.";
+        emailService.sendMail(request.getEmail(), "Welcome client: "+ request.getFname() + " " + request.getLname() + " to our bank", emailMessage);
+
         return Map.of("message","Client créé");
 
     }
