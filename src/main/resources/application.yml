@@ -22,3 +22,8 @@ spring:
 server:
   port: 8090
 spring.jpa.show-sql: true
+
+twilio:
+  account-sid: AC2e6a7c5d18e16fead92005b1369f3e58
+  auth-token: ea2cfae727861197da12a38aa917d61e
+  trial-phone-number: +12543303862
