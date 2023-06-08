@@ -10,4 +10,5 @@ import java.util.List;
 public class ConfirmerPayementBody {
     private List<Long> impayes;
     private Long clientId;
+    private String code;
 }

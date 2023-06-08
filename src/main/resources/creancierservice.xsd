@@ -25,6 +25,8 @@
                 </xs:simpleType>
             </xs:element>
             <xs:element name="clientId" type="xs:long"/>
+            <xs:element name="code" type="xs:string"/>
+
         </xs:sequence>
     </xs:complexType>
 

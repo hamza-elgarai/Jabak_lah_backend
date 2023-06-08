@@ -23,6 +23,9 @@ public class PaiementService {
     private ImpayeRepository impayeRepository;
     @Autowired
     private CompteBancaireRepository compteBancaireRepository;
+    @Autowired
+    private VerificationCodeRepository verificationCodeRepository;
+
 
 
     public Map<String,String> confirmerPayement(ConfirmerPayementBody request){
@@ -33,6 +36,20 @@ public class PaiementService {
         //Check compte
         CompteBancaire compteBancaire = client.getCompteBancaire();
         if(compteBancaire==null) return Map.of("message","Can't find compte");
+        //Check verification code
+        List<VerificationCode> codeList = verificationCodeRepository.findByClientId(request.getClientId());
+        if(codeList.size()==0){
+            return Map.of("message","Le code est erroné");
+        }
+        if(!codeList.get(0).getClient().getId().equals(request.getClientId())){
+            return Map.of("message","Le code de vérification est erroné");
+        }
+        if(!codeList.get(0).getCode().equals(request.getCode())){
+            System.out.println(request.getCode());
+            System.out.println(codeList.get(0).getCode());
+            return Map.of("message","Code est erroné");
+        }
+
 
         //get impayes
         List<Impaye> impayes = new ArrayList<>();
