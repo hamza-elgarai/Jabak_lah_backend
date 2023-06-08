@@ -24,7 +24,7 @@ import java.util.*;
 @RequestMapping("/")
 @NoArgsConstructor
 @AllArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000","https://6481213b9f815c007cfc023a--aquamarine-sprinkles-1893c1.netlify.app/"})
 @ComponentScan(basePackageClasses = FakeDataLoadService.class)
 public class PaiementController {
     @Autowired

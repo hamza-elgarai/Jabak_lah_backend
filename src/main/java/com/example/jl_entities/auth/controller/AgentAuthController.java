@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/agent/auth")
-@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:3000","https://6481213b9f815c007cfc023a--aquamarine-sprinkles-1893c1.netlify.app/"})
 @RequiredArgsConstructor
 public class AgentAuthController {
     @Autowired
