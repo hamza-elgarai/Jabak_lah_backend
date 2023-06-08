@@ -88,10 +88,11 @@ public class PaiementController {
         }
 
         compteBancaire.setSolde(newSolde);
+        Operation op = new Operation(null,"versement","Versement de l'agent", new Date().getTime(),versement,compteBancaire);
+        compteBancaire.getOperations().add(op);
+        operationRepository.saveAndFlush(op);
         compteBancaireRepository.saveAndFlush(compteBancaire);
 
-        Operation op = new Operation(null,"versement","Versement de l'agent", new Date().getTime(),versement,compteBancaire);
-        operationRepository.saveAndFlush(op);
 
         return ResponseEntity.ok(Map.of("message","Versement ajouté de "+versement+" DH"));
     }
