@@ -2,22 +2,20 @@ package com.example.jl_entities.controller;
 
 import com.example.jl_entities.CreanceNotFoundException;
 import com.example.jl_entities.CredentialsRequest;
+import com.example.jl_entities.bodies.ConfirmerPayementBody;
 import com.example.jl_entities.bodies.EditClientRequest;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.repository.*;
 import com.example.jl_entities.service.FakeDataLoadService;
+import com.example.jl_entities.service.PaiementService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 
 @RestController
@@ -41,6 +39,8 @@ public class PaiementController {
     private CompteBancaireRepository compteBancaireRepository;
     @Autowired
     private OperationRepository operationRepository;
+    @Autowired
+    private PaiementService paiementService;
 
     @GetMapping("/load-data")
     private String loadData(){
@@ -135,6 +135,17 @@ public class PaiementController {
             return ResponseEntity.status(404).body(new ArrayList<>());
         }
     }
+
+    @PostMapping("/pay")
+    private ResponseEntity<Map> pay(@RequestBody ConfirmerPayementBody request){
+        Map<String,String> result = paiementService.confirmerPayement(request);
+        if(!result.get("message").equals("Paiement effectué")){
+            return ResponseEntity.status(403).body(result);
+        }
+        return ResponseEntity.ok(result);
+
+    }
+
     @GetMapping("/agencies")
     private List<Agency> getAgencies(){
         return agencyRepository.findAll();

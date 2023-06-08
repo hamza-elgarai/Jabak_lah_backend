@@ -2,7 +2,7 @@
 // Ce fichier a été généré par Eclipse Implementation of JAXB, v3.0.0 
 // Voir https://eclipse-ee4j.github.io/jaxb-ri 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2023.06.04 à 12:22:28 AM WEST 
+// Généré le : 2023.06.08 à 05:47:53 PM WEST 
 //
 
 
@@ -34,6 +34,14 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link ConfirmerPayementResponse }
+     * 
+     */
+    public ConfirmerPayementResponse createConfirmerPayementResponse() {
+        return new ConfirmerPayementResponse();
     }
 
     /**
@@ -141,6 +149,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ConfirmerPayementRequest }
+     * 
+     */
+    public ConfirmerPayementRequest createConfirmerPayementRequest() {
+        return new ConfirmerPayementRequest();
+    }
+
+    /**
      * Create an instance of {@link Credential }
      * 
      */
@@ -154,6 +170,14 @@ public class ObjectFactory {
      */
     public ChampSoap createChampSoap() {
         return new ChampSoap();
+    }
+
+    /**
+     * Create an instance of {@link ConfirmerPayementResponse.Entry }
+     * 
+     */
+    public ConfirmerPayementResponse.Entry createConfirmerPayementResponseEntry() {
+        return new ConfirmerPayementResponse.Entry();
     }
 
 }

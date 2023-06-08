@@ -3,19 +3,19 @@ package com.example.jl_entities.endpoint;
 
 import com.example.jl_entities.CreanceNotFoundException;
 import com.example.jl_entities.CredentialsRequest;
+import com.example.jl_entities.bodies.ConfirmerPayementBody;
 import com.example.jl_entities.entity.*;
 import com.example.jl_entities.service.CreancierService;
+import com.example.jl_entities.service.PaiementService;
 import com.jl_entities.creancierservice.*;
+import jakarta.xml.bind.JAXBElement;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.soap.*;
 
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +28,33 @@ public class CreancierServiceEndpoint {
 
     @Autowired
     private CreancierService creancierService;
+    @Autowired
+    private PaiementService paiementService;
+
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "ConfirmerPayementRequest")
+    @ResponsePayload
+    public JAXBElement<ConfirmerPayementResponse> confirmerPayement(@RequestPayload JAXBElement<ConfirmerPayementRequest> req) {
+        ConfirmerPayementRequest request = req.getValue();
+        ConfirmerPayementBody requestBody = new ConfirmerPayementBody();
+        requestBody.setClientId(request.getClientId());
+        requestBody.setImpayes(request.getImpayes());
+        Map<String,String> result = paiementService.confirmerPayement(requestBody);
+
+        ConfirmerPayementResponse response = new ConfirmerPayementResponse();
+        ConfirmerPayementResponse.Entry entry = new ConfirmerPayementResponse.Entry();
+        entry.setKey("message");
+        entry.setValue(result.get("message"));
+        response.getEntry().add(entry);
+
+        QName responseQName = new QName(NAMESPACE_URI, "ConfirmerPayementResponse");
+        JAXBElement<ConfirmerPayementResponse> resp = new JAXBElement<>(responseQName, ConfirmerPayementResponse.class, response);
+        resp.setValue(response);
+
+
+        return resp;
+    }
+
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetAllCreanciersRequest")
     @ResponsePayload

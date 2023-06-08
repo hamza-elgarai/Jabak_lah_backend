@@ -17,6 +17,30 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:complexType name="ConfirmerPayementRequest">
+        <xs:sequence>
+            <xs:element name="impayes" minOccurs="0" maxOccurs="unbounded">
+                <xs:simpleType>
+                    <xs:restriction base="xs:long"/>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="clientId" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ConfirmerPayementResponse">
+        <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="key" type="xs:string"/>
+                        <xs:element name="value" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:element name="GetAllCreanciersRequest">
         <xs:complexType>
             <xs:sequence>
