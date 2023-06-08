@@ -67,7 +67,7 @@ public class ClientAuthService {
             return Map.of("message","Le solde inséré dépasse le plafond");
 
 
-        CompteBancaire compteBancaire = new CompteBancaire(null, Randomizer.generateClientCompte(), request.getSolde());
+        CompteBancaire compteBancaire = new CompteBancaire(null, Randomizer.generateClientCompte(), request.getSolde(),null);
 
         var user = Client.builder()
                 .fname(request.getFname())
