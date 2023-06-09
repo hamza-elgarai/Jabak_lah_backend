@@ -42,7 +42,7 @@ public class InitialDataService {
 
         //Creancier
         Creancier creancier1=new Creancier(null,"iam","Maroc Telecom","../../assets/iam.png");
-        Creancier creancier2=new Creancier(null,"no-creance","WinByInwi","../../assets/winByInwi.png");
+        Creancier creancier2=new Creancier(null,"no-creance","WinByInwi","../../assets/win-by-inwi.png");
         Creancier creancier3=new Creancier(null,"lydec","Lydec","../../assets/lydec.png");
         Creancier creancier4=new Creancier(null,"donation","ALCS","../../assets/alcs.png");
         Creancier creancier5=new Creancier(null,"total-maroc","TOTAL Maroc","../../assets/total-maroc.png");
@@ -192,7 +192,7 @@ public class InitialDataService {
                         formulaire7));
 
             //Creancier4 - ALCS
-            Creance creance41=new Creance(null,"41","none",creancier4,formulaire8);
+            Creance creance41=new Creance(null,"41","Donation",creancier4,formulaire8);
             creanceRepository.saveAndFlush(creance41);
                 //Update formulaire
                     formulaire8.setCreance(creance41);
@@ -208,13 +208,18 @@ public class InitialDataService {
                 formulaireRepository.saveAllAndFlush(List.of(formulaire9,formulaire10));
 
             //Creancier6 - AVITO
-            Creance creance61=new Creance(null,"61","none",creancier6,formulaire11);
+            Creance creance61=new Creance(null,"61","AVITO",creancier6,formulaire11);
             creanceRepository.saveAndFlush(creance61);
                 //Update formulaire
                 formulaire11.setCreance(creance61);
                 formulaireRepository.saveAndFlush(formulaire11);
 
         //Impaye
+            //Frais
+                Creance creance01=new Creance(null,"00","Frais",null,null);
+                creanceRepository.saveAndFlush(creance01);
+                Impaye impaye01=new Impaye(null,"Frais de paiement en ligne",0.1,"frais",false,Timestamp.valueOf(LocalDateTime.of(2023,01,01,00,00)).getTime(),creance01,new ArrayList<>());
+                impayeRepository.saveAndFlush(impaye01);
 
             //Creancier1 - MAROC TELECOM
                 //Creance11 - MOBILE
@@ -236,7 +241,10 @@ public class InitialDataService {
                         //impaye113
                         ImpayeCredential impayeCredential115=new ImpayeCredential(null,formulaire1.getChamps().get(0).getName(),"0676168831",impaye113);
                         ImpayeCredential impayeCredential116=new ImpayeCredential(null,formulaire1.getChamps().get(1).getName(),"10000",impaye113);
-                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential111,impayeCredential112,impayeCredential113,impayeCredential114,impayeCredential115,impayeCredential116));
+                        //impaye116
+                        ImpayeCredential impayeCredential110=new ImpayeCredential(null,formulaire1.getChamps().get(0).getName(),"0676168831",impaye116);
+                        ImpayeCredential impayeCredential1100=new ImpayeCredential(null,formulaire1.getChamps().get(1).getName(),"10000",impaye116);
+                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential111,impayeCredential112,impayeCredential113,impayeCredential114,impayeCredential115,impayeCredential116,impayeCredential110,impayeCredential1100));
                     //credentials - group2
                         //impaye114
                         ImpayeCredential impayeCredential117=new ImpayeCredential(null,formulaire1.getChamps().get(0).getName(),"0677168831",impaye114);
@@ -244,7 +252,10 @@ public class InitialDataService {
                         //impaye115
                         ImpayeCredential impayeCredential119=new ImpayeCredential(null,formulaire1.getChamps().get(0).getName(),"0677168831",impaye115);
                         ImpayeCredential impayeCredential1110=new ImpayeCredential(null,formulaire1.getChamps().get(1).getName(),"10001",impaye115);
-                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential117,impayeCredential118,impayeCredential119,impayeCredential1110));
+                        //impaye116
+                        ImpayeCredential impayeCredential11000=new ImpayeCredential(null,formulaire1.getChamps().get(0).getName(),"0677168831",impaye116);
+                        ImpayeCredential impayeCredential110000=new ImpayeCredential(null,formulaire1.getChamps().get(1).getName(),"10001",impaye116);
+                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential117,impayeCredential118,impayeCredential119,impayeCredential1110,impayeCredential110000,impayeCredential1100));
                 //Creance13 - INTERNET
                 Impaye impaye131=new Impaye(null,"Facture Internet ADSL",250.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2023,05,01,00,00)).getTime(),creance13,new ArrayList<>());
                 Impaye impaye132=new Impaye(null,"Facture Internet FIBRE",500.00,"simple",false, Timestamp.valueOf(LocalDateTime.of(2023,01,01,00,00)).getTime(),creance13,new ArrayList<>());
@@ -254,11 +265,13 @@ public class InitialDataService {
                     //credentials - group 1
                         //impaye131
                         ImpayeCredential impayeCredential131=new ImpayeCredential(null,formulaire3.getChamps().get(0).getName(),"12345678",impaye131);
-                        impayeCredentialRepository.saveAndFlush(impayeCredential131);
+                        ImpayeCredential impayeCredential1310=new ImpayeCredential(null,formulaire3.getChamps().get(0).getName(),"12345678",impaye133);
+                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential131,impayeCredential1310));
                     //creadentials - group 2
                         //impaye132
                         ImpayeCredential impayeCredential132=new ImpayeCredential(null,formulaire3.getChamps().get(0).getName(),"12300000",impaye132);
-                        impayeCredentialRepository.saveAndFlush(impayeCredential132);
+                        ImpayeCredential impayeCredential13100=new ImpayeCredential(null,formulaire3.getChamps().get(0).getName(),"12300000",impaye133);
+                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential132,impayeCredential13100));
 
             //Creancier2 - WIN BY INWI
                 //Creance21 - none

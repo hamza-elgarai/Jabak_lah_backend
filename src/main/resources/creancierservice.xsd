@@ -114,6 +114,7 @@
             <xs:element name="price" type="xs:double"/>
             <xs:element name="isPaid" type="xs:boolean"/>
             <xs:element name="date" type="xs:long"/>
+            <xs:element name="type" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     <xs:element name="GetFormsByCreanceIDRequest">

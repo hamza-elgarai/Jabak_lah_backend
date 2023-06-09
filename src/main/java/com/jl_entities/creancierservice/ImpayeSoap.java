@@ -2,7 +2,7 @@
 // Ce fichier a été généré par Eclipse Implementation of JAXB, v3.0.0 
 // Voir https://eclipse-ee4j.github.io/jaxb-ri 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2023.06.08 à 09:09:59 PM WEST 
+// Généré le : 2023.06.09 à 11:48:17 AM WEST 
 //
 
 
@@ -29,6 +29,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="isPaid" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
  *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -43,7 +44,8 @@ import jakarta.xml.bind.annotation.XmlType;
     "name",
     "price",
     "isPaid",
-    "date"
+    "date",
+    "type"
 })
 public class ImpayeSoap {
 
@@ -53,6 +55,8 @@ public class ImpayeSoap {
     protected double price;
     protected boolean isPaid;
     protected long date;
+    @XmlElement(required = true)
+    protected String type;
 
     /**
      * Obtient la valeur de la propriété id.
@@ -140,6 +144,30 @@ public class ImpayeSoap {
      */
     public void setDate(long value) {
         this.date = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété type.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Définit la valeur de la propriété type.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setType(String value) {
+        this.type = value;
     }
 
 }
