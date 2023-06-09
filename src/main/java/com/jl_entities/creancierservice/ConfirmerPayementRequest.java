@@ -2,7 +2,7 @@
 // Ce fichier a été généré par Eclipse Implementation of JAXB, v3.0.0 
 // Voir https://eclipse-ee4j.github.io/jaxb-ri 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2023.06.08 à 05:47:53 PM WEST 
+// Généré le : 2023.06.08 à 09:09:59 PM WEST 
 //
 
 
@@ -33,6 +33,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *           &lt;/simpleType&gt;
  *         &lt;/element&gt;
  *         &lt;element name="clientId" type="{http://www.w3.org/2001/XMLSchema}long"/&gt;
+ *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -44,13 +45,16 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ConfirmerPayementRequest", propOrder = {
     "impayes",
-    "clientId"
+    "clientId",
+    "code"
 })
 public class ConfirmerPayementRequest {
 
     @XmlElement(type = Long.class)
     protected List<Long> impayes;
     protected long clientId;
+    @XmlElement(required = true)
+    protected String code;
 
     /**
      * Gets the value of the impayes property.
@@ -95,6 +99,30 @@ public class ConfirmerPayementRequest {
      */
     public void setClientId(long value) {
         this.clientId = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété code.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * Définit la valeur de la propriété code.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCode(String value) {
+        this.code = value;
     }
 
 }

@@ -39,6 +39,7 @@ public class CreancierServiceEndpoint {
         ConfirmerPayementBody requestBody = new ConfirmerPayementBody();
         requestBody.setClientId(request.getClientId());
         requestBody.setImpayes(request.getImpayes());
+        requestBody.setCode(request.getCode());
         Map<String,String> result = paiementService.confirmerPayement(requestBody);
 
         ConfirmerPayementResponse response = new ConfirmerPayementResponse();
