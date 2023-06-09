@@ -44,10 +44,12 @@ public class InitialDataService {
         Creancier creancier1=new Creancier(null,"iam","Maroc Telecom","../../assets/iam.png");
         Creancier creancier2=new Creancier(null,"no-creance","WinByInwi","../../assets/win-by-inwi.png");
         Creancier creancier3=new Creancier(null,"lydec","Lydec","../../assets/lydec.png");
-        Creancier creancier4=new Creancier(null,"donation","ALCS","../../assets/alcs.png");
+//        Creancier creancier4=new Creancier(null,"donation","ALCS","../../assets/alcs.png");
         Creancier creancier5=new Creancier(null,"total-maroc","TOTAL Maroc","../../assets/total-maroc.png");
         Creancier creancier6=new Creancier(null,"avito","Avito","../../assets/avito.png");
-        creancierRepository.saveAllAndFlush(List.of(creancier1,creancier2,creancier3,creancier4,creancier5,creancier6));
+        creancierRepository.saveAllAndFlush(List.of(creancier1,creancier2,creancier3,
+//                creancier4,
+                creancier5,creancier6));
 
         //Champ & Formulaire
 
@@ -118,13 +120,13 @@ public class InitialDataService {
 //                    formulaireRepository.saveAndFlush(formulaire7);
 
             //ALCS
-            Formulaire formulaire8=new Formulaire(null,new ArrayList<>(),null);
-            formulaireRepository.saveAndFlush(formulaire8);
-                Champ champ81=new Champ(null,"number","montant-don","","Montant du don",formulaire8);
-                champRepository.saveAllAndFlush(List.of(champ81));
-                    //update formulaire
-                    formulaire8.getChamps().addAll(List.of(champ81));
-//                    formulaireRepository.saveAndFlush(formulaire8);
+//            Formulaire formulaire8=new Formulaire(null,new ArrayList<>(),null);
+//            formulaireRepository.saveAndFlush(formulaire8);
+//                Champ champ81=new Champ(null,"number","montant-don","","Montant du don",formulaire8);
+//                champRepository.saveAllAndFlush(List.of(champ81));
+//                    //update formulaire
+//                    formulaire8.getChamps().addAll(List.of(champ81));
+////                    formulaireRepository.saveAndFlush(formulaire8);
 
             //TOTAL MAROC-BOOSTER
             Formulaire formulaire9=new Formulaire(null,new ArrayList<>(),null);
@@ -191,12 +193,12 @@ public class InitialDataService {
 //                        formulaire6,
                         formulaire7));
 
-            //Creancier4 - ALCS
-            Creance creance41=new Creance(null,"41","Donation",creancier4,formulaire8);
-            creanceRepository.saveAndFlush(creance41);
-                //Update formulaire
-                    formulaire8.setCreance(creance41);
-                formulaireRepository.saveAndFlush(formulaire8);
+//            Creancier4 - ALCS
+//            Creance creance41=new Creance(null,"41","Donation",creancier4,formulaire8);
+//            creanceRepository.saveAndFlush(creance41);
+//                //Update formulaire
+//                    formulaire8.setCreance(creance41);
+//                formulaireRepository.saveAndFlush(formulaire8);
 
             //Creancier5 - TOTAL MAROC
             Creance creance51=new Creance(null,"51","Booster",creancier5,formulaire9);
@@ -309,12 +311,12 @@ public class InitialDataService {
             //Creancier4 - ALCS
 
                 //Creance41 - none
-                Impaye impaye411=new Impaye(null,"Don ALCS",0.0,"simple",false,0L,creance41,new ArrayList<>());
-                impayeRepository.saveAndFlush(impaye411);
-                    //credentials
-                        //impaye411
-                        ImpayeCredential impayeCredential411=new ImpayeCredential(null,formulaire8.getChamps().get(0).getName(),"0",impaye411);
-                        impayeCredentialRepository.saveAndFlush(impayeCredential411);
+//                Impaye impaye411=new Impaye(null,"Don ALCS",0.0,"simple",false,0L,creance41,new ArrayList<>());
+//                impayeRepository.saveAndFlush(impaye411);
+//                    //credentials
+//                        //impaye411
+//                        ImpayeCredential impayeCredential411=new ImpayeCredential(null,formulaire8.getChamps().get(0).getName(),"0",impaye411);
+//                        impayeCredentialRepository.saveAndFlush(impayeCredential411);
 
 
 

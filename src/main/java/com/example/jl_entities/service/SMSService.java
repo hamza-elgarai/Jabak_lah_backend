@@ -44,7 +44,10 @@ public class SMSService {
     }
     public String sendVonageSms(String number,String smsMessage) {
         System.out.println(number);
-        VonageClient client = VonageClient.builder().apiKey("30ac1021").apiSecret("8fMBYUpb90TTMs0Q").build();
+        //old key
+//        VonageClient client = VonageClient.builder().apiKey("30ac1021").apiSecret("8fMBYUpb90TTMs0Q").build();
+        //new key
+        VonageClient client = VonageClient.builder().apiKey("1d32701f").apiSecret("N8pYofBmITPYVGXk").build();
         TextMessage message = new TextMessage("Vonage APIs",
                 number,
                 smsMessage
