@@ -2,21 +2,21 @@ spring:
   jpa:
     hibernate:
       ddl-auto:
-        update
+        create
   datasource:
     url:
-#      jdbc:postgresql://ep-weathered-rice-648785.eu-central-1.aws.neon.tech/neondb
-      jdbc:mysql://localhost:3306/jl_db
+      jdbc:postgresql://ep-weathered-rice-648785.eu-central-1.aws.neon.tech/neondb
+#      jdbc:mysql://localhost:3306/jl_db
     username:
-#      mohamedham72
-      root
+      mohamedham72
+#      root
     password:
-#      AT9kiHQ4bMOw
-      V@ste789
+      AT9kiHQ4bMOw
+#      V@ste789
 #      Massaq51354
     driver-class-name:
-#      org.postgresql.Driver
-      com.mysql.cj.jdbc.Driver
+      org.postgresql.Driver
+#      com.mysql.cj.jdbc.Driver
   mail:
     host: smtp.gmail.com
     username: mohamedham72@gmail.com
