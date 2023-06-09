@@ -110,7 +110,11 @@ public class ClientAuthService {
         }
         Client user = repository.findByTel(request.getUsername())
                 .orElse(null);
+        if(user==null) return null;
         System.out.println("Client found");
+        if(!user.getVerificationStatus().equals("verified")){
+            return null;
+        }
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         return AuthenticationResponse.builder()
