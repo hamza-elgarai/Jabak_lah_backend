@@ -41,12 +41,12 @@ public class InitialDataService {
         accountTypeRepository.saveAllAndFlush(List.of(accountType1,accountType2,accountType3));
 
         //Creancier
-        Creancier creancier1=new Creancier(null,"iam","Maroc Telecom","assets/iam.jpg");
-        Creancier creancier2=new Creancier(null,"orange","Orange","assets/orange.jpg");
-        Creancier creancier3=new Creancier(null,"lydec","Lydec","assets/lydec.jpg");
-        Creancier creancier4=new Creancier(null,"alcs","ALCS","assets/alcs.jpg");
-        Creancier creancier5=new Creancier(null,"total-maroc","TOTAL Maroc","assets/total-maroc.jpg");
-        Creancier creancier6=new Creancier(null,"avito","Avito","assets/avito.jpg");
+        Creancier creancier1=new Creancier(null,"iam","Maroc Telecom","../../assets/iam.png");
+        Creancier creancier2=new Creancier(null,"no-creance","WinByInwi","../../assets/winByInwi.png");
+        Creancier creancier3=new Creancier(null,"lydec","Lydec","../../assets/lydec.png");
+        Creancier creancier4=new Creancier(null,"donation","ALCS","../../assets/alcs.png");
+        Creancier creancier5=new Creancier(null,"total-maroc","TOTAL Maroc","../../assets/total-maroc.png");
+        Creancier creancier6=new Creancier(null,"avito","Avito","../../assets/avito.png");
         creancierRepository.saveAllAndFlush(List.of(creancier1,creancier2,creancier3,creancier4,creancier5,creancier6));
 
         //Champ & Formulaire
@@ -99,14 +99,14 @@ public class InitialDataService {
 //                    formulaireRepository.saveAndFlush(formulaire5);
 
             //LYDEC - PAIEMENT PAR N DE CONTRAT
-            Formulaire formulaire6=new Formulaire(null,new ArrayList<>(),null);
-            formulaireRepository.saveAndFlush(formulaire6);
-                Champ champ61=new Champ(null,"text","numero-contrat","","Numero de Contrat",formulaire6);
-                Champ champ62=new Champ(null,"select","service","<option>Service</option><option>EAU</option><option>ELECTRICITE</option><option>MOYENNE TENSION</option>","",formulaire6);
-                champRepository.saveAllAndFlush(List.of(champ61,champ62));
-                    //update formulaire
-                    formulaire6.getChamps().addAll(List.of(champ61,champ62));
-//                    formulaireRepository.saveAndFlush(formulaire6);
+//            Formulaire formulaire6=new Formulaire(null,new ArrayList<>(),null);
+//            formulaireRepository.saveAndFlush(formulaire6);
+//                Champ champ61=new Champ(null,"text","numero-contrat","","Numero de Contrat",formulaire6);
+//                Champ champ62=new Champ(null,"select","service","<option>Service</option><option>EAU</option><option>ELECTRICITE</option><option>MOYENNE TENSION</option>","",formulaire6);
+//                champRepository.saveAllAndFlush(List.of(champ61,champ62));
+//                    //update formulaire
+//                    formulaire6.getChamps().addAll(List.of(champ61,champ62));
+////                    formulaireRepository.saveAndFlush(formulaire6);
 
             //LYDEC - PAIEMENT PAR N DE FACTURE
             Formulaire formulaire7=new Formulaire(null,new ArrayList<>(),null);
@@ -178,14 +178,18 @@ public class InitialDataService {
 
             //Creancier3 - LYDEC
             Creance creance31=new Creance(null,"31","Paiement par reference",creancier3,formulaire5);
-            Creance creance32=new Creance(null,"32","Paiement par N de contrat",creancier3,formulaire6);
+//            Creance creance32=new Creance(null,"32","Paiement par N de contrat",creancier3,formulaire6);
             Creance creance33=new Creance(null,"33","Paiement par N de facture",creancier3,formulaire7);
-            creanceRepository.saveAllAndFlush(List.of(creance31,creance32,creance33));
+            creanceRepository.saveAllAndFlush(List.of(creance31,
+//                    creance32,
+                    creance33));
                 //Update formulaires
                 formulaire5.setCreance(creance31);
-                formulaire6.setCreance(creance32);
+//                formulaire6.setCreance(creance32);
                 formulaire7.setCreance(creance33);
-                formulaireRepository.saveAllAndFlush(List.of(formulaire5,formulaire6,formulaire7));
+                formulaireRepository.saveAllAndFlush(List.of(formulaire5,
+//                        formulaire6,
+                        formulaire7));
 
             //Creancier4 - ALCS
             Creance creance41=new Creance(null,"41","none",creancier4,formulaire8);
@@ -276,18 +280,18 @@ public class InitialDataService {
 
             //Creancier3 - Lydec
                 //Creance32 - Paiement par N de Contrat
-                Impaye impaye321=new Impaye(null,"Paiement par N de Contrat",400.00,"simple",false,Timestamp.valueOf(LocalDateTime.of(2023,02,01,00,00,00)).getTime(),creance32,new ArrayList<>());
-                Impaye impaye322=new Impaye(null,"Paiement par N de Contrat",322.40,"simple",false,Timestamp.valueOf(LocalDateTime.of(2023,01,01,00,00,00)).getTime(),creance32,new ArrayList<>());
-                impayeRepository.saveAllAndFlush(List.of(impaye321,impaye322));
-                    //credentials - group 1
-                        //impaye321
-                        ImpayeCredential impayeCredential321=new ImpayeCredential(null,formulaire6.getChamps().get(0).getName(),"12345678",impaye321);
-                        ImpayeCredential impayeCredential322=new ImpayeCredential(null,formulaire6.getChamps().get(0).getName(),"EAU",impaye321);
-                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential321,impayeCredential322));
-                        //impaye322
-                        ImpayeCredential impayeCredential323=new ImpayeCredential(null,formulaire6.getChamps().get(0).getName(),"12345678",impaye322);
-                        ImpayeCredential impayeCredential324=new ImpayeCredential(null,formulaire6.getChamps().get(0).getName(),"EAU",impaye322);
-                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential323,impayeCredential324));
+//                Impaye impaye321=new Impaye(null,"Paiement par N de Contrat",400.00,"simple",false,Timestamp.valueOf(LocalDateTime.of(2023,02,01,00,00,00)).getTime(),creance32,new ArrayList<>());
+//                Impaye impaye322=new Impaye(null,"Paiement par N de Contrat",322.40,"simple",false,Timestamp.valueOf(LocalDateTime.of(2023,01,01,00,00,00)).getTime(),creance32,new ArrayList<>());
+//                impayeRepository.saveAllAndFlush(List.of(impaye321,impaye322));
+//                    //credentials - group 1
+//                        //impaye321
+//                        ImpayeCredential impayeCredential321=new ImpayeCredential(null,formulaire6.getChamps().get(0).getName(),"12345678",impaye321);
+//                        ImpayeCredential impayeCredential322=new ImpayeCredential(null,formulaire6.getChamps().get(0).getName(),"EAU",impaye321);
+//                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential321,impayeCredential322));
+//                        //impaye322
+//                        ImpayeCredential impayeCredential323=new ImpayeCredential(null,formulaire6.getChamps().get(0).getName(),"12345678",impaye322);
+//                        ImpayeCredential impayeCredential324=new ImpayeCredential(null,formulaire6.getChamps().get(0).getName(),"EAU",impaye322);
+//                        impayeCredentialRepository.saveAllAndFlush(List.of(impayeCredential323,impayeCredential324));
 
             //Creancier4 - ALCS
 
