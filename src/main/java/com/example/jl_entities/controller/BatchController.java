@@ -18,10 +18,11 @@ public class BatchController {
         this.batchConfig = batchConfig;
     }
 
-    @GetMapping("/interval/{i}")
-    private String setInterval(@PathVariable int i){
-        batchConfig.setInterval(i*1000);
-        return "Changed interval to "+i+" seconds";
+    @GetMapping("/toggle/{i}")
+    private Boolean setInterval(@PathVariable int i){
+        if(i==1) batchConfig.setIsOn(true);
+        else batchConfig.setIsOn(false);
+        return batchConfig.getIsOn();
 
     }
 }

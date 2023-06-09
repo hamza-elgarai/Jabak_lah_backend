@@ -14,6 +14,7 @@ import java.util.List;
 public class BatchService {
 
     private final ClientRepository clientRepository;
+    private BatchConfig batchConfig;
     private long i;
     private final List<String> emailBlackList = List.of(
             "ahmedboucetta@gmail.com",
@@ -29,23 +30,27 @@ public class BatchService {
     );
 
     @Autowired
-    public BatchService(ClientRepository clientRepository){
+    public BatchService(ClientRepository clientRepository,BatchConfig batchConfig){
         this.clientRepository = clientRepository;
+        this.batchConfig = batchConfig;
     }
 
     @Scheduled(fixedDelayString = "#{batchConfig.interval}")
     public void processBatch(){
-        List<Client> clients = clientRepository.findAllByVerificationStatus("pending");
-        for (Client client:clients){
-            if(emailBlackList.contains(client.getEmail().toLowerCase()) || telBlackList.contains(client.getTel()) ){
-                client.setVerificationStatus("not-verified");
+        if(batchConfig.getIsOn()){
+            List<Client> clients = clientRepository.findAllByVerificationStatus("pending");
+            for (Client client:clients){
+                if(emailBlackList.contains(client.getEmail().toLowerCase()) || telBlackList.contains(client.getTel()) ){
+                    client.setVerificationStatus("not-verified");
+                }
+                else{
+                    client.setVerificationStatus("verified");
+                }
+                clientRepository.saveAndFlush(client);
             }
-            else{
-                client.setVerificationStatus("verified");
-            }
-            clientRepository.saveAndFlush(client);
+            System.out.println("Batch process ");
+
         }
-        System.out.println("Batch process "+i++);
     }
 
 }

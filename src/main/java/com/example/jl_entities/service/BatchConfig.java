@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 @Data
 public class BatchConfig {
     private volatile int interval=30000;
-    private Boolean isOn;
+    private Boolean isOn=false;
 
 }
